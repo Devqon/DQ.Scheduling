@@ -8,3 +8,4 @@ Proposed features:
 - ExternalCalendar
 - PublicCalendar
 - DownloadCalendar
+- SchedulingNotifications
