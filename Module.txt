@@ -1,0 +1,13 @@
+﻿Name: dsc.CalendarWidget
+AntiForgery: enabled
+Author: Daniel Schmid
+Website: https://calendarwidget.codeplex.com/
+Version: 1.6
+OrchardVersion: 1.8
+Description: Display calendar events using FullCalendar.
+Features:
+    dsc.CalendarWidget:
+        Description: This feature enables the calendar widget functionality. Display calendar events using FullCalendar.
+		Name: Calendar Widget
+		Category: dsc
+		Dependencies: Orchard.Projections, Orchard.jQuery

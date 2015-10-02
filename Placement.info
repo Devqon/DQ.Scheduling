@@ -1,0 +1,6 @@
+﻿<Placement>
+	<Place Parts_CalendarWidget="Content:1"/>
+	<Place Parts_CalendarWidget_Edit="Content:8"/>
+	<Place Parts_CalendarEventDefinition_Edit="Content:9"/>
+  <Place Parts_CalendarEventDefinition="Content:5"/>
+</Placement>

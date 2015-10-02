@@ -1,0 +1,52 @@
+﻿@using dsc.CalendarWidget.Models
+@model CalendarEventDefinition
+
+@{
+    Style.Require("jQueryCalendars_Picker");
+    Style.Require("jQueryUI_Calendars_Picker");
+    Style.Require("jQueryTimeEntry");
+    Style.Require("jQueryDateTimeEditor");
+
+    Script.Require("jQueryCalendars_All").AtFoot();
+    Script.Require("jQueryCalendars_Picker_Ext").AtFoot();
+    Script.Require("jQueryTimeEntry").AtFoot();
+
+    var calendarEventDefinitionName = typeof (CalendarEventDefinition).Name;
+}
+
+<fieldset>
+    @Html.LabelFor(m => m.IsAllDay, T("All day"))
+    @Html.CheckBoxFor(m => m.IsAllDay)
+    <span class="hint">@T("Check if the event lasts all day")</span>
+</fieldset>
+
+<fieldset>
+    @Html.LabelFor(m => m.Url, T("Url"))
+    @Html.TextBoxFor(m => m.Url, new { @class = "text large" })
+    <span class="hint">@T("Enter the URL for the event | VIEW for item view url")</span>
+</fieldset>
+
+@using (Script.Foot())
+{
+    <script>
+
+        (function ($) {
+
+            var toggleCheckbox = $("#@Html.FieldIdFor(m => m.IsAllDay)");
+
+            toggleCheckbox.change(function () {
+                toggleTimeFields();
+            });
+
+            function toggleTimeFields() {
+                $("#@calendarEventDefinitionName" + "_StartDate_Editor_Time").parent().toggle();
+                $("#@calendarEventDefinitionName" + "_EndDate_Editor_Time").parent().toggle();
+            }
+
+            // initial
+            if(toggleCheckbox.val() == true)
+                toggleTimeFields();
+
+        })(jQuery);
+    </script>
+}

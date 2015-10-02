@@ -1,0 +1,23 @@
+﻿@using dsc.CalendarWidget.Helpers
+@{
+    Style.Require("CalendarWidget");
+    
+    Script.Require("jQuery");
+    Script.Require("CalendarWidget");
+    Script.Require("LangAll");
+
+    var guid = Guid.NewGuid();
+
+    var calendarId = string.Format("calendar-{0}", guid);
+}
+
+<section id="@calendarId"></section>
+
+@using (Script.Foot())
+{
+    var serializedCalendarEvents = LowercaseJsonSerializer.SerializeObject(Model.CalendarEvents);
+    
+    <script>
+        dsc.CalendarWidget('@calendarId', @Html.Raw(serializedCalendarEvents));
+    </script>
+}

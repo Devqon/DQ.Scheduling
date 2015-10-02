@@ -1,0 +1,12 @@
+﻿@model dsc.CalendarWidget.ViewModels.CalendarWidgetPartQueries
+
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.QueryId)">Query</label>
+    <select id="@Html.FieldIdFor(m => m.QueryId)" name="@Html.FieldNameFor(m => m.QueryId)">
+        @foreach (var part in Model.Queries)
+        {
+            @Html.SelectOption(Model.QueryId, part.Record.Id, part.Name)
+        }
+    </select>
+    <span class="hint">@T("The query that contains the data to show in the calendar view.")</span>
+</fieldset>

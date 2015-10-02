@@ -1,0 +1,28 @@
+﻿@using dsc.CalendarWidget.Models;
+
+@{
+    CalendarEventDefinition ev = Model.ContentPart;
+}
+    
+<div>
+    @if (Model.IsAllDay)
+    {
+        @T("This event occurs all day at <i>{0}</i>", ev.StartDateTime.GetValueOrDefault().ToString("d"))
+        if (ev.StartDateTime.GetValueOrDefault().Date != ev.EndDateTime.GetValueOrDefault().Date)
+        {
+            @T(" and lasts until <i>{0}</i>", ev.EndDateTime.GetValueOrDefault().ToString("d"))
+        }
+    }
+    else
+    {
+        @T("This event occurs at <i>{0}</i>", ev.StartDateTime.GetValueOrDefault().ToString("g"))
+        @T(" and lasts until <i>{0}</i>", ev.EndDateTime.GetValueOrDefault().ToString("g"))
+    }
+
+    @if (Model.IsRecurring)
+    { @T(" it is recurring");
+    }
+    else
+    { @T(" it is not recurring");
+    }
+</div>
