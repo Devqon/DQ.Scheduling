@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace dsc.CalendarWidget.Helpers {
+namespace DQ.Scheduling.Helpers {
     public class LowercaseJsonSerializer
     {
         private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings

@@ -1,12 +1,12 @@
 ﻿using System;
-using dsc.CalendarWidget.Models;
+using System.Linq;
+using DQ.Scheduling.Models;
 using Orchard.ContentManagement.Handlers;
 using Orchard.ContentManagement.MetaData.Models;
 using Orchard.Data;
-using System.Linq;
 using Orchard.Fields.Fields;
 
-namespace dsc.CalendarWidget.Handlers
+namespace DQ.Scheduling.Handlers
 {
     public class CalendarEventDefinitionPartHandler : ContentHandler
     {

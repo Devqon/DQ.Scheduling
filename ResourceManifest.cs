@@ -1,6 +1,6 @@
 ﻿using Orchard.UI.Resources;
 
-namespace dsc.CalendarWidget
+namespace DQ.Scheduling
 {
     public class ResourceManifest:IResourceManifestProvider
     {

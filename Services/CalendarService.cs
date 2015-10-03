@@ -1,16 +1,16 @@
-﻿using System.Web.Mvc;
-using dsc.CalendarWidget.Models;
-using dsc.CalendarWidget.ViewModels;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using DQ.Scheduling.Models;
+using DQ.Scheduling.ViewModels;
 using Orchard;
 using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
 using Orchard.Mvc.Html;
 using Orchard.Projections.Models;
 using Orchard.Projections.Services;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace dsc.CalendarWidget.Services
+namespace DQ.Scheduling.Services
 {
     public class CalendarService : ICalendarService
     {

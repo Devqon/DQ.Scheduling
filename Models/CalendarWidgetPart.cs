@@ -1,6 +1,6 @@
 ﻿using Orchard.ContentManagement;
 
-namespace dsc.CalendarWidget.Models
+namespace DQ.Scheduling.Models
 {
     public class CalendarWidgetPart : ContentPart<CalendarWidgetPartRecord>
     {

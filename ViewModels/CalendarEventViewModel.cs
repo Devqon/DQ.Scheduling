@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace dsc.CalendarWidget.ViewModels
+namespace DQ.Scheduling.ViewModels
 {
     public class CalendarEventViewModel
     {

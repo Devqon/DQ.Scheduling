@@ -1,7 +1,7 @@
-﻿using Orchard.ContentManagement;
-using System;
+﻿using System;
+using Orchard.ContentManagement;
 
-namespace dsc.CalendarWidget.Models
+namespace DQ.Scheduling.Models
 {
     public class CalendarEventDefinition : ContentPart<CalendarEventDefinitionRecord>
     {

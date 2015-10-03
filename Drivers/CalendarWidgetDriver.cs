@@ -1,11 +1,11 @@
-﻿using dsc.CalendarWidget.Models;
-using dsc.CalendarWidget.Services;
-using dsc.CalendarWidget.ViewModels;
+﻿using DQ.Scheduling.Models;
+using DQ.Scheduling.Services;
+using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.Localization;
 
-namespace dsc.CalendarWidget.Drivers
+namespace DQ.Scheduling.Drivers
 {
     public class CalendarWidgetDriver:ContentPartDriver<CalendarWidgetPart>
     {

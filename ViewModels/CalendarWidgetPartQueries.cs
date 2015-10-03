@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Orchard.Projections.Models;
 
-namespace dsc.CalendarWidget.ViewModels
+namespace DQ.Scheduling.ViewModels
 {
     public class CalendarWidgetPartQueries
     {

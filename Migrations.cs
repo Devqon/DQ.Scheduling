@@ -1,10 +1,10 @@
-﻿using Orchard.Data.Migration;
-using System;
+﻿using System;
+using DQ.Scheduling.Models;
 using Orchard.ContentManagement.MetaData;
 using Orchard.Core.Contents.Extensions;
-using dsc.CalendarWidget.Models;
+using Orchard.Data.Migration;
 
-namespace dsc.CalendarWidget
+namespace DQ.Scheduling
 {
     public class Migrations : DataMigrationImpl
     {

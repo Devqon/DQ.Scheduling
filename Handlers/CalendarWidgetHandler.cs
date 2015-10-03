@@ -1,8 +1,8 @@
-﻿using dsc.CalendarWidget.Models;
+﻿using DQ.Scheduling.Models;
 using Orchard.ContentManagement.Handlers;
 using Orchard.Data;
 
-namespace dsc.CalendarWidget.Handlers
+namespace DQ.Scheduling.Handlers
 {
     public class CalendarWidgetHandler:ContentHandler
     {

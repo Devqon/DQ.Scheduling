@@ -1,8 +1,8 @@
-﻿using Orchard.ContentManagement;
+﻿using DQ.Scheduling.Models;
+using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
-using dsc.CalendarWidget.Models;
 
-namespace dsc.CalendarWidget.Drivers
+namespace DQ.Scheduling.Drivers
 {
     public class CalendarEventDefinitionDriver : ContentPartDriver<CalendarEventDefinition>
     {

@@ -1,10 +1,10 @@
-﻿using dsc.CalendarWidget.Models;
-using dsc.CalendarWidget.ViewModels;
+﻿using System.Collections.Generic;
+using DQ.Scheduling.Models;
+using DQ.Scheduling.ViewModels;
 using Orchard;
 using Orchard.Projections.Models;
-using System.Collections.Generic;
 
-namespace dsc.CalendarWidget.Services
+namespace DQ.Scheduling.Services
 {
     public interface ICalendarService : IDependency
     {
