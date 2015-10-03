@@ -4,8 +4,8 @@ Proposed features:
 
 - Scheduling
 - SchedulingWorkflows
+- SchedulingNotifications
 - FullCalendar
 - ExternalCalendar
+- CalendarSubscribe
 - PublicCalendar
-- DownloadCalendar
-- SchedulingNotifications
