@@ -28,12 +28,6 @@ namespace DQ.Scheduling.Models
             set { Store(x => x.IsAllDay, value); }
         }
 
-        public string Url
-        {
-            get { return Retrieve(x => x.Url); }
-            set { Store(x => x.Url, value); }
-        }
-
         public bool IsRecurring
         {
             get { return Retrieve(x => x.IsRecurring); }

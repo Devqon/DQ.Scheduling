@@ -1,29 +1,17 @@
-﻿@using DQ.Scheduling.Models
-@model DQ.Scheduling.Models.CalendarEventDefinition
-
-@{
-    Style.Require("jQueryCalendars_Picker");
-    Style.Require("jQueryUI_Calendars_Picker");
-    Style.Require("jQueryTimeEntry");
-    Style.Require("jQueryDateTimeEditor");
-
-    Script.Require("jQueryCalendars_All").AtFoot();
-    Script.Require("jQueryCalendars_Picker_Ext").AtFoot();
-    Script.Require("jQueryTimeEntry").AtFoot();
-
-    var calendarEventDefinitionName = typeof (CalendarEventDefinition).Name;
-}
+﻿@model DQ.Scheduling.ViewModels.CalendarEventEditViewModel
 
 <fieldset>
-    @Html.LabelFor(m => m.IsAllDay, T("All day"))
-    @Html.CheckBoxFor(m => m.IsAllDay)
-    <span class="hint">@T("Check if the event lasts all day")</span>
+    @Html.LabelFor(m => m.StartDateTimeEditor, T("Start"))
+    @Html.EditorFor(m => m.StartDateTimeEditor)
 </fieldset>
-
 <fieldset>
-    @Html.LabelFor(m => m.Url, T("Url"))
-    @Html.TextBoxFor(m => m.Url, new { @class = "text large" })
-    <span class="hint">@T("Enter the URL for the event | VIEW for item view url")</span>
+    @Html.LabelFor(m => m.EndDateTimeEditor, T("End"))
+    @Html.EditorFor(m => m.EndDateTimeEditor)
+</fieldset>
+<fieldset>
+    @Html.LabelFor(m => m.AllDayEvent, T("All day"))
+    @Html.CheckBoxFor(m => m.AllDayEvent)
+    <span class="hint">@T("Check if the event lasts all day")</span>
 </fieldset>
 
 @using (Script.Foot())
@@ -32,15 +20,15 @@
 
         (function ($) {
 
-            var toggleCheckbox = $("#@Html.FieldIdFor(m => m.IsAllDay)");
+            var toggleCheckbox = $("#@Html.FieldIdFor(m => m.AllDayEvent)");
 
             toggleCheckbox.change(function () {
                 toggleTimeFields();
             });
 
             function toggleTimeFields() {
-                $("#@calendarEventDefinitionName" + "_StartDate_Editor_Time").parent().toggle();
-                $("#@calendarEventDefinitionName" + "_EndDate_Editor_Time").parent().toggle();
+                $("#@Html.FieldIdFor(m => m.StartDateTimeEditor.Time)").parent().toggle();
+                $("#@Html.FieldIdFor(m => m.EndDateTimeEditor.Time)").parent().toggle();
             }
 
             // initial

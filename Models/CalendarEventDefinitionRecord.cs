@@ -9,7 +9,6 @@ namespace DQ.Scheduling.Models
         public virtual DateTime? StartDateTime { get; set; }
         public virtual DateTime? EndDateTime { get; set; }
         public virtual bool IsAllDay { get; set; }
-        public virtual string Url { get; set; }
         public virtual bool IsRecurring { get; set; }
     }
 }

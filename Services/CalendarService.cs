@@ -64,7 +64,7 @@ namespace DQ.Scheduling.Services
                     Title = ci.As<TitlePart>().Title,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
-                    Url = eventPart.Url == "VIEW" ? urlHelper.ItemDisplayUrl(ci) : eventPart.Url,
+                    Url = urlHelper.ItemDisplayUrl(ci),
                     AllDay = eventPart.IsAllDay
                 };
 

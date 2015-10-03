@@ -13,4 +13,4 @@ var dsc;
     })();
     dsc.Event = Event;
 })(dsc || (dsc = {}));
-//# sourceMappingURL=Event.js.map
+//# sourceMappingURL=event.js.map

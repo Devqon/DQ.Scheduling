@@ -51,7 +51,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Licenses\fullcalendar\license.txt" />
     <Content Include="Scripts\CalendarWidget.js" />
     <Content Include="Scripts\CalendarWidget.min.js">
       <DependentUpon>CalendarWidget.js</DependentUpon>
@@ -94,10 +93,6 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Orchard.Fields\Orchard.Fields.csproj">
-      <Project>{3787dde5-e5c8-4841-bda7-dcb325388064}</Project>
-      <Name>Orchard.Fields</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
       <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
       <Name>Orchard.Projections</Name>
@@ -116,10 +111,12 @@
     <Compile Include="Handlers\CalendarEventDefinitionPartHandler.cs" />
     <Compile Include="Handlers\CalendarWidgetHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
-    <Compile Include="Migrations.cs" />
+    <Compile Include="Migrations\CalendarWidgetMigrations.cs" />
+    <Compile Include="Migrations\Migrations.cs" />
     <Compile Include="Models\CalendarEventDefinition.cs" />
     <Compile Include="Models\CalendarEventDefinitionRecord.cs" />
     <Compile Include="Models\CalendarWidgetPart.cs" />
+    <Compile Include="ViewModels\CalendarEventEditViewModel.cs" />
     <Compile Include="ViewModels\CalendarWidgetPartQueries.cs" />
     <Compile Include="Models\CalendarWidgetPartRecord.cs" />
     <Compile Include="ResourceManifest.cs" />
