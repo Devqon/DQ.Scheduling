@@ -1,4 +1,4 @@
-# Orchard-CalendarWidget
+# DQ.Scheduling
 
 Proposed features:
 
