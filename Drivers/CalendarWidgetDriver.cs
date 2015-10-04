@@ -24,17 +24,20 @@ namespace DQ.Scheduling.Drivers
         {
             return ContentShape("Parts_CalendarWidget",
             	() => shapeHelper.Parts_CalendarWidget(
-                	CalendarEvents: _calendarService.GetCalendarEvents(part)
+                	CalendarEvents: _calendarService.GetCalendarEvents(part),
+                    Plugin: part.Plugin
                 )
 			);
         }
 
         protected override DriverResult Editor(CalendarWidgetPart part, dynamic shapeHelper)
         {
-            var model = new CalendarWidgetPartQueries
+            var model = new EditCalendarWidgetViewModel
             {
                 Queries = _calendarService.GetCalendarQueries(),
-                QueryId = part.QueryId
+                QueryId = part.QueryId,
+                Plugins = _calendarService.GetCalendarPlugins(),
+                Plugin = part.Plugin
             };
 
             return ContentShape("Parts_CalendarWidget_Edit",
@@ -46,13 +49,16 @@ namespace DQ.Scheduling.Drivers
             );
         }
 
-        protected override DriverResult Editor(CalendarWidgetPart part, IUpdateModel updater, dynamic shapeHelper)
-        {
-            updater.TryUpdateModel(part, Prefix, null, new [] { "Queries" });
+        protected override DriverResult Editor(CalendarWidgetPart part, IUpdateModel updater, dynamic shapeHelper) {
+            var viewModel = new EditCalendarWidgetViewModel();
 
-            if (part.QueryId <= 0)
-            {
-                updater.AddModelError("QueryId", T("You must select a query."));
+            if (updater.TryUpdateModel(viewModel, Prefix, null, new[] {"Queries"})) {
+
+                part.Plugin = viewModel.Plugin;
+                part.QueryId = viewModel.QueryId;
+                if (part.QueryId <= 0) {
+                    updater.AddModelError("QueryId", T("You must select a query."));
+                }
             }
 
             return Editor(part, shapeHelper);

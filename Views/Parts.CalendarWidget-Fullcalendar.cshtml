@@ -1,0 +1,41 @@
+﻿@using DQ.Scheduling.Helpers
+@{
+    Style.Require("FullCalendar");
+
+    Script.Require("FullCalendar");
+    Script.Require("LangAll");
+
+    var guid = Guid.NewGuid();
+
+    var calendarId = string.Format("calendar-{0}", guid);
+}
+
+<section id="@calendarId"></section>
+
+@using (Script.Foot())
+{
+    var serializedCalendarEvents = LowercaseJsonSerializer.SerializeObject(Model.CalendarEvents);
+
+    <script>
+
+        (function($) {
+
+            $("#@calendarId").fullCalendar({
+                lang: navigator.userLanguage,
+                theme: false,
+                header: {
+                    left: 'prev,next prevYear,nextYear today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: false,
+                timezone: 'local',
+                events: @Html.Raw(serializedCalendarEvents),
+                weekNumbers: false,
+                fixedWeekCount: false
+            });
+
+        })(jQuery);
+
+    </script>
+}

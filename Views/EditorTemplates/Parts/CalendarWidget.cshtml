@@ -1,4 +1,4 @@
-﻿@model DQ.Scheduling.ViewModels.CalendarWidgetPartQueries
+﻿@model DQ.Scheduling.ViewModels.EditCalendarWidgetViewModel
 
 <fieldset>
     <label for="@Html.FieldIdFor(m => m.QueryId)">Query</label>
@@ -9,4 +9,7 @@
         }
     </select>
     <span class="hint">@T("The query that contains the data to show in the calendar view.")</span>
+    @Html.LabelFor(m => m.Plugin, T("Plugin"))
+    @Html.DropDownListFor(m => m.Plugin, Model.Plugins.Select(p => new SelectListItem{ Text = p, Value = p, Selected = p == Model.Plugin}))
+    <span class="hint">@T("The plugin to use for the display of the calendar")</span>
 </fieldset>

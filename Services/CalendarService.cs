@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard;
+using Orchard.Caching;
 using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
+using Orchard.DisplayManagement.Descriptors;
 using Orchard.Mvc.Html;
 using Orchard.Projections.Models;
 using Orchard.Projections.Services;
+using Orchard.Utility.Extensions;
 
 namespace DQ.Scheduling.Services
 {
@@ -16,11 +21,17 @@ namespace DQ.Scheduling.Services
     {
         private readonly IProjectionManager _projectionManager;
         private readonly IOrchardServices _orchardServices;
+        private readonly ICacheManager _cacheManager;
+        private readonly Func<IShapeTableLocator> _shapeTableLocator;
+        private readonly IWorkContextAccessor _wca;
 
-        public CalendarService(IProjectionManager projectionManager, IOrchardServices orchardServices)
+        public CalendarService(IProjectionManager projectionManager, IOrchardServices orchardServices, ICacheManager cacheManager, Func<IShapeTableLocator> shapeTableLocator, IWorkContextAccessor wca)
         {
             _projectionManager = projectionManager;
             _orchardServices = orchardServices;
+            _cacheManager = cacheManager;
+            _shapeTableLocator = shapeTableLocator;
+            _wca = wca;
         }
 
         public List<QueryPart> GetCalendarQueries()
@@ -36,6 +47,7 @@ namespace DQ.Scheduling.Services
                     return new List<QueryPart>();
                 }
 
+                // Check if has calendareventdefinition part
                 var countCalendarEventDefinition = contentItem.TypeDefinition.Parts.Count(r => r.PartDefinition.Name == "CalendarEventDefinition");
 
                 if (countCalendarEventDefinition > 0)
@@ -73,5 +85,22 @@ namespace DQ.Scheduling.Services
 
             return viewModels;
         }
+
+        public IList<string> GetCalendarPlugins() {
+            return _cacheManager.Get("CalendarPlugins", context =>
+            {
+                var shapeTable = _shapeTableLocator().Lookup(_wca.GetContext().CurrentTheme.Id);
+                // Look up CalendarWidget-{plugin}.cshtml shapes to define which plugins are available
+                // taken from Orchard.Core.Common.Services.FlavorService
+                var plugins = shapeTable.Bindings.Keys
+                    .Where(x => x.StartsWith("Parts_CalendarWidget__", StringComparison.OrdinalIgnoreCase))
+                    .Select(x => x.Substring("Parts_CalendarWidget__".Length))
+                    .Where(x => !String.IsNullOrWhiteSpace(x))
+                    .Select(x => x[0].ToString(CultureInfo.InvariantCulture).ToUpper() + x.Substring(1))
+                    .Select(x => x.CamelFriendly());
+
+                return plugins.ToList();
+            });
+        } 
     }
 }

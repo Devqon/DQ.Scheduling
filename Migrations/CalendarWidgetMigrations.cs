@@ -37,5 +37,14 @@ namespace DQ.Scheduling.Migrations
 
             return 1;
         }
+
+        public int UpdateFrom1() {
+
+            SchemaBuilder.AlterTable(typeof (CalendarWidgetPartRecord).Name,
+                table => table
+                    .AddColumn<string>("Plugin"));
+
+            return 2;
+        }
     }
 }

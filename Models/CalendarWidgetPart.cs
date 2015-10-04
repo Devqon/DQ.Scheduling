@@ -6,8 +6,13 @@ namespace DQ.Scheduling.Models
     {
         public int QueryId
         {
-            get { return Record.QueryId; }
-            set { Record.QueryId = value; }
+            get { return Retrieve(x => x.QueryId); }
+            set { Store(x => x.QueryId, value); }
+        }
+
+        public string Plugin {
+            get { return Retrieve(x => x.Plugin); }
+            set { Store(x => x.Plugin, value); }
         }
     }
 }

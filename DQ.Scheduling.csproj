@@ -51,27 +51,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Scripts\CalendarWidget.js" />
-    <Content Include="Scripts\CalendarWidget.min.js">
-      <DependentUpon>CalendarWidget.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Event.js" />
-    <Content Include="Scripts\Event.min.js">
-      <DependentUpon>Event.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\ext\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\ext\fullcalendar\fullcalendar.min.js" />
     <Content Include="Scripts\ext\fullcalendar\gcal.js" />
     <Content Include="Scripts\ext\fullcalendar\IFullCalendar.js" />
     <Content Include="Scripts\ext\fullcalendar\lang-all.js" />
     <Content Include="Scripts\ext\fullcalendar\moment-with-locales.min.js" />
-    <Content Include="Scripts\IEvent.js" />
-    <Content Include="Scripts\IEvent.min.js">
-      <DependentUpon>IEvent.js</DependentUpon>
-    </Content>
-    <Content Include="Styles\CalendarWidget.css">
-      <DependentUpon>CalendarWidget.less</DependentUpon>
-    </Content>
     <Content Include="Styles\ext\fullcalendar\fullcalendar.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.min.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.print.css" />
@@ -99,11 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\CalendarWidget.ts" />
     <TypeScriptCompile Include="Scripts\ext\fullcalendar\IFullCalendar.ts" />
-    <TypeScriptCompile Include="Scripts\IEvent.ts" />
-    <TypeScriptCompile Include="Scripts\Event.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drivers\CalendarEventDefinitionDriver.cs" />
@@ -116,8 +97,9 @@
     <Compile Include="Models\CalendarEventDefinition.cs" />
     <Compile Include="Models\CalendarEventDefinitionRecord.cs" />
     <Compile Include="Models\CalendarWidgetPart.cs" />
+    <Compile Include="Shapes.cs" />
     <Compile Include="ViewModels\CalendarEventEditViewModel.cs" />
-    <Compile Include="ViewModels\CalendarWidgetPartQueries.cs" />
+    <Compile Include="ViewModels\EditCalendarWidgetViewModel.cs" />
     <Compile Include="Models\CalendarWidgetPartRecord.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
@@ -129,29 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Styles\CalendarWidget.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Styles\CalendarWidget.css.map">
-      <DependentUpon>CalendarWidget.css</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\CalendarWidget.min.js.map">
-      <DependentUpon>CalendarWidget.min.js</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\Event.min.js.map">
-      <DependentUpon>Event.min.js</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\IEvent.min.js.map">
-      <DependentUpon>IEvent.min.js</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\CalendarEventDefinition.cshtml" />
@@ -201,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\ext\fullcalendar\moment.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.CalendarWidget-Fullcalendar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

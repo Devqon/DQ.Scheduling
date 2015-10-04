@@ -10,8 +10,8 @@ Features:
         Description: This feature enables scheduling.
 		Name: Scheduling
 		Category: Scheduling
-		Dependencies: Orchard.Projections, Orchard.jQuery
+		Dependencies: Orchard.Projections
 	DQ.FullCalendar:
 		Description: Leverages a calendar widget with FullCalendarJS
 		Name: FullCalendar
-		Dependencies: DQ.Scheduling
+		Dependencies: DQ.Scheduling, Orchard.jQuery

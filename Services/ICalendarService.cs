@@ -10,5 +10,6 @@ namespace DQ.Scheduling.Services
     {
         IEnumerable<CalendarEventViewModel> GetCalendarEvents(CalendarWidgetPart part);
         List<QueryPart> GetCalendarQueries();
+        IList<string> GetCalendarPlugins();
     }
 }
