@@ -61,6 +61,13 @@ namespace DQ.Scheduling.Services
         }
 
         public IList<string> GetCalendarPlugins() {
+            // TODO:
+            // - Leverage plugins a different way?
+            // - CalendarWidgetPlugin provider?
+            // Currently the plugins are always found, no matter if the feature is enabled
+            // This is because it searches by shapes, and they can't ben disabled/enabled by feature
+            // This causes undesired behavior: the user can select the FullCalendar plugin while it might not be enabled yet
+
             return _cacheManager.Get("CalendarPlugins", context =>
             {
                 var shapeTable = _shapeTableLocator().Lookup(_wca.GetContext().CurrentTheme.Id);
