@@ -1,10 +1,7 @@
 ﻿@model DQ.Scheduling.ViewModels.EditCalendarWidgetViewModel
 
 @{
-    var plugins = new List<SelectListItem> {
-        new SelectListItem {Text = T("Default").Text, Value = ""}
-    };
-    
+    var plugins = new List<SelectListItem>();
     plugins.AddRange(Model.Plugins.Select(p => new SelectListItem{ Text = p, Value = p, Selected = p == Model.Plugin}));
 }
 

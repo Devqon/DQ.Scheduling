@@ -87,6 +87,10 @@
     <TypeScriptCompile Include="Scripts\ext\fullcalendar\IFullCalendar.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarProviders\DefaultCalendarProvider.cs" />
+    <Compile Include="CalendarProviders\FullCalendarProvider.cs" />
+    <Compile Include="CalendarProviders\ICalendarProvider.cs" />
+    <Compile Include="CalendarProviders\SerializedEvent.cs" />
     <Compile Include="Drivers\EventDefinitionPartDriver.cs" />
     <Compile Include="Drivers\CalendarWidgetDriver.cs" />
     <Compile Include="Handlers\EventDefinitionPartHandler.cs" />
