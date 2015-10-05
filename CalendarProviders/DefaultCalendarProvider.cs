@@ -11,19 +11,18 @@ namespace DQ.Scheduling.CalendarProviders
         public string Name { get { return "Default"; } }
 
         public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
-            var viewModels = new List<EventDefinitionViewModel>();
+            var viewModels = new List<DefaultCalendarEventViewModel>();
 
             foreach (var ci in events)
             {
                 var eventPart = ci.As<EventDefinitionPart>();
 
-                var viewModel = new EventDefinitionViewModel
+                var viewModel = new DefaultCalendarEventViewModel
                 {
-                    Id = ci.Id,
                     Title = ci.As<TitlePart>().Title,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
-                    AllDay = eventPart.IsAllDay
+                    Event = ci
                 };
 
                 viewModels.Add(viewModel);

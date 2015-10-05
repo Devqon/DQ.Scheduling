@@ -23,7 +23,8 @@ namespace DQ.Scheduling.Services
 
             var provider = _providers.SingleOrDefault(p => p.Name == part.Plugin);
             if (provider == null) {
-                return new List<SerializedEvent>();
+                // fallback to default
+                provider = _providers.Single(p => p.Name == "Default");
             }
 
             var models = provider.SerializeEvents(contentItems);

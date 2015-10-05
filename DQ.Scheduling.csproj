@@ -106,13 +106,14 @@
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IEventService.cs" />
     <Compile Include="Shapes.cs" />
+    <Compile Include="ViewModels\DefaultCalendarEventViewModel.cs" />
     <Compile Include="ViewModels\EventDefinitionEditViewModel.cs" />
     <Compile Include="ViewModels\EditCalendarWidgetViewModel.cs" />
     <Compile Include="Models\CalendarWidgetPartRecord.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
-    <Compile Include="ViewModels\EventDefinitionViewModel.cs" />
+    <Compile Include="ViewModels\FullCalendarEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\CalendarWidget.cshtml" />

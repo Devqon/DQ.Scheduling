@@ -3,7 +3,7 @@ using DQ.Scheduling.CalendarProviders;
 
 namespace DQ.Scheduling.ViewModels
 {
-    public class EventDefinitionViewModel : SerializedEvent
+    public class FullCalendarEventViewModel : SerializedEvent
     {
         public int Id { get; set; }
         public string Title { get; set; }

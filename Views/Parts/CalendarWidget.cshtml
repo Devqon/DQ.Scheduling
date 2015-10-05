@@ -1,8 +1,10 @@
-﻿@{
-    var events = Model.CalendarEvents;
-    
+﻿@using DQ.Scheduling.ViewModels
+@{
+    IEnumerable<DefaultCalendarEventViewModel> events = Model.CalendarEvents;
 }
 
-<article>
-    Default widget
-</article>
+<ul>
+    @foreach (var ev in events) {
+        <li><a href="@Url.ItemDisplayUrl(ev.Event)">@ev.Title @Display.DateTime(DateTimeUtc: ev.Start) - @Display.DateTime(DateTimeUtc: ev.End)</a></li>
+    }
+</ul>
