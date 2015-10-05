@@ -2,7 +2,7 @@
 
 namespace DQ.Scheduling.ViewModels
 {
-    public class CalendarEventViewModel
+    public class EventDefinitionViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

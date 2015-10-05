@@ -4,9 +4,9 @@ using Orchard.Data;
 
 namespace DQ.Scheduling.Handlers
 {
-    public class CalendarEventDefinitionPartHandler : ContentHandler
+    public class EventDefinitionPartHandler : ContentHandler
     {
-        public CalendarEventDefinitionPartHandler(IRepository<CalendarEventDefinitionRecord> repository)
+        public EventDefinitionPartHandler(IRepository<EventDefinitionPartRecord> repository)
         {
             Filters.Add(StorageFilter.For(repository));
         }

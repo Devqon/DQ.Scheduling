@@ -2,7 +2,7 @@
 
 namespace DQ.Scheduling.ViewModels
 {
-    public class CalendarEventEditViewModel
+    public class EventDefinitionEditViewModel
     {
         public DateTimeEditor StartDateTimeEditor { get; set; }
         public DateTimeEditor EndDateTimeEditor { get; set; }

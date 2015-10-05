@@ -3,7 +3,7 @@ using Orchard.ContentManagement.Records;
 
 namespace DQ.Scheduling.Models
 {
-    public class CalendarEventDefinitionRecord : ContentPartRecord
+    public class EventDefinitionPartRecord : ContentPartRecord
     {
         public virtual string TimeZone { get; set; }
         public virtual DateTime? StartDateTime { get; set; }

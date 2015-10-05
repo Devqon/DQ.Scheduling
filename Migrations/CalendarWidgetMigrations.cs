@@ -2,9 +2,11 @@
 using Orchard.ContentManagement.MetaData;
 using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
+using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.Migrations
 {
+    [OrchardFeature("DQ.CalendarWidget")]
     public class CalendarWidgetMigrations : DataMigrationImpl
     {
         public int Create()

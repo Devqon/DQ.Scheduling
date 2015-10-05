@@ -11,7 +11,16 @@ Features:
 		Name: Scheduling
 		Category: Scheduling
 		Dependencies: Orchard.Projections
+	DQ.CalendarWidget:
+		Description: Leverages a basic calendar widget
+		Name: Calendar Widget
+		Category: Scheduling
+		Dependencies: DQ.Scheduling
 	DQ.FullCalendar:
-		Description: Leverages a calendar widget with FullCalendarJS
+		Description: Leverages a calendar widget with FullCalendarJS option
 		Name: FullCalendar
-		Dependencies: DQ.Scheduling, Orchard.jQuery
+		Dependencies: DQ.CalendarWidget, Orchard.jQuery
+	DQ.SchedulingNotifications:
+		Description: Notifications for events
+		Name: Scheduling Notifications
+		Dependencies: DQ.Scheduling

@@ -1,6 +1,8 @@
 using Orchard.DisplayManagement.Descriptors;
+using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling {
+    [OrchardFeature("DQ.CalendarWidget")]
     public class Shapes : IShapeTableProvider {
 
         public void Discover(ShapeTableBuilder builder) {

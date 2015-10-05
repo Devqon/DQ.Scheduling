@@ -11,7 +11,6 @@ using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
 using Orchard.DisplayManagement.Descriptors;
 using Orchard.Mvc.Html;
-using Orchard.Projections.Models;
 using Orchard.Projections.Services;
 using Orchard.Utility.Extensions;
 
@@ -34,44 +33,19 @@ namespace DQ.Scheduling.Services
             _wca = wca;
         }
 
-        public List<QueryPart> GetCalendarQueries()
-        {
-            var queryParts = _orchardServices.ContentManager.Query<QueryPart, QueryPartRecord>("Query").List();
-
-            var calendarQueries = new List<QueryPart>();
-
-            foreach (QueryPart part in queryParts)
-            {
-                var contentItem = _projectionManager.GetContentItems(part.Id).FirstOrDefault();
-                if (contentItem == null) {
-                    return new List<QueryPart>();
-                }
-
-                // Check if has calendareventdefinition part
-                var countCalendarEventDefinition = contentItem.TypeDefinition.Parts.Count(r => r.PartDefinition.Name == "CalendarEventDefinition");
-
-                if (countCalendarEventDefinition > 0)
-                {
-                    calendarQueries.Add(part);
-                }
-            }
-
-            return calendarQueries;
-        }
-
-        public IEnumerable<CalendarEventViewModel> GetCalendarEvents(CalendarWidgetPart part)
+        public IEnumerable<EventDefinitionViewModel> GetEventDefinitions(CalendarWidgetPart part)
         {
             var contentItems = _projectionManager.GetContentItems(part.QueryId);
 
-            var viewModels = new List<CalendarEventViewModel>();
+            var viewModels = new List<EventDefinitionViewModel>();
 
             var currentContext = _orchardServices.WorkContext;
             var urlHelper = new UrlHelper(currentContext.HttpContext.Request.RequestContext);
 
             foreach (var ci in contentItems) {
-                var eventPart = ci.As<CalendarEventDefinition>();
+                var eventPart = ci.As<EventDefinitionPart>();
 
-                var viewModel = new CalendarEventViewModel {
+                var viewModel = new EventDefinitionViewModel {
                     Id = ci.Id,
                     Title = ci.As<TitlePart>().Title,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),

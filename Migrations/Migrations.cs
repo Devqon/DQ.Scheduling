@@ -10,10 +10,11 @@ namespace DQ.Scheduling.Migrations
     {
         public int Create()
         {
-            // calendarevent record table
-            SchemaBuilder.CreateTable("CalendarEventDefinitionRecord",
+            // eventdefinition record table
+            SchemaBuilder.CreateTable(typeof(EventDefinitionPartRecord).Name,
                 table => table
                     .ContentPartRecord()
+
                     .Column<string>("TimeZone")
                     .Column<DateTime>("StartDateTime")
                     .Column<DateTime>("EndDateTime")
@@ -22,10 +23,10 @@ namespace DQ.Scheduling.Migrations
             );
 
             // calendarevent part
-            ContentDefinitionManager.AlterPartDefinition(typeof (CalendarEventDefinition).Name,
+            ContentDefinitionManager.AlterPartDefinition(typeof(EventDefinitionPart).Name,
                 part => part
                     .Attachable()
-                    .WithDescription("Provides calendar event settings to your content. Use this for displaying events in a Calendar Widget")
+                    .WithDescription("Provides event settings to your content.")
             );
 
             return 1;

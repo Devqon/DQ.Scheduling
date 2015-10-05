@@ -87,24 +87,28 @@
     <TypeScriptCompile Include="Scripts\ext\fullcalendar\IFullCalendar.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drivers\CalendarEventDefinitionDriver.cs" />
+    <Compile Include="Drivers\EventDefinitionPartDriver.cs" />
     <Compile Include="Drivers\CalendarWidgetDriver.cs" />
-    <Compile Include="Handlers\CalendarEventDefinitionPartHandler.cs" />
+    <Compile Include="Handlers\EventDefinitionPartHandler.cs" />
     <Compile Include="Handlers\CalendarWidgetHandler.cs" />
+    <Compile Include="Handlers\EventNotifyTaskHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
     <Compile Include="Migrations\CalendarWidgetMigrations.cs" />
     <Compile Include="Migrations\Migrations.cs" />
-    <Compile Include="Models\CalendarEventDefinition.cs" />
-    <Compile Include="Models\CalendarEventDefinitionRecord.cs" />
+    <Compile Include="Models\EventDefinitionPart.cs" />
+    <Compile Include="Models\EventDefinitionPartRecord.cs" />
     <Compile Include="Models\CalendarWidgetPart.cs" />
+    <Compile Include="Models\SubscribeType.cs" />
+    <Compile Include="Services\EventService.cs" />
+    <Compile Include="Services\IEventService.cs" />
     <Compile Include="Shapes.cs" />
-    <Compile Include="ViewModels\CalendarEventEditViewModel.cs" />
+    <Compile Include="ViewModels\EventDefinitionEditViewModel.cs" />
     <Compile Include="ViewModels\EditCalendarWidgetViewModel.cs" />
     <Compile Include="Models\CalendarWidgetPartRecord.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
-    <Compile Include="ViewModels\CalendarEventViewModel.cs" />
+    <Compile Include="ViewModels\EventDefinitionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\CalendarWidget.cshtml" />
@@ -113,10 +117,10 @@
     <Content Include="Placement.info" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\EditorTemplates\Parts\CalendarEventDefinition.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\EventDefinition.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parts\CalendarEventDefinition.cshtml" />
+    <Content Include="Views\Parts\EventDefinition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -124,6 +128,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />

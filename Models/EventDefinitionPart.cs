@@ -3,7 +3,7 @@ using Orchard.ContentManagement;
 
 namespace DQ.Scheduling.Models
 {
-    public class CalendarEventDefinition : ContentPart<CalendarEventDefinitionRecord>
+    public class EventDefinitionPart : ContentPart<EventDefinitionPartRecord>
     {
         public string TimeZone {
             get { return Retrieve(x => x.TimeZone); }

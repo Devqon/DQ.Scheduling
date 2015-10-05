@@ -3,19 +3,23 @@ using DQ.Scheduling.Services;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
+using Orchard.Environment.Extensions;
 using Orchard.Localization;
 
 namespace DQ.Scheduling.Drivers
 {
+    [OrchardFeature("DQ.CalendarWidget")]
     public class CalendarWidgetDriver:ContentPartDriver<CalendarWidgetPart>
     {
         private readonly ICalendarService _calendarService;
+        private readonly IEventService _eventService;
 
         public Localizer T { get; set; }
 
-        public CalendarWidgetDriver(ICalendarService calendarService)
+        public CalendarWidgetDriver(ICalendarService calendarService, IEventService eventService)
         {
             _calendarService = calendarService;
+            _eventService = eventService;
 
             T = NullLocalizer.Instance;
         }
@@ -24,7 +28,7 @@ namespace DQ.Scheduling.Drivers
         {
             return ContentShape("Parts_CalendarWidget",
             	() => shapeHelper.Parts_CalendarWidget(
-                	CalendarEvents: _calendarService.GetCalendarEvents(part),
+                	CalendarEvents: _calendarService.GetEventDefinitions(part),
                     Plugin: part.Plugin
                 )
 			);
@@ -34,7 +38,7 @@ namespace DQ.Scheduling.Drivers
         {
             var model = new EditCalendarWidgetViewModel
             {
-                Queries = _calendarService.GetCalendarQueries(),
+                Queries = _eventService.GetEventDefinitionQueries(),
                 QueryId = part.QueryId,
                 Plugins = _calendarService.GetCalendarPlugins(),
                 Plugin = part.Plugin
@@ -52,7 +56,7 @@ namespace DQ.Scheduling.Drivers
         protected override DriverResult Editor(CalendarWidgetPart part, IUpdateModel updater, dynamic shapeHelper) {
             var viewModel = new EditCalendarWidgetViewModel();
 
-            if (updater.TryUpdateModel(viewModel, Prefix, null, new[] {"Queries"})) {
+            if (updater.TryUpdateModel(viewModel, Prefix, null, new[] {"Queries", "Plugins"})) {
 
                 part.Plugin = viewModel.Plugin;
                 part.QueryId = viewModel.QueryId;

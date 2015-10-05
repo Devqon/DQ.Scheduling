@@ -1,8 +1,10 @@
-﻿using Orchard.UI.Resources;
+﻿using Orchard.Environment.Extensions;
+using Orchard.UI.Resources;
 
 namespace DQ.Scheduling
 {
-    public class ResourceManifest:IResourceManifestProvider
+    [OrchardFeature("DQ.FullCalendar")]
+    public class ResourceManifest : IResourceManifestProvider
     {
         public void BuildManifests(ResourceManifestBuilder builder)
         {

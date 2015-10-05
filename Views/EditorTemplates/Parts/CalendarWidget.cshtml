@@ -1,5 +1,13 @@
 ﻿@model DQ.Scheduling.ViewModels.EditCalendarWidgetViewModel
 
+@{
+    var plugins = new List<SelectListItem> {
+        new SelectListItem {Text = T("Default").Text, Value = ""}
+    };
+    
+    plugins.AddRange(Model.Plugins.Select(p => new SelectListItem{ Text = p, Value = p, Selected = p == Model.Plugin}));
+}
+
 <fieldset>
     <label for="@Html.FieldIdFor(m => m.QueryId)">Query</label>
     <select id="@Html.FieldIdFor(m => m.QueryId)" name="@Html.FieldNameFor(m => m.QueryId)">
@@ -10,6 +18,6 @@
     </select>
     <span class="hint">@T("The query that contains the data to show in the calendar view.")</span>
     @Html.LabelFor(m => m.Plugin, T("Plugin"))
-    @Html.DropDownListFor(m => m.Plugin, Model.Plugins.Select(p => new SelectListItem{ Text = p, Value = p, Selected = p == Model.Plugin}))
+    @Html.DropDownListFor(m => m.Plugin, plugins)
     <span class="hint">@T("The plugin to use for the display of the calendar")</span>
 </fieldset>
