@@ -82,6 +82,10 @@
       <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
       <Name>Orchard.Projections</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\ext\fullcalendar\IFullCalendar.ts" />
@@ -91,17 +95,23 @@
     <Compile Include="CalendarProviders\FullCalendarProvider.cs" />
     <Compile Include="CalendarProviders\ICalendarProvider.cs" />
     <Compile Include="CalendarProviders\SerializedEvent.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Drivers\EventDefinitionPartDriver.cs" />
     <Compile Include="Drivers\CalendarWidgetDriver.cs" />
+    <Compile Include="Drivers\EventSubscribePartDriver.cs" />
     <Compile Include="Handlers\EventDefinitionPartHandler.cs" />
     <Compile Include="Handlers\CalendarWidgetHandler.cs" />
+    <Compile Include="Handlers\EventSubscribePartHandler.cs" />
     <Compile Include="Handlers\EventNotifyTaskHandler.cs" />
+    <Compile Include="Handlers\EventWorkflowsHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
     <Compile Include="Migrations\CalendarWidgetMigrations.cs" />
     <Compile Include="Migrations\Migrations.cs" />
     <Compile Include="Models\EventDefinitionPart.cs" />
     <Compile Include="Models\EventDefinitionPartRecord.cs" />
     <Compile Include="Models\CalendarWidgetPart.cs" />
+    <Compile Include="Models\EventSubscribePart.cs" />
+    <Compile Include="Models\EventSubscribePartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IEventService.cs" />
@@ -114,6 +124,7 @@
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
     <Compile Include="ViewModels\FullCalendarEventViewModel.cs" />
+    <Compile Include="Workflow\EventStartedActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\CalendarWidget.cshtml" />

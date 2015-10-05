@@ -28,7 +28,7 @@ namespace DQ.Scheduling.Handlers
 
             Logger.Information("Notifying subscribers of event {0}", eventDefinition.Id);
 
-            _eventService.NotifyEventSubscribers(eventDefinition);
+            // TODO: notify
         }
     }
 }

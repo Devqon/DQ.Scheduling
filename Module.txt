@@ -4,7 +4,7 @@ Author: Devqon
 Website: https://github.com/devqon/dq.scheduling
 Version: 1.0
 OrchardVersion: 1.9
-Description: Display calendar events using FullCalendar.
+Description: Scheduling events.
 Features:
     DQ.Scheduling:
         Description: This feature enables scheduling.
@@ -19,8 +19,15 @@ Features:
 	DQ.FullCalendar:
 		Description: Leverages a calendar widget with FullCalendarJS
 		Name: FullCalendar
+		Category: Scheduling
 		Dependencies: DQ.CalendarWidget, Orchard.jQuery
 	DQ.SchedulingNotifications:
 		Description: Notifications for events
 		Name: Scheduling Notifications
+		Category: Scheduling
 		Dependencies: DQ.Scheduling
+	DQ.SchedulingWorkflows:
+		Description: Workflows for the events
+		Name: Scheduling Workflows
+		Category: Workflows
+		Dependencies: DQ.Scheduling, Orchard.Workflows

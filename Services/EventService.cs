@@ -5,16 +5,19 @@ using Orchard;
 using Orchard.ContentManagement;
 using Orchard.Projections.Models;
 using Orchard.Projections.Services;
+using Orchard.Tasks.Scheduling;
 
 namespace DQ.Scheduling.Services {
     public class EventService : IEventService {
 
         private readonly IOrchardServices _orchardServices;
         private readonly IProjectionManager _projectionManager;
+        private readonly IScheduledTaskManager _scheduledTaskManager;
 
-        public EventService(IOrchardServices orchardServices, IProjectionManager projectionManager) {
+        public EventService(IOrchardServices orchardServices, IProjectionManager projectionManager, IScheduledTaskManager scheduledTaskManager) {
             _orchardServices = orchardServices;
             _projectionManager = projectionManager;
+            _scheduledTaskManager = scheduledTaskManager;
         }
 
         public List<QueryPart> GetEventDefinitionQueries()
@@ -23,7 +26,7 @@ namespace DQ.Scheduling.Services {
 
             var eventDefinitionQueries = new List<QueryPart>();
 
-            foreach (QueryPart part in queryParts)
+            foreach (var part in queryParts)
             {
                 var contentItem = _projectionManager.GetContentItems(part.Id).FirstOrDefault();
                 if (contentItem == null)
@@ -41,35 +44,14 @@ namespace DQ.Scheduling.Services {
             return eventDefinitionQueries;
         }
 
-        public void SubscribeToEvent(EventDefinitionPart eventDefinitionPart, SubscribeType subscribeType) {
+        public void ScheduleEvent(EventDefinitionPart eventDefinitionPart) {
 
-            var user = _orchardServices.WorkContext.CurrentUser;
-            // TODO: implementation:
-            // - Check subscribe type
-            // - Save subscribe type
-            // - Add to notify task handler
+            // Delete ongoing schedules
+            _scheduledTaskManager.DeleteTasks(eventDefinitionPart.ContentItem, task => task.TaskType == Constants.EventStartedName);
 
-            switch (subscribeType) {
-                case SubscribeType.Email:
-                    var email = user.Email;
-                    // Save notify options
-                    break;
-                case SubscribeType.Sms:
-                    // ..
-                    break;
+            if (eventDefinitionPart.StartDateTime.HasValue) {
+                _scheduledTaskManager.CreateTask(Constants.EventStartedName, eventDefinitionPart.StartDateTime.Value, eventDefinitionPart.ContentItem);
             }
         }
-
-        public void NotifyEventSubscribers(EventDefinitionPart eventDefinitionPart) {
-            // TODO
-
-            // Get subscribers
-
-            // Notify subscribers
-            // - Email?
-            // - INotifier?
-            // - Workflow?
-        }
-
     }
 }

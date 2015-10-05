@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DQ.Scheduling.Models;
 using Orchard;
 using Orchard.Projections.Models;
@@ -11,8 +7,16 @@ namespace DQ.Scheduling.Services
 {
     public interface IEventService : IDependency
     {
-        void NotifyEventSubscribers(EventDefinitionPart eventDefinitionPart);
+        /// <summary>
+        /// Get all projection queries that have content items with an event definition part
+        /// </summary>
+        /// <returns></returns>
         List<QueryPart> GetEventDefinitionQueries();
-        void SubscribeToEvent(EventDefinitionPart eventDefinitionPart, SubscribeType subscribeType);
+
+        /// <summary>
+        /// Schedule the event for start
+        /// </summary>
+        /// <param name="eventDefinitionPart"></param>
+        void ScheduleEvent(EventDefinitionPart eventDefinitionPart);
     }
 }

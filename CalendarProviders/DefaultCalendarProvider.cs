@@ -2,11 +2,17 @@
 using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
-using Orchard.Core.Title.Models;
+using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.CalendarProviders
 {
+    [OrchardFeature("DQ.CalendarWidget")]
     public class DefaultCalendarProvider : ICalendarProvider {
+
+        private readonly IContentManager _contentManager;
+        public DefaultCalendarProvider(IContentManager contentManager) {
+            _contentManager = contentManager;
+        }
 
         public string Name { get { return "Default"; } }
 
@@ -19,7 +25,7 @@ namespace DQ.Scheduling.CalendarProviders
 
                 var viewModel = new DefaultCalendarEventViewModel
                 {
-                    Title = ci.As<TitlePart>().Title,
+                    Title = _contentManager.GetItemMetadata(ci).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
                     Event = ci
