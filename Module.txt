@@ -1,9 +1,9 @@
 ﻿Name: DQ.Scheduling
 AntiForgery: enabled
-Author: Daniel Schmid
-Website: https://github.com/devqon
-Version: 1.6
-OrchardVersion: 1.8
+Author: Devqon
+Website: https://github.com/devqon/dq.scheduling
+Version: 1.0
+OrchardVersion: 1.9
 Description: Display calendar events using FullCalendar.
 Features:
     DQ.Scheduling:
@@ -17,7 +17,7 @@ Features:
 		Category: Scheduling
 		Dependencies: DQ.Scheduling
 	DQ.FullCalendar:
-		Description: Leverages a calendar widget with FullCalendarJS option
+		Description: Leverages a calendar widget with FullCalendarJS
 		Name: FullCalendar
 		Dependencies: DQ.CalendarWidget, Orchard.jQuery
 	DQ.SchedulingNotifications:
