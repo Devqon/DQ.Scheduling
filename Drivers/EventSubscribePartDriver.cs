@@ -31,12 +31,12 @@ namespace DQ.Scheduling.Drivers
             var user = _workContextAccessor.GetContext().CurrentUser;
 
             // Already subscribed
-            if (_subscriptionService.GetSubscriptions(eventDefinitionPart.Id, user.Id).Any())
-                return null;
+            var existingSubscription = _subscriptionService.GetSubscriptions(eventDefinitionPart.Id, user.Id).FirstOrDefault();
 
             return ContentShape("Parts_EventSubscribeForm", () => shapeHelper.Parts_EventSubscribeForm(
+                Subscribed: existingSubscription != null,
                 Event: part.ContentItem,
-                Subscription: new EventSubscriptionRecord{ EventId = part.Id, UserId = user.Id }));
+                Subscription: existingSubscription ?? new EventSubscriptionRecord{ EventId = part.Id, UserId = user.Id }));
         }
 
         protected override DriverResult Editor(EventSubscribePart part, dynamic shapeHelper) {
