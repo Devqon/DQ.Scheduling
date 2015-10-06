@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard;
+using System.Collections.Generic;
 
-namespace DQ.Scheduling.Services
-{
+namespace DQ.Scheduling.Services {
     public interface ISubscriptionService : IDependency {
         /// <summary>
         /// Create a subscription to an event

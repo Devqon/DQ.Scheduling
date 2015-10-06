@@ -1,13 +1,10 @@
 ﻿using Orchard.Environment.Extensions;
 using Orchard.UI.Resources;
 
-namespace DQ.Scheduling
-{
+namespace DQ.Scheduling.ResourceManifests {
     [OrchardFeature("DQ.FullCalendar")]
-    public class ResourceManifest : IResourceManifestProvider
-    {
-        public void BuildManifests(ResourceManifestBuilder builder)
-        {
+    public class FullCalendarResourceManifest : IResourceManifestProvider {
+        public void BuildManifests(ResourceManifestBuilder builder) {
             var manifest = builder.Add();
 
             manifest.DefineScript("Moment").SetUrl("ext/fullcalendar/moment.min.js").SetDependencies("jQuery");

@@ -1,9 +1,9 @@
 ﻿using DQ.Scheduling.Models;
+using Orchard.Environment.Extensions;
 
-namespace DQ.Scheduling.ViewModels
-{
-    public class EventSubscribeViewModel
-    {
+namespace DQ.Scheduling.ViewModels {
+    [OrchardFeature("DQ.EventSubscribe")]
+    public class EventSubscribeViewModel {
         public int Id { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }

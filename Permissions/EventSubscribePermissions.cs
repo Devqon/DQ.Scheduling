@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Orchard.Environment.Extensions;
 using Orchard.Environment.Extensions.Models;
 using Orchard.Localization;
 using Orchard.Security.Permissions;
+using System.Collections.Generic;
 
-namespace DQ.Scheduling
-{
-    public class Permissions : IPermissionProvider
-    {
+namespace DQ.Scheduling.Permissions {
+    [OrchardFeature("DQ.EventSubscribe")]
+    public class EventSubscribePermissions : IPermissionProvider {
         public static readonly Permission SubscribeToEvent = new Permission { Name = "SubscribeToEvent" };
 
-        public Permissions() {
+        public EventSubscribePermissions() {
             T = NullLocalizer.Instance;
 
             SubscribeToEvent.Description = T("Subscribe to events").Text;

@@ -28,6 +28,7 @@
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -108,7 +109,7 @@
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
     <Compile Include="Migrations\CalendarWidgetMigrations.cs" />
     <Compile Include="Migrations\EventSuscribeMigrations.cs" />
-    <Compile Include="Migrations\Migrations.cs" />
+    <Compile Include="Migrations\SchedulingMigrations.cs" />
     <Compile Include="Models\EventDefinitionPart.cs" />
     <Compile Include="Models\EventDefinitionPartRecord.cs" />
     <Compile Include="Models\CalendarWidgetPart.cs" />
@@ -116,17 +117,17 @@
     <Compile Include="Models\EventSubscribePartRecord.cs" />
     <Compile Include="Models\EventSubscriptionRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
-    <Compile Include="Permissions.cs" />
+    <Compile Include="Permissions\EventSubscribePermissions.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IEventService.cs" />
     <Compile Include="Services\ISubscriptionService.cs" />
     <Compile Include="Services\SubscriptionService.cs" />
-    <Compile Include="Shapes.cs" />
+    <Compile Include="Shapes\CalendarWidgetShapes.cs" />
     <Compile Include="ViewModels\DefaultCalendarEventViewModel.cs" />
     <Compile Include="ViewModels\EventDefinitionEditViewModel.cs" />
     <Compile Include="ViewModels\EditCalendarWidgetViewModel.cs" />
     <Compile Include="Models\CalendarWidgetPartRecord.cs" />
-    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="ResourceManifests\FullCalendarResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
     <Compile Include="ViewModels\EventSubscribeViewModel.cs" />

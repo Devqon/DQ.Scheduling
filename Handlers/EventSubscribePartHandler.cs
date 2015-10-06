@@ -1,15 +1,13 @@
-﻿using System.Linq;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using Orchard.ContentManagement.Handlers;
 using Orchard.ContentManagement.MetaData;
 using Orchard.Data;
 using Orchard.Environment.Extensions;
+using System.Linq;
 
-namespace DQ.Scheduling.Handlers
-{
+namespace DQ.Scheduling.Handlers {
     [OrchardFeature("DQ.EventSubscribe")]
-    public class EventSubscribePartHandler : ContentHandler
-    {
+    public class EventSubscribePartHandler : ContentHandler  {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public EventSubscribePartHandler(IRepository<EventSubscribePartRecord> repository, IContentDefinitionManager contentDefinitionManager) {

@@ -1,10 +1,11 @@
 ﻿using DQ.Scheduling.Models;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
+using Orchard.Environment.Extensions;
 using Orchard.Services;
 
-namespace DQ.Scheduling.Drivers
-{
+namespace DQ.Scheduling.Drivers {
+    [OrchardFeature("DQ.EventSubscribe")]
     public class EventSubscribePartDriver : ContentPartDriver<EventSubscribePart> {
         private readonly IClock _clock;
         public EventSubscribePartDriver(IClock clock) {
@@ -12,11 +13,11 @@ namespace DQ.Scheduling.Drivers
         }
 
         protected override DriverResult Display(EventSubscribePart part, string displayType, dynamic shapeHelper) {
-
             var contentItem = part.ContentItem;
             var eventDefinitionPart = contentItem.As<EventDefinitionPart>();
 
             // Cannot subscribe to events in the past
+            // TODO: Should make a shared method to determine whether an event is in the future, such as ScheduleService.GetNextOccurrence
             if (eventDefinitionPart == null || (eventDefinitionPart.StartDateTime < _clock.UtcNow && !eventDefinitionPart.IsRecurring))
                 return null;
 

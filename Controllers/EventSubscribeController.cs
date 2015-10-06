@@ -4,8 +4,7 @@ using DQ.Scheduling.ViewModels;
 using Orchard.Mvc.Extensions;
 using Orchard.Themes;
 
-namespace DQ.Scheduling.Controllers
-{
+namespace DQ.Scheduling.Controllers {
     [Themed]
     public class EventSubscribeController : Controller {
         private readonly ISubscriptionService _subscriptionService;
@@ -14,10 +13,8 @@ namespace DQ.Scheduling.Controllers
         }
 
         [HttpPost]
-        public ActionResult Subscribe(EventSubscribeViewModel model, string returnUrl) {
-            
+        public ActionResult Subscribe(EventSubscribeViewModel model, string returnUrl) {            
             _subscriptionService.CreateSubscription(model);
-
             return this.RedirectLocal(returnUrl, "~/");
         }
     }

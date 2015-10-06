@@ -1,26 +1,25 @@
-using System.Collections.Generic;
-using System.Linq;
 using DQ.Scheduling.CalendarProviders;
 using Orchard.DisplayManagement.Descriptors;
 using Orchard.Environment.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace DQ.Scheduling {
+namespace DQ.Scheduling.SHapes {
     [OrchardFeature("DQ.CalendarWidget")]
-    public class Shapes : IShapeTableProvider {
-
-        private readonly IEnumerable<ICalendarProvider> _providers;
-        public Shapes(IEnumerable<ICalendarProvider> providers) {
-            _providers = providers;
+    public class CalendarWidgetShapes : IShapeTableProvider { 
+        private readonly IEnumerable<ICalendarProvider> _calendarProviders;
+        public CalendarWidgetShapes(IEnumerable<ICalendarProvider> calendarProviders) {
+            _calendarProviders = calendarProviders;
         }
 
         public void Discover(ShapeTableBuilder builder) {
             builder.Describe("Parts_CalendarWidget")
                 .OnDisplaying(displaying => {
                     string plugin = displaying.Shape.Plugin;
-                    var provider = _providers.FirstOrDefault(p => p.Name == plugin);
+                    var calendarProvider = _calendarProviders.FirstOrDefault(p => p.Name == plugin);
 
                     // Only if the provider is enabled
-                    if (provider != null) {
+                    if (calendarProvider != null) {
                         displaying.ShapeMetadata.Alternates.Add("Parts_CalendarWidget__" + plugin);
                     }
                 });

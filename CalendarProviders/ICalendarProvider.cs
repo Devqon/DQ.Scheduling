@@ -2,10 +2,8 @@
 using Orchard;
 using Orchard.ContentManagement;
 
-namespace DQ.Scheduling.CalendarProviders
-{
-    public interface ICalendarProvider : IDependency
-    {
+namespace DQ.Scheduling.CalendarProviders {
+    public interface ICalendarProvider : IDependency {
         /// <summary>
         /// A unique name of the plugin
         /// </summary>
