@@ -8,35 +8,41 @@ using Orchard.Services;
 
 namespace DQ.Scheduling.Drivers
 {
-    public class EventSubscribePartDriver : ContentPartDriver<EventSubscribePart> {
+    public class EventSubscribePartDriver : ContentPartDriver<EventSubscribePart>
+    {
         private readonly IClock _clock;
         private readonly ISubscriptionService _subscriptionService;
         private readonly IWorkContextAccessor _workContextAccessor;
 
-        public EventSubscribePartDriver(IClock clock, ISubscriptionService subscriptionService, IWorkContextAccessor workContextAccessor) {
+        public EventSubscribePartDriver(IClock clock, ISubscriptionService subscriptionService, IWorkContextAccessor workContextAccessor)
+        {
             _clock = clock;
             _subscriptionService = subscriptionService;
             _workContextAccessor = workContextAccessor;
         }
 
         protected override DriverResult Display(EventSubscribePart part, string displayType, dynamic shapeHelper) {
+            return ContentShape("Parts_EventSubscribeForm", () => {
 
-            var contentItem = part.ContentItem;
-            var eventDefinitionPart = contentItem.As<EventDefinitionPart>();
+                if (!part.AllowSubscriptions)
+                    return null;
 
-            // Cannot subscribe to events in the past
-            if (eventDefinitionPart == null || (eventDefinitionPart.StartDateTime < _clock.UtcNow && !eventDefinitionPart.IsRecurring))
-                return null;
+                var contentItem = part.ContentItem;
+                var eventDefinitionPart = contentItem.As<EventDefinitionPart>();
 
-            var user = _workContextAccessor.GetContext().CurrentUser;
+                // Cannot subscribe to events in the past
+                if (eventDefinitionPart == null || (eventDefinitionPart.StartDateTime < _clock.UtcNow && !eventDefinitionPart.IsRecurring))
+                    return null;
 
-            // Already subscribed
-            var existingSubscription = _subscriptionService.GetSubscriptions(eventDefinitionPart.Id, user.Id).FirstOrDefault();
+                var user = _workContextAccessor.GetContext().CurrentUser;
 
-            return ContentShape("Parts_EventSubscribeForm", () => shapeHelper.Parts_EventSubscribeForm(
-                Subscribed: existingSubscription != null,
-                Event: part.ContentItem,
-                Subscription: existingSubscription ?? new EventSubscriptionRecord{ EventId = part.Id, UserId = user.Id }));
+                // Already subscribed
+                var existingSubscription = _subscriptionService.GetSubscriptions(eventDefinitionPart.Id, user.Id).FirstOrDefault();
+                return shapeHelper.Parts_EventSubscribeForm(
+                    Subscribed: existingSubscription != null,
+                    Event: part.ContentItem,
+                    Subscription: existingSubscription ?? new EventSubscriptionRecord { EventId = part.Id, UserId = user.Id });
+            });
         }
 
         protected override DriverResult Editor(EventSubscribePart part, dynamic shapeHelper) {

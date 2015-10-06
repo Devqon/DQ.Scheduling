@@ -1,6 +1,7 @@
 ﻿@model DQ.Scheduling.Models.EventSubscribePart
 
 <fieldset>
-    @Html.LabelFor(m => m.AllowSubscriptions, T("Allow subscriptions to this event"))
+    @Html.LabelFor(m => m.AllowSubscriptions, T("Allow subscriptions"))
     @Html.CheckBoxFor(m => m.AllowSubscriptions)
+    <span class="hint">@T("Check if users may subscribe to this event")</span>
 </fieldset>
