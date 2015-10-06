@@ -8,7 +8,7 @@ Description: Scheduling events.
 Features:
     DQ.Scheduling:
         Description: This feature enables scheduling.
-		Name: Scheduling
+		Name: Event Scheduling
 		Category: Scheduling
 		Dependencies: Orchard.Projections
 	DQ.CalendarWidget:
@@ -17,17 +17,22 @@ Features:
 		Category: Scheduling
 		Dependencies: DQ.Scheduling
 	DQ.FullCalendar:
-		Description: Leverages a calendar widget with FullCalendarJS
-		Name: FullCalendar
+		Description: Leverages a FullCalendarJS option for the calendar widget
+		Name: FullCalendar Widget
 		Category: Scheduling
 		Dependencies: DQ.CalendarWidget, Orchard.jQuery
 	DQ.SchedulingNotifications:
 		Description: Notifications for events
-		Name: Scheduling Notifications
+		Name: Event Scheduling Notifications
 		Category: Scheduling
 		Dependencies: DQ.Scheduling
 	DQ.SchedulingWorkflows:
 		Description: Workflows for the events
-		Name: Scheduling Workflows
+		Name: Event Scheduling Workflows
 		Category: Workflows
 		Dependencies: DQ.Scheduling, Orchard.Workflows
+	DQ.EventSubscribe:
+		Description: Subscribe to events
+		Name: Event Subscribe
+		Category: Scheduling
+		Dependencies: DQ.Scheduling, Orchard.Email

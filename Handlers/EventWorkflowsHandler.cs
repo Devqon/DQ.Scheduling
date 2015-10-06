@@ -17,7 +17,6 @@ namespace DQ.Scheduling.Handlers
 
         public void Process(ScheduledTaskContext context) {
 
-            // TODO: make it work
             if (context.Task.TaskType != Constants.EventStartedName)
                 return;
 
