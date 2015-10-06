@@ -2,8 +2,8 @@
 using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.ViewModels {
-    [OrchardFeature("DQ.EventSubscribe")]
-    public class EventSubscribeViewModel {
+    [OrchardFeature("DQ.SchedulingDownload")]
+    public class NotificationsEditViewModel {
         public int Id { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }

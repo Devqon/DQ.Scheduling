@@ -1,15 +1,15 @@
 ﻿<Placement>
-  <!-- Event part -->
-  <Place Parts_EventDefinition="Content:5" />
-  <Place Parts_EventDefinition_Edit="Content:9" />
+  <!-- Scheduling -->
+  <Place Parts_Scheduling="Content:5" />
+  <Place Parts_Scheduling_Edit="Content:9" />
   
-  <!-- Calendar widget -->
-  <Place Parts_CalendarWidget="Content:1" />
-  <Place Parts_CalendarWidget_Edit="Content:8" />
+  <!-- Calendar -->
+  <Place Parts_Calendar="Content:1" />
+  <Place Parts_Calendar_Edit="Content:8" />
   
-  <!-- Event Subscribe -->
+  <!-- Notifications -->
   <Match DisplayType="Detail">
-    <Place Parts_EventSubscribeForm="Content:before" />
+    <Place Parts_NotificationsForm="Content:before" />
   </Match>
-  <Place Parts_EventSubscribe_Edit="Content:7" />
+  <Place Parts_Notifications_Edit="Content:7" />
 </Placement>

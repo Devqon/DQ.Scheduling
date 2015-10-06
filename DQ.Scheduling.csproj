@@ -61,7 +61,7 @@
     <Content Include="Styles\ext\fullcalendar\fullcalendar.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.min.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.print.css" />
-    <Content Include="Views\Parts\CalendarWidget.cshtml">
+    <Content Include="Views\Parts\Calendar.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web.config" />
@@ -97,54 +97,56 @@
     <Compile Include="CalendarProviders\ICalendarProvider.cs" />
     <Compile Include="CalendarProviders\SerializedEvent.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\EventSubscribeController.cs" />
-    <Compile Include="Drivers\EventDefinitionPartDriver.cs" />
-    <Compile Include="Drivers\CalendarWidgetDriver.cs" />
-    <Compile Include="Drivers\EventSubscribePartDriver.cs" />
-    <Compile Include="Handlers\EventDefinitionPartHandler.cs" />
-    <Compile Include="Handlers\CalendarWidgetHandler.cs" />
-    <Compile Include="Handlers\EventNotifyTaskHandler.cs" />
-    <Compile Include="Handlers\EventSubscribePartHandler.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Drivers\SchedulingPartDriver.cs" />
+    <Compile Include="Drivers\CalendarPartDriver.cs" />
+    <Compile Include="Drivers\NotificationsPartDriver.cs" />
+    <Compile Include="Handlers\NotificationsSubscriptionPartHandler.cs" />
+    <Compile Include="Handlers\SchedulingPartHandler.cs" />
+    <Compile Include="Handlers\CalendarHandler.cs" />
+    <Compile Include="Handlers\NotificationsTaskHandler.cs" />
+    <Compile Include="Handlers\NotificationsPartHandler.cs" />
     <Compile Include="Handlers\EventWorkflowsHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
-    <Compile Include="Migrations\CalendarWidgetMigrations.cs" />
-    <Compile Include="Migrations\EventSuscribeMigrations.cs" />
+    <Compile Include="Migrations\CalendarMigrations.cs" />
+    <Compile Include="Migrations\NotificationsMigrations.cs" />
     <Compile Include="Migrations\SchedulingMigrations.cs" />
-    <Compile Include="Models\EventDefinitionPart.cs" />
-    <Compile Include="Models\EventDefinitionPartRecord.cs" />
-    <Compile Include="Models\CalendarWidgetPart.cs" />
-    <Compile Include="Models\EventSubscribePart.cs" />
-    <Compile Include="Models\EventSubscribePartRecord.cs" />
-    <Compile Include="Models\EventSubscriptionRecord.cs" />
+    <Compile Include="Models\NotificationsSubscriptionPart.cs" />
+    <Compile Include="Models\SchedulingPart.cs" />
+    <Compile Include="Models\SchedulingPartRecord.cs" />
+    <Compile Include="Models\CalendarPart.cs" />
+    <Compile Include="Models\NotificationsPart.cs" />
+    <Compile Include="Models\NotificationsPartRecord.cs" />
+    <Compile Include="Models\NotificationsSubscriptionPartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
-    <Compile Include="Permissions\EventSubscribePermissions.cs" />
-    <Compile Include="Services\EventService.cs" />
-    <Compile Include="Services\IEventService.cs" />
-    <Compile Include="Services\ISubscriptionService.cs" />
-    <Compile Include="Services\SubscriptionService.cs" />
-    <Compile Include="Shapes\CalendarWidgetShapes.cs" />
-    <Compile Include="ViewModels\DefaultCalendarEventViewModel.cs" />
-    <Compile Include="ViewModels\EventDefinitionEditViewModel.cs" />
-    <Compile Include="ViewModels\EditCalendarWidgetViewModel.cs" />
-    <Compile Include="Models\CalendarWidgetPartRecord.cs" />
+    <Compile Include="Permissions\SubscribePermissions.cs" />
+    <Compile Include="Services\SchedulingService.cs" />
+    <Compile Include="Services\ISchedulingService.cs" />
+    <Compile Include="Services\INotificationsService.cs" />
+    <Compile Include="Services\NotificationsService.cs" />
+    <Compile Include="Shapes\CalendarShapes.cs" />
+    <Compile Include="ViewModels\CalendarDefaultDisplayViewModel.cs" />
+    <Compile Include="ViewModels\SchedulingEditViewModel.cs" />
+    <Compile Include="ViewModels\CalendarEditViewModel.cs" />
+    <Compile Include="Models\CalendarPartRecord.cs" />
     <Compile Include="ResourceManifests\FullCalendarResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
-    <Compile Include="ViewModels\EventSubscribeViewModel.cs" />
-    <Compile Include="ViewModels\FullCalendarEventViewModel.cs" />
-    <Compile Include="Workflow\EventStartedActivity.cs" />
+    <Compile Include="ViewModels\NotificationsEditViewModel.cs" />
+    <Compile Include="ViewModels\FullCalendarDisplayViewModel.cs" />
+    <Compile Include="Activities\SchedulingActivity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\EditorTemplates\Parts\CalendarWidget.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\EditorTemplates\Parts\EventDefinition.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Scheduling.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parts\EventDefinition.cshtml" />
+    <Content Include="Views\Parts\Scheduling.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -194,10 +196,10 @@
     <Content Include="Views\Parts.CalendarWidget-Fullcalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\EditorTemplates\Parts\EventSubscribe.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parts\EventSubscribeForm.cshtml" />
+    <Content Include="Views\Parts\NotificationsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Template.EventNotification.cshtml" />

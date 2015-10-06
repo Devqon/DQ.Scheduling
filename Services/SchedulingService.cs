@@ -10,12 +10,12 @@ using System.Linq;
 
 namespace DQ.Scheduling.Services {
     [OrchardFeature("DQ.Scheduling")]
-    public class EventService : IEventService {
+    public class SchedulingService : ISchedulingService {
         private readonly IOrchardServices _orchardServices;
         private readonly IProjectionManager _projectionManager;
         private readonly IScheduledTaskManager _scheduledTaskManager;
 
-        public EventService(IOrchardServices orchardServices, IProjectionManager projectionManager, IScheduledTaskManager scheduledTaskManager) {
+        public SchedulingService(IOrchardServices orchardServices, IProjectionManager projectionManager, IScheduledTaskManager scheduledTaskManager) {
             _orchardServices = orchardServices;
             _projectionManager = projectionManager;
             _scheduledTaskManager = scheduledTaskManager;
@@ -32,7 +32,7 @@ namespace DQ.Scheduling.Services {
                 }
 
                 // Check if has Event Definition part
-                if (contentItem.TypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (EventDefinitionPart).Name)) {
+                if (contentItem.TypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (SchedulingPart).Name)) {
                     eventDefinitionQueries.Add(part);
                 }
             }
@@ -40,7 +40,7 @@ namespace DQ.Scheduling.Services {
             return eventDefinitionQueries;
         }
 
-        public void ScheduleEvent(EventDefinitionPart eventDefinitionPart) {
+        public void ScheduleEvent(SchedulingPart eventDefinitionPart) {
             // Delete ongoing schedules
             _scheduledTaskManager.DeleteTasks(eventDefinitionPart.ContentItem, task => task.TaskType == Constants.EventStartedName);
 

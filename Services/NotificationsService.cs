@@ -7,24 +7,24 @@ using Orchard.Tasks.Scheduling;
 using System.Collections.Generic;
 
 namespace DQ.Scheduling.Services {
-    [OrchardFeature("DQ.EventSubscribe")]
-    public class SubscriptionService : ISubscriptionService {
-        private readonly IRepository<EventSubscriptionRecord> _repository;
+    [OrchardFeature("DQ.SchedulingNotifications")]
+    public class NotificationsService : INotificationsService {
+        private readonly IRepository<NotificationsSubscriptionPartRecord> _repository;
         private readonly IScheduledTaskManager _scheduledTaskManager;
         private readonly IContentManager _contentManager;
 
-        public SubscriptionService(IRepository<EventSubscriptionRecord> repository, IScheduledTaskManager scheduledTaskManager, IContentManager contentManager) {
+        public NotificationsService(IRepository<NotificationsSubscriptionPartRecord> repository, IScheduledTaskManager scheduledTaskManager, IContentManager contentManager) {
             _repository = repository;
             _scheduledTaskManager = scheduledTaskManager;
             _contentManager = contentManager;
         }
 
-        public void CreateSubscription(EventSubscribeViewModel model) {
+        public void CreateSubscription(NotificationsEditViewModel model) {
             // Delete existing
             // TODO: is this needed?
             DeleteSubscriptions(model.EventId, model.UserId);
 
-            _repository.Create(new EventSubscriptionRecord {
+            _repository.Create(new NotificationsSubscriptionPartRecord {
                 EventId = model.EventId,
                 UserId = model.UserId,
                 SubscribeType = model.SubscribeType,
@@ -32,7 +32,7 @@ namespace DQ.Scheduling.Services {
                 SubscribeDifference = model.SubscribeDifference
             });
 
-            var eventDefinition = _contentManager.Get<EventDefinitionPart>(model.EventId);
+            var eventDefinition = _contentManager.Get<SchedulingPart>(model.EventId);
             if (eventDefinition.StartDateTime.HasValue) {
                 var notifyDate = eventDefinition.StartDateTime.Value;
 
@@ -60,7 +60,7 @@ namespace DQ.Scheduling.Services {
             }
         }
 
-        public void DeleteSubscription(EventSubscriptionRecord subscription) {
+        public void DeleteSubscription(NotificationsSubscriptionPartRecord subscription) {
             _repository.Delete(subscription);
         }
 
@@ -71,7 +71,7 @@ namespace DQ.Scheduling.Services {
             }
         }
 
-        public IEnumerable<EventSubscriptionRecord> GetSubscriptions(int eventId, int userId) {
+        public IEnumerable<NotificationsSubscriptionPartRecord> GetSubscriptions(int eventId, int userId) {
             return _repository.Fetch(s => s.EventId == eventId && s.UserId == userId);
         } 
     }

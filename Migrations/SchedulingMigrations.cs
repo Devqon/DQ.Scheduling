@@ -10,7 +10,7 @@ namespace DQ.Scheduling.Migrations {
     public class SchedulingMigrations : DataMigrationImpl  {
         public int Create() {
             // Event Definition record table
-            SchemaBuilder.CreateTable(typeof(EventDefinitionPartRecord).Name, table => table
+            SchemaBuilder.CreateTable(typeof(SchedulingPartRecord).Name, table => table
                 .ContentPartRecord()
                 .Column<string>("TimeZone")
                 .Column<DateTime>("StartDateTime")
@@ -20,7 +20,7 @@ namespace DQ.Scheduling.Migrations {
             );
 
             // Calendar Event part
-            ContentDefinitionManager.AlterPartDefinition(typeof(EventDefinitionPart).Name, part => part
+            ContentDefinitionManager.AlterPartDefinition(typeof(SchedulingPart).Name, part => part
                 .WithDescription("Provides event settings to your content.")
                 .Attachable()
             );

@@ -4,9 +4,9 @@ using Orchard.Data;
 using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.Handlers {
-    [OrchardFeature("DQ.CalendarWidget")]
-    public class CalendarWidgetHandler:ContentHandler {
-        public CalendarWidgetHandler(IRepository<CalendarWidgetPartRecord> repository) {
+    [OrchardFeature("DQ.Scheduling")]
+    public class SchedulingPartHandler : ContentHandler {
+        public SchedulingPartHandler(IRepository<SchedulingPartRecord> repository) {
             Filters.Add(StorageFilter.For(repository));
         }
     }

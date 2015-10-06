@@ -2,8 +2,8 @@
 using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.Models {
-    [OrchardFeature("DQ.CalendarWidget")]
-    public class CalendarWidgetPart : ContentPart<CalendarWidgetPartRecord> {
+    [OrchardFeature("DQ.SchedulingCalendar")]
+    public class CalendarPart : ContentPart<CalendarPartRecord> {
         public int QueryId {
             get { return Retrieve(x => x.QueryId); }
             set { Store(x => x.QueryId, value); }

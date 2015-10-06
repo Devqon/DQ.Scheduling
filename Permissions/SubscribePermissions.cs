@@ -5,11 +5,11 @@ using Orchard.Security.Permissions;
 using System.Collections.Generic;
 
 namespace DQ.Scheduling.Permissions {
-    [OrchardFeature("DQ.EventSubscribe")]
-    public class EventSubscribePermissions : IPermissionProvider {
+    [OrchardFeature("DQ.SchedulingDownload")]
+    public class SubscribePermissions : IPermissionProvider {
         public static readonly Permission SubscribeToEvent = new Permission { Name = "SubscribeToEvent" };
 
-        public EventSubscribePermissions() {
+        public SubscribePermissions() {
             T = NullLocalizer.Instance;
 
             SubscribeToEvent.Description = T("Subscribe to events").Text;

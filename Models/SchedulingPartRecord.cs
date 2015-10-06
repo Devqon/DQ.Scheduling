@@ -4,7 +4,7 @@ using System;
 
 namespace DQ.Scheduling.Models {
     [OrchardFeature("DQ.Scheduling")]
-    public class EventDefinitionPartRecord : ContentPartRecord {
+    public class SchedulingPartRecord : ContentPartRecord {
         public virtual string TimeZone { get; set; }
         public virtual DateTime? StartDateTime { get; set; }
         public virtual DateTime? EndDateTime { get; set; }

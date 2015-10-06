@@ -4,7 +4,7 @@ using Orchard.Workflows.Activities;
 
 namespace DQ.Scheduling.Workflow {
     [OrchardFeature("DQ.SchedulingWorkflows")]
-    public class EventStartedActivity : ContentActivity {
+    public class SchedulingActivity : ContentActivity {
         public override string Name {
             get { return Constants.EventStartedName; }
         }

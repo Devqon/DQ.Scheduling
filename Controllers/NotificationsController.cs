@@ -7,15 +7,15 @@ using System.Web.Mvc;
 
 namespace DQ.Scheduling.Controllers {
     [Themed]
-    [OrchardFeature("DQ.EventSubscribe")]
-    public class EventSubscribeController : Controller {
-        private readonly ISubscriptionService _subscriptionService;
-        public EventSubscribeController(ISubscriptionService subscriptionService) {
+    [OrchardFeature("DQ.SchedulingNotifications")]
+    public class NotificationsController : Controller {
+        private readonly INotificationsService _subscriptionService;
+        public NotificationsController(INotificationsService subscriptionService) {
             _subscriptionService = subscriptionService;
         }
 
         [HttpPost]
-        public ActionResult Subscribe(EventSubscribeViewModel model, string returnUrl) {            
+        public ActionResult Subscribe(NotificationsEditViewModel model, string returnUrl) {            
             _subscriptionService.CreateSubscription(model);
             return this.RedirectLocal(returnUrl, "~/");
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DQ.Scheduling.Services {
-    [OrchardFeature("DQ.CalendarWidget")]
+    [OrchardFeature("DQ.SchedulingCalendar")]
     public class CalendarService : ICalendarService {
         private readonly IProjectionManager _projectionManager;
         private readonly IEnumerable<ICalendarProvider> _providers; 
@@ -16,7 +16,7 @@ namespace DQ.Scheduling.Services {
             _providers = providers;
         }
 
-        public IEnumerable<SerializedEvent> GetEventDefinitions(CalendarWidgetPart part) {
+        public IEnumerable<SerializedEvent> GetEventDefinitions(CalendarPart part) {
             var contentItems = _projectionManager.GetContentItems(part.QueryId);
 
             var provider = _providers.SingleOrDefault(p => p.Name == part.Plugin);

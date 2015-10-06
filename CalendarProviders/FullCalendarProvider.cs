@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 namespace DQ.Scheduling.CalendarProviders {
-    [OrchardFeature("DQ.FullCalendar")]
+    [OrchardFeature("DQ.SchedulingFullCalendar")]
     public class FullCalendarProvider : ICalendarProvider {
         private readonly IContentManager _contentManager;
         private readonly UrlHelper _urlHelper;
@@ -23,12 +23,12 @@ namespace DQ.Scheduling.CalendarProviders {
         public string Name { get { return "Fullcalendar"; } }
 
         public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
-            var viewModels = new List<FullCalendarEventViewModel>();
+            var viewModels = new List<FullCalendarDisplayViewModel>();
 
             events.ToList().ForEach(ev => {
-                var eventPart = ev.As<EventDefinitionPart>();
+                var eventPart = ev.As<SchedulingPart>();
 
-                var viewModel = new FullCalendarEventViewModel {
+                var viewModel = new FullCalendarDisplayViewModel {
                     Id = ev.Id,
                     Title = _contentManager.GetItemMetadata(ev).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),

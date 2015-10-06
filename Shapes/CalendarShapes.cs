@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DQ.Scheduling.SHapes {
-    [OrchardFeature("DQ.CalendarWidget")]
+    [OrchardFeature("DQ.SchedulingCalendar")]
     public class CalendarWidgetShapes : IShapeTableProvider { 
         private readonly IEnumerable<ICalendarProvider> _calendarProviders;
         public CalendarWidgetShapes(IEnumerable<ICalendarProvider> calendarProviders) {

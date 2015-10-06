@@ -3,8 +3,8 @@ using Orchard.Projections.Models;
 using System.Collections.Generic;
 
 namespace DQ.Scheduling.ViewModels {
-    [OrchardFeature("DQ.CalendarWidget")]
-    public class EditCalendarWidgetViewModel {
+    [OrchardFeature("DQ.SchedulingCalendar")]
+    public class CalendarEditViewModel {
         public IEnumerable<QueryPart> Queries { get; set; }
         public int QueryId { get; set; }
         public IEnumerable<string> Plugins { get; set; }

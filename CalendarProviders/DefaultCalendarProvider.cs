@@ -5,7 +5,7 @@ using Orchard.Environment.Extensions;
 using System.Collections.Generic;
 
 namespace DQ.Scheduling.CalendarProviders {
-    [OrchardFeature("DQ.CalendarWidget")]
+    [OrchardFeature("DQ.SchedulingCalendar")]
     public class DefaultCalendarProvider : ICalendarProvider {
 
         private readonly IContentManager _contentManager;
@@ -16,11 +16,11 @@ namespace DQ.Scheduling.CalendarProviders {
         public string Name { get { return "Default"; } }
 
         public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
-            var viewModels = new List<DefaultCalendarEventViewModel>();
+            var viewModels = new List<CalendarDefaultDisplayViewModel>();
 
             foreach (var ci in events) {
-                var eventPart = ci.As<EventDefinitionPart>();
-                var viewModel = new DefaultCalendarEventViewModel {
+                var eventPart = ci.As<SchedulingPart>();
+                var viewModel = new CalendarDefaultDisplayViewModel {
                     Title = _contentManager.GetItemMetadata(ci).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),

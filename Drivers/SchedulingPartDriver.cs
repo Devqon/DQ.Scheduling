@@ -10,34 +10,34 @@ using System;
 
 namespace DQ.Scheduling.Drivers {
     [OrchardFeature("DQ.Scheduling")]
-    public class EventDefinitionPartDriver : ContentPartDriver<EventDefinitionPart> {
+    public class SchedulingPartDriver : ContentPartDriver<SchedulingPart> {
         private readonly IDateLocalizationServices _dateLocalizationServices;
-        public EventDefinitionPartDriver(IDateLocalizationServices dateLocalizationServices) {
+        public SchedulingPartDriver(IDateLocalizationServices dateLocalizationServices) {
             _dateLocalizationServices = dateLocalizationServices;
 
             T = NullLocalizer.Instance;
         }
 
         public Localizer T { get; set; }
-        private const string TemplateName = "Parts/EventDefinition";
+        private const string TemplateName = "Parts/Scheduling";
         
         protected override string Prefix {
-            get { return "EventDefinition"; }
+            get { return "Scheduling"; }
         }
 
-        protected override DriverResult Display(EventDefinitionPart part, string displayType, dynamic shapeHelper) {
-            return ContentShape("Parts_EventDefinition",
-                () => shapeHelper.Parts_EventDefinition(part));
+        protected override DriverResult Display(SchedulingPart part, string displayType, dynamic shapeHelper) {
+            return ContentShape("Parts_Scheduling",
+                () => shapeHelper.Parts_Scheduling(part));
         }
 
-        protected override DriverResult Editor(EventDefinitionPart part, dynamic shapeHelper) {
+        protected override DriverResult Editor(SchedulingPart part, dynamic shapeHelper) {
             var viewModel = BuildViewModelFromPart(part);
 
-            return ContentShape("Parts_EventDefinition_Edit",
+            return ContentShape("Parts_Scheduling_Edit",
                 () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: viewModel, Prefix: Prefix));
         }
 
-        protected override DriverResult Editor(EventDefinitionPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(SchedulingPart part, IUpdateModel updater, dynamic shapeHelper) {
             var viewModel = BuildViewModelFromPart(part);
 
             if (updater.TryUpdateModel(viewModel, Prefix, null, null)) {
@@ -64,12 +64,12 @@ namespace DQ.Scheduling.Drivers {
                 }
             }
 
-            return ContentShape("Parts_EventDefinition_Edit",
+            return ContentShape("Parts_Scheduling_Edit",
                 () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: viewModel, Prefix: Prefix));
         }
 
-        private EventDefinitionEditViewModel BuildViewModelFromPart(EventDefinitionPart part) {
-            return new EventDefinitionEditViewModel {
+        private SchedulingEditViewModel BuildViewModelFromPart(SchedulingPart part) {
+            return new SchedulingEditViewModel {
                 AllDayEvent = part.IsAllDay,
                 IsRecurring = part.IsRecurring,
                 StartDateTimeEditor = new DateTimeEditor {

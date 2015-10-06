@@ -1,38 +1,43 @@
 ﻿Name: DQ.Scheduling
 AntiForgery: enabled
-Author: Devqon
+Author: Devqon, Jeff Olmstead
 Website: https://github.com/devqon/dq.scheduling
-Version: 1.0
+Version: 1.9.0.1
 OrchardVersion: 1.9
-Description: Scheduling events.
+Description: Provides ability to schedule events
 Features:
     DQ.Scheduling:
-        Description: This feature enables scheduling.
-		Name: Event Scheduling
+        Name: Scheduling
+		Description: Provides ability to schedule events
 		Category: Scheduling
 		Dependencies: Orchard.Projections
-	DQ.CalendarWidget:
-		Description: Leverages a basic calendar widget
-		Name: Calendar Widget
-		Category: Scheduling
-		Dependencies: DQ.Scheduling
-	DQ.FullCalendar:
-		Description: Leverages a FullCalendarJS option for the calendar widget
-		Name: FullCalendar Widget
-		Category: Scheduling
-		Dependencies: DQ.CalendarWidget, Orchard.jQuery
-	DQ.SchedulingNotifications:
-		Description: Notifications for events
-		Name: Event Scheduling Notifications
-		Category: Scheduling
-		Dependencies: DQ.Scheduling
 	DQ.SchedulingWorkflows:
-		Description: Workflows for the events
-		Name: Event Scheduling Workflows
+		Name: Scheduling Workflows
+		Description: Provides Scheduling Workflows
 		Category: Workflows
 		Dependencies: DQ.Scheduling, Orchard.Workflows
-	DQ.EventSubscribe:
-		Description: Subscribe to events
-		Name: Event Subscribe
+	DQ.SchedulingCalendar:
+		Name: Scheduling Calendar
+		Description: Provides base interface for a calendar, need to enable an actual calendar provider such as Scheduling Full Calendar
 		Category: Scheduling
-		Dependencies: DQ.Scheduling, Orchard.Email
+		Dependencies: DQ.Scheduling
+	DQ.SchedulingDownload:
+		Name: Scheduling Download
+		Description: Provides base interface for downloading events as a calendar item, need to enable an actual client download provider
+		Category: Scheduling
+		Dependencies: DQ.Scheduling
+	DQ.SchedulingExternal:
+		Name: Scheduling External
+		Description: Provides base interface to read in scheduling events from an external calendar, need to enable an actual external calendar provider
+		Category: Scheduling
+		Dependencies: DQ.Scheduling
+	DQ.SchedulingNotifications:
+		Name: Scheduling Notifications
+		Description: Provides base interface for users to sign up to receive notifications on a scheduled event, need to enable an actual notification provider
+		Category: Scheduling
+		Dependencies: DQ.Scheduling
+	DQ.SchedulingFullCalendar:
+		Name: Scheduling Full Calendar
+		Description: Leverages the Full Calendar (Standard Edition) script for projecting the scheduled events on a calendar
+		Category: Scheduling
+		Dependencies: DQ.SchedulingCalendar, Orchard.jQuery

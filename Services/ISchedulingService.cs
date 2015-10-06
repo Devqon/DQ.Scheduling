@@ -4,7 +4,7 @@ using Orchard;
 using Orchard.Projections.Models;
 
 namespace DQ.Scheduling.Services {
-    public interface IEventService : IDependency {
+    public interface ISchedulingService : IDependency {
         /// <summary>
         /// Get all projection queries that have content items with an event definition part
         /// </summary>
@@ -15,6 +15,6 @@ namespace DQ.Scheduling.Services {
         /// Schedule the event for start
         /// </summary>
         /// <param name="eventDefinitionPart"></param>
-        void ScheduleEvent(EventDefinitionPart eventDefinitionPart);
+        void ScheduleEvent(SchedulingPart eventDefinitionPart);
     }
 }

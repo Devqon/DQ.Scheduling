@@ -1,15 +1,14 @@
 ﻿using DQ.Scheduling.CalendarProviders;
+using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 using System;
 
 namespace DQ.Scheduling.ViewModels {
-    [OrchardFeature("DQ.FullCalendar")]
-    public class FullCalendarEventViewModel : SerializedEvent {
-        public int Id { get; set; }
+    [OrchardFeature("DQ.SchedulingCalendar")]
+    public class CalendarDefaultDisplayViewModel : SerializedEvent {
         public string Title { get; set; }
-        public bool AllDay { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public string Url { get; set; }
+        public IContent Event { get; set; }
     }
 }

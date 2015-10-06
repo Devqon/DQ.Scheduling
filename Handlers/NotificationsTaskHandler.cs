@@ -14,14 +14,17 @@ using System.Linq;
 
 namespace DQ.Scheduling.Handlers {
     [OrchardFeature("DQ.SchedulingNotifications")]
-    public class EventNotifyTaskHandler : Component, IScheduledTaskHandler  {
-        private readonly ISubscriptionService _subscriptionService;
+    public class NotificationsTaskHandler : Component, IScheduledTaskHandler  {
+        // TODO: Jeff Olmstead is going to totally rework this to fire off events which other modules can handle
+        //  Some of these modules could set up a workflow interface to go out via email, this module can provide the token to get emails of those
+        //  who have subscribed to be notified via email. Could be an SMS variation on this to handle shorter messages for SMS 
+        private readonly INotificationsService _subscriptionService;
         private readonly IMessageService _messageService;
         private readonly IShapeFactory _shapeFactory;
         private readonly IShapeDisplay _shapeDisplay;
         private readonly IContentManager _contentManager;
 
-        public EventNotifyTaskHandler(ISubscriptionService subscriptionService, IMessageService messageService, IShapeFactory shapeFactory, IShapeDisplay shapeDisplay, IContentManager contentManager) {
+        public NotificationsTaskHandler(INotificationsService subscriptionService, IMessageService messageService, IShapeFactory shapeFactory, IShapeDisplay shapeDisplay, IContentManager contentManager) {
             _subscriptionService = subscriptionService;
             _messageService = messageService;
             _shapeFactory = shapeFactory;
@@ -43,7 +46,7 @@ namespace DQ.Scheduling.Handlers {
             if (!int.TryParse(userIdString, out userId))
                 return;
 
-            var eventDefinition = context.Task.ContentItem.As<EventDefinitionPart>();
+            var eventDefinition = context.Task.ContentItem.As<SchedulingPart>();
             if (eventDefinition == null)
                 return;
 

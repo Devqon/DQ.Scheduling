@@ -7,12 +7,12 @@ using Orchard.Environment.Extensions;
 using Orchard.Localization;
 
 namespace DQ.Scheduling.Drivers {
-    [OrchardFeature("DQ.CalendarWidget")]
-    public class CalendarWidgetDriver:ContentPartDriver<CalendarWidgetPart> {
+    [OrchardFeature("DQ.SchedulingCalendar")]
+    public class CalendarPartDriver:ContentPartDriver<CalendarPart> {
         private readonly ICalendarService _calendarService;
-        private readonly IEventService _eventService;
+        private readonly ISchedulingService _eventService;
         
-        public CalendarWidgetDriver(ICalendarService calendarService, IEventService eventService) {
+        public CalendarPartDriver(ICalendarService calendarService, ISchedulingService eventService) {
             _calendarService = calendarService;
             _eventService = eventService;
 
@@ -21,34 +21,34 @@ namespace DQ.Scheduling.Drivers {
 
         public Localizer T { get; set; }
 
-        protected override DriverResult Display(CalendarWidgetPart part, string displayType, dynamic shapeHelper) {
-            return ContentShape("Parts_CalendarWidget",
-            	() => shapeHelper.Parts_CalendarWidget(
+        protected override DriverResult Display(CalendarPart part, string displayType, dynamic shapeHelper) {
+            return ContentShape("Parts_Calendar",
+            	() => shapeHelper.Parts_Calendar(
                 	CalendarEvents: _calendarService.GetEventDefinitions(part),
                     Plugin: part.Plugin
                 )
 			);
         }
 
-        protected override DriverResult Editor(CalendarWidgetPart part, dynamic shapeHelper) {
-            var model = new EditCalendarWidgetViewModel {
+        protected override DriverResult Editor(CalendarPart part, dynamic shapeHelper) {
+            var model = new CalendarEditViewModel {
                 Queries = _eventService.GetEventDefinitionQueries(),
                 QueryId = part.QueryId,
                 Plugins = _calendarService.GetCalendarPlugins(),
                 Plugin = part.Plugin
             };
 
-            return ContentShape("Parts_CalendarWidget_Edit",
+            return ContentShape("Parts_Calendar_Edit",
             	() => shapeHelper.EditorTemplate(
-            		TemplateName: "Parts/CalendarWidget",
+            		TemplateName: "Parts/Calendar",
                 	Model: model,
             		Prefix: Prefix
             	)
             );
         }
 
-        protected override DriverResult Editor(CalendarWidgetPart part, IUpdateModel updater, dynamic shapeHelper) {
-            var viewModel = new EditCalendarWidgetViewModel();
+        protected override DriverResult Editor(CalendarPart part, IUpdateModel updater, dynamic shapeHelper) {
+            var viewModel = new CalendarEditViewModel();
 
             if (updater.TryUpdateModel(viewModel, Prefix, null, new[] {"Queries", "Plugins"})) {
                 part.Plugin = viewModel.Plugin;

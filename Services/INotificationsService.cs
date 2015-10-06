@@ -4,16 +4,16 @@ using Orchard;
 using System.Collections.Generic;
 
 namespace DQ.Scheduling.Services {
-    public interface ISubscriptionService : IDependency {
+    public interface INotificationsService : IDependency {
         /// <summary>
         /// Create a subscription to an event
         /// </summary>
         /// <param name="model"></param>
-        void CreateSubscription(EventSubscribeViewModel model);
+        void CreateSubscription(NotificationsEditViewModel model);
 
         void DeleteSubscriptions(int eventId, int userId);
         void DeleteSubscription(int id);
-        IEnumerable<EventSubscriptionRecord> GetSubscriptions(int eventId, int userId);
-        void DeleteSubscription(EventSubscriptionRecord subscription);
+        IEnumerable<NotificationsSubscriptionPartRecord> GetSubscriptions(int eventId, int userId);
+        void DeleteSubscription(NotificationsSubscriptionPartRecord subscription);
     }
 }

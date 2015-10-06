@@ -6,15 +6,15 @@ using Orchard.Environment.Extensions;
 using System.Linq;
 
 namespace DQ.Scheduling.Handlers {
-    [OrchardFeature("DQ.EventSubscribe")]
-    public class EventSubscribePartHandler : ContentHandler  {
+    [OrchardFeature("DQ.SchedulingNotifications")]
+    public class NotificationsPartHandler : ContentHandler  {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public EventSubscribePartHandler(IRepository<EventSubscribePartRecord> repository, IContentDefinitionManager contentDefinitionManager) {
+        public NotificationsPartHandler(IRepository<NotificationsPartRecord> repository, IContentDefinitionManager contentDefinitionManager) {
             _contentDefinitionManager = contentDefinitionManager;
             Filters.Add(StorageFilter.For(repository));
 
-            OnUpdated<EventSubscribePart>((ctx, part) => UpdateSubscribers(part));
+            OnUpdated<NotificationsPart>((ctx, part) => UpdateSubscribers(part));
         }
 
         protected override void Activating(ActivatingContentContext context) {
@@ -25,12 +25,12 @@ namespace DQ.Scheduling.Handlers {
                 return;
 
             // If has part EventDefinition, weld the EventSubscribe part
-            if (contentTypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (EventDefinitionPart).Name)) {
-                context.Builder.Weld<EventSubscribePart>();
+            if (contentTypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (SchedulingPart).Name)) {
+                context.Builder.Weld<NotificationsPart>();
             }
         }
 
-        private void UpdateSubscribers(EventSubscribePart part) {
+        private void UpdateSubscribers(NotificationsPart part) {
             
         }
     }

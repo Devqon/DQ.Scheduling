@@ -19,7 +19,7 @@ namespace DQ.Scheduling.Handlers {
                 return;
 
             var contentItem = context.Task.ContentItem;
-            var eventDefinition = contentItem.As<EventDefinitionPart>();
+            var eventDefinition = contentItem.As<SchedulingPart>();
             if (eventDefinition == null)
                 return;
 

@@ -4,7 +4,7 @@ using Orchard.Environment.Extensions;
 
 namespace DQ.Scheduling.Models {
     [OrchardFeature("DQ.Scheduling")]
-    public class EventDefinitionPart : ContentPart<EventDefinitionPartRecord> {
+    public class SchedulingPart : ContentPart<SchedulingPartRecord> {
         // TODO: Do we really need to record TimeZone if we are recording datetime in UTC?
         public string TimeZone {
             get { return Retrieve(x => x.TimeZone); }
