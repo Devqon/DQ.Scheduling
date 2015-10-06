@@ -17,5 +17,13 @@ namespace DQ.Scheduling.Controllers {
             _subscriptionService.CreateSubscription(model);
             return this.RedirectLocal(returnUrl, "~/");
         }
+
+        [HttpPost]
+        public ActionResult UnSubscribe(int id, string returnUrl) {
+            
+            _subscriptionService.DeleteSubscription(id);
+
+            return this.RedirectLocal(returnUrl, "~/");
+        }
     }
 }

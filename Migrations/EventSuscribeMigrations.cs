@@ -20,5 +20,20 @@ namespace DQ.Scheduling.Migrations {
 
             return 1;
         }
+
+        public int UpdateFrom1() {
+
+            SchemaBuilder.AlterTable(typeof (EventSubscribePartRecord).Name,
+                table => table
+
+                    .DropColumn("AllowSubscribe"));
+
+            SchemaBuilder.AlterTable(typeof (EventSubscribePartRecord).Name,
+                table => table
+
+                    .AddColumn<bool>("AllowSubscriptions"));
+
+            return 2;
+        }
     }
 }

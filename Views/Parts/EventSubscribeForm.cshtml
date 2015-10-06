@@ -3,26 +3,38 @@
 @using Orchard.Utility.Extensions
 @{
     EventSubscriptionRecord model = Model.Subscription;
-    model.UserId = WorkContext.CurrentUser.Id;
     IContent ev = Model.Event;
+
+    bool alreadySubscribed = Model.Subscribed;
 }
 
-@using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new {controller = "EventSubscribe", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString()}), FormMethod.Post)) {
+@if (!alreadySubscribed)
+{
+    using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new { controller = "EventSubscribe", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post))
+    {
 
-    @Html.HiddenFor(m => model.EventId)
-    @Html.HiddenFor(m => model.UserId)
-    <fieldset>
-        @Html.LabelFor(m => model.SubscribeType, T("Subscribe Type"))
-        @Html.DropDownListFor(m => model.SubscribeType, Enum.GetValues(typeof(SubscribeType)).Cast<SubscribeType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
-    </fieldset>
-    <fieldset>
-        @Html.LabelFor(m => model.SubscribeDifference, T("Subscribe Difference Type"))
-        @Html.DropDownListFor(m => model.SubscribeDifference, Enum.GetValues(typeof(SubscribeDifference)).Cast<SubscribeDifference>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
-    </fieldset>
-    <fieldset>
-        @Html.LabelFor(m => model.TimeDifference, T("How much time you want to be notified"))
-        @Html.TextBoxFor(m => model.TimeDifference, new { type = "number" })
-    </fieldset>
-    
-    <button type="submit">@T("Subscribe")</button>
+        @Html.HiddenFor(m => model.EventId)
+        @Html.HiddenFor(m => model.UserId)
+        <fieldset>
+            @Html.LabelFor(m => model.SubscribeType, T("Subscribe Type"))
+            @Html.DropDownListFor(m => model.SubscribeType, Enum.GetValues(typeof(SubscribeType)).Cast<SubscribeType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
+        </fieldset>
+        <fieldset>
+            @Html.LabelFor(m => model.SubscribeDifference, T("Subscribe Difference Type"))
+            @Html.DropDownListFor(m => model.SubscribeDifference, Enum.GetValues(typeof(SubscribeDifference)).Cast<SubscribeDifference>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
+        </fieldset>
+        <fieldset>
+            @Html.LabelFor(m => model.TimeDifference, T("How much time you want to be notified"))
+            @Html.TextBoxFor(m => model.TimeDifference, new { type = "number" })
+        </fieldset>
+
+        <button type="submit">@T("Subscribe")</button>
+    }
+}
+else
+{
+    using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new {controller = "EventSubscribe", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString()}), FormMethod.Post)) {
+        @Html.HiddenFor(m => model.Id)
+        <button type="submit">@T("UnSubscribe")</button>
+    }
 }
