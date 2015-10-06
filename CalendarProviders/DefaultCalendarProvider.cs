@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
+using System.Collections.Generic;
 
-namespace DQ.Scheduling.CalendarProviders
-{
+namespace DQ.Scheduling.CalendarProviders {
     [OrchardFeature("DQ.CalendarWidget")]
     public class DefaultCalendarProvider : ICalendarProvider {
 
@@ -19,12 +18,9 @@ namespace DQ.Scheduling.CalendarProviders
         public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
             var viewModels = new List<DefaultCalendarEventViewModel>();
 
-            foreach (var ci in events)
-            {
+            foreach (var ci in events) {
                 var eventPart = ci.As<EventDefinitionPart>();
-
-                var viewModel = new DefaultCalendarEventViewModel
-                {
+                var viewModel = new DefaultCalendarEventViewModel {
                     Title = _contentManager.GetItemMetadata(ci).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),

@@ -3,10 +3,8 @@ using DQ.Scheduling.Models;
 using Orchard;
 using Orchard.Projections.Models;
 
-namespace DQ.Scheduling.Services
-{
-    public interface IEventService : IDependency
-    {
+namespace DQ.Scheduling.Services {
+    public interface IEventService : IDependency {
         /// <summary>
         /// Get all projection queries that have content items with an event definition part
         /// </summary>

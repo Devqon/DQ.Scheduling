@@ -1,14 +1,15 @@
-﻿using System;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.Core.Common.ViewModels;
+using Orchard.Environment.Extensions;
 using Orchard.Localization;
 using Orchard.Localization.Services;
+using System;
 
-namespace DQ.Scheduling.Drivers
-{
+namespace DQ.Scheduling.Drivers {
+    [OrchardFeature("DQ.Scheduling")]
     public class EventDefinitionPartDriver : ContentPartDriver<EventDefinitionPart> {
         private readonly IDateLocalizationServices _dateLocalizationServices;
         public EventDefinitionPartDriver(IDateLocalizationServices dateLocalizationServices) {
@@ -17,12 +18,10 @@ namespace DQ.Scheduling.Drivers
             T = NullLocalizer.Instance;
         }
 
-        private const string TemplateName = "Parts/EventDefinition";
-
         public Localizer T { get; set; }
-
-        protected override string Prefix
-        {
+        private const string TemplateName = "Parts/EventDefinition";
+        
+        protected override string Prefix {
             get { return "EventDefinition"; }
         }
 
@@ -54,8 +53,7 @@ namespace DQ.Scheduling.Drivers
                 catch (FormatException) {
                     updater.AddModelError(Prefix, T("'{0} {1}' could not be parsed as a valid date and time.", viewModel.StartDateTimeEditor.Date, viewModel.StartDateTimeEditor.Time));
                 }
-                try
-                {
+                try {
                     // End
                     var utcEndDateTime = _dateLocalizationServices.ConvertFromLocalizedString(viewModel.EndDateTimeEditor.Date, viewModel.EndDateTimeEditor.Time);
                     part.EndDateTime = utcEndDateTime;
@@ -70,10 +68,8 @@ namespace DQ.Scheduling.Drivers
                 () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: viewModel, Prefix: Prefix));
         }
 
-        private EventDefinitionEditViewModel BuildViewModelFromPart(EventDefinitionPart part)
-        {
-            return new EventDefinitionEditViewModel
-            {
+        private EventDefinitionEditViewModel BuildViewModelFromPart(EventDefinitionPart part) {
+            return new EventDefinitionEditViewModel {
                 AllDayEvent = part.IsAllDay,
                 IsRecurring = part.IsRecurring,
                 StartDateTimeEditor = new DateTimeEditor {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.Services;
 using Orchard;
 using Orchard.ContentManagement;
@@ -11,20 +8,20 @@ using Orchard.Logging;
 using Orchard.Messaging.Services;
 using Orchard.Security;
 using Orchard.Tasks.Scheduling;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace DQ.Scheduling.Handlers
-{
+namespace DQ.Scheduling.Handlers {
     [OrchardFeature("DQ.SchedulingNotifications")]
-    public class EventNotifyTaskHandler : Component, IScheduledTaskHandler
-    {
+    public class EventNotifyTaskHandler : Component, IScheduledTaskHandler  {
         private readonly ISubscriptionService _subscriptionService;
         private readonly IMessageService _messageService;
         private readonly IShapeFactory _shapeFactory;
         private readonly IShapeDisplay _shapeDisplay;
         private readonly IContentManager _contentManager;
 
-        public EventNotifyTaskHandler(ISubscriptionService subscriptionService, IMessageService messageService, IShapeFactory shapeFactory, IShapeDisplay shapeDisplay, IContentManager contentManager)
-        {
+        public EventNotifyTaskHandler(ISubscriptionService subscriptionService, IMessageService messageService, IShapeFactory shapeFactory, IShapeDisplay shapeDisplay, IContentManager contentManager) {
             _subscriptionService = subscriptionService;
             _messageService = messageService;
             _shapeFactory = shapeFactory;
@@ -32,8 +29,7 @@ namespace DQ.Scheduling.Handlers
             _contentManager = contentManager;
         }
 
-        public void Process(ScheduledTaskContext context)
-        {
+        public void Process(ScheduledTaskContext context) {
             // Hacky? user id put into tasktype
             if (!context.Task.TaskType.StartsWith(Constants.EventSubscriptionNotification))
                 return;
@@ -77,8 +73,6 @@ namespace DQ.Scheduling.Handlers
             _messageService.Send("Email", parameters);
 
             Logger.Information("Notifying user {0} of event {1}", user.UserName, eventTitle);
-
-            
         }
     }
 }

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.Data;
 using Orchard.Environment.Extensions;
 using Orchard.Tasks.Scheduling;
+using System.Collections.Generic;
 
 namespace DQ.Scheduling.Services {
     [OrchardFeature("DQ.EventSubscribe")]
     public class SubscriptionService : ISubscriptionService {
-
         private readonly IRepository<EventSubscriptionRecord> _repository;
         private readonly IScheduledTaskManager _scheduledTaskManager;
         private readonly IContentManager _contentManager;
@@ -21,7 +20,6 @@ namespace DQ.Scheduling.Services {
         }
 
         public void CreateSubscription(EventSubscribeViewModel model) {
-
             // Delete existing
             // TODO: is this needed?
             DeleteSubscriptions(model.EventId, model.UserId);
@@ -36,7 +34,6 @@ namespace DQ.Scheduling.Services {
 
             var eventDefinition = _contentManager.Get<EventDefinitionPart>(model.EventId);
             if (eventDefinition.StartDateTime.HasValue) {
-
                 var notifyDate = eventDefinition.StartDateTime.Value;
 
                 switch (model.SubscribeDifference) {
@@ -75,7 +72,6 @@ namespace DQ.Scheduling.Services {
         }
 
         public IEnumerable<EventSubscriptionRecord> GetSubscriptions(int eventId, int userId) {
-
             return _repository.Fetch(s => s.EventId == eventId && s.UserId == userId);
         } 
     }

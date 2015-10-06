@@ -1,10 +1,10 @@
-﻿using System;
-using DQ.Scheduling.CalendarProviders;
+﻿using DQ.Scheduling.CalendarProviders;
+using Orchard.Environment.Extensions;
+using System;
 
-namespace DQ.Scheduling.ViewModels
-{
-    public class FullCalendarEventViewModel : SerializedEvent
-    {
+namespace DQ.Scheduling.ViewModels {
+    [OrchardFeature("DQ.FullCalendar")]
+    public class FullCalendarEventViewModel : SerializedEvent {
         public int Id { get; set; }
         public string Title { get; set; }
         public bool AllDay { get; set; }

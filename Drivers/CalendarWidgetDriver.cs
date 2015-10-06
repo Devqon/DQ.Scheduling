@@ -6,26 +6,22 @@ using Orchard.ContentManagement.Drivers;
 using Orchard.Environment.Extensions;
 using Orchard.Localization;
 
-namespace DQ.Scheduling.Drivers
-{
+namespace DQ.Scheduling.Drivers {
     [OrchardFeature("DQ.CalendarWidget")]
-    public class CalendarWidgetDriver:ContentPartDriver<CalendarWidgetPart>
-    {
+    public class CalendarWidgetDriver:ContentPartDriver<CalendarWidgetPart> {
         private readonly ICalendarService _calendarService;
         private readonly IEventService _eventService;
-
-        public Localizer T { get; set; }
-
-        public CalendarWidgetDriver(ICalendarService calendarService, IEventService eventService)
-        {
+        
+        public CalendarWidgetDriver(ICalendarService calendarService, IEventService eventService) {
             _calendarService = calendarService;
             _eventService = eventService;
 
             T = NullLocalizer.Instance;
         }
 
-        protected override DriverResult Display(CalendarWidgetPart part, string displayType, dynamic shapeHelper)
-        {
+        public Localizer T { get; set; }
+
+        protected override DriverResult Display(CalendarWidgetPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_CalendarWidget",
             	() => shapeHelper.Parts_CalendarWidget(
                 	CalendarEvents: _calendarService.GetEventDefinitions(part),
@@ -34,10 +30,8 @@ namespace DQ.Scheduling.Drivers
 			);
         }
 
-        protected override DriverResult Editor(CalendarWidgetPart part, dynamic shapeHelper)
-        {
-            var model = new EditCalendarWidgetViewModel
-            {
+        protected override DriverResult Editor(CalendarWidgetPart part, dynamic shapeHelper) {
+            var model = new EditCalendarWidgetViewModel {
                 Queries = _eventService.GetEventDefinitionQueries(),
                 QueryId = part.QueryId,
                 Plugins = _calendarService.GetCalendarPlugins(),
@@ -57,7 +51,6 @@ namespace DQ.Scheduling.Drivers
             var viewModel = new EditCalendarWidgetViewModel();
 
             if (updater.TryUpdateModel(viewModel, Prefix, null, new[] {"Queries", "Plugins"})) {
-
                 part.Plugin = viewModel.Plugin;
                 part.QueryId = viewModel.QueryId;
                 if (part.QueryId <= 0) {

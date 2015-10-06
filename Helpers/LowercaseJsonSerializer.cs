@@ -2,15 +2,12 @@
 using Newtonsoft.Json.Serialization;
 
 namespace DQ.Scheduling.Helpers {
-    public class LowercaseJsonSerializer
-    {
-        private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
+    public class LowercaseJsonSerializer {
+        private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings {
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        public static string SerializeObject(object o)
-        {
+        public static string SerializeObject(object o) {
             return JsonConvert.SerializeObject(o, Formatting.Indented, Settings);
         }
     }
