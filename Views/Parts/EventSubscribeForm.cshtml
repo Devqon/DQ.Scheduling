@@ -3,7 +3,6 @@
 @using Orchard.Utility.Extensions
 @{
     EventSubscriptionRecord model = Model.Subscription;
-    model.UserId = WorkContext.CurrentUser.Id;
     IContent ev = Model.Event;
 }
 
