@@ -1,11 +1,13 @@
-﻿using System.Web.Mvc;
-using DQ.Scheduling.Services;
+﻿using DQ.Scheduling.Services;
 using DQ.Scheduling.ViewModels;
+using Orchard.Environment.Extensions;
 using Orchard.Mvc.Extensions;
 using Orchard.Themes;
+using System.Web.Mvc;
 
 namespace DQ.Scheduling.Controllers {
     [Themed]
+    [OrchardFeature("DQ.EventSubscribe")]
     public class EventSubscribeController : Controller {
         private readonly ISubscriptionService _subscriptionService;
         public EventSubscribeController(ISubscriptionService subscriptionService) {
