@@ -49,7 +49,7 @@ namespace DQ.Scheduling.Drivers {
                 .FromAttr(p => p.UpcomingNotificationInterval)
                 .FromAttr(p => p.UpcomingNotificationIntervalCount)
                 .FromAttr(p => p.FollowUpNotificationInterval)
-                .FromAttr(p => p.FollowUpNotificationCount);
+                .FromAttr(p => p.FollowUpNotificationIntervalCount);
         }
 
         protected override void Exporting(NotificationsPlanPart part, ExportContentContext context) {
@@ -58,7 +58,7 @@ namespace DQ.Scheduling.Drivers {
                 .ToAttr(p => p.UpcomingNotificationInterval)
                 .ToAttr(p => p.UpcomingNotificationIntervalCount)
                 .ToAttr(p => p.FollowUpNotificationInterval)
-                .ToAttr(p => p.FollowUpNotificationCount);
+                .ToAttr(p => p.FollowUpNotificationIntervalCount);
         }
 
     }

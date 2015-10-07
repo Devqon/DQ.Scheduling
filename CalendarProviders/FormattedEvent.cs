@@ -2,7 +2,7 @@
 
 namespace DQ.Scheduling.CalendarProviders {
     [Serializable]
-    public abstract class SerializedEvent {
+    public abstract class FormattedEvent {
         
     }
 }

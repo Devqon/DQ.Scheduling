@@ -9,7 +9,7 @@
 
     @if (Model.ContentId > 0) {
         @* This needs to be handled via javascript *@
-        @using (Html.BeginFormAntiForgeryPost(Url.Action("SendCustomNotification", new { controller = "NotificationsAdmin", area = "DQ.Scheduling", contentid = Model.ContentId }), FormMethod.Post)) {
+        using (Html.BeginFormAntiForgeryPost(Url.Action("SendCustomNotification", new { controller = "NotificationsAdmin", area = "DQ.Scheduling", contentid = Model.ContentId }), FormMethod.Post)) {
             @Html.ValidationSummary()
 
             <label>Custom Notifications (not functional yet)</label>

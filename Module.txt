@@ -36,4 +36,3 @@ Features:
 		Description: Leverages the Full Calendar (Standard Edition) script for projecting the scheduled events on a calendar
 		Category: Scheduling
 		Dependencies: DQ.SchedulingCalendar, Orchard.jQuery
-	

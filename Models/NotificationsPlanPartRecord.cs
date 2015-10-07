@@ -7,6 +7,6 @@ namespace DQ.Scheduling.Models {
         public virtual NotificationIntervalType UpcomingNotificationInterval { get; set; }
         public virtual int UpcomingNotificationIntervalCount { get; set; }
         public virtual NotificationIntervalType FollowUpNotificationInterval { get; set; }
-        public virtual int FollowUpNotificationCount { get; set; }
+        public virtual int FollowUpNotificationIntervalCount { get; set; }
     }
 }

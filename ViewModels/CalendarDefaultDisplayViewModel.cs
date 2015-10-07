@@ -5,7 +5,7 @@ using System;
 
 namespace DQ.Scheduling.ViewModels {
     [OrchardFeature("DQ.SchedulingCalendar")]
-    public class CalendarDefaultDisplayViewModel : SerializedEvent {
+    public class CalendarDefaultDisplayViewModel : FormattedEvent {
         public string Title { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }

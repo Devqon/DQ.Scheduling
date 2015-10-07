@@ -15,7 +15,7 @@ namespace DQ.Scheduling.CalendarProviders {
 
         public string Name { get { return "Default"; } }
 
-        public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
+        public IEnumerable<FormattedEvent> FormatCalendarEvents(IEnumerable<IContent> events) {
             var viewModels = new List<CalendarDefaultDisplayViewModel>();
 
             foreach (var ci in events) {

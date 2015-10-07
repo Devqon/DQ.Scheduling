@@ -2,7 +2,7 @@
 @using DQ.Scheduling.Models;
 
 @{ 
-    Dictionary<string, string> intervals = new Dictionary<string, string>();
+    var intervals = new Dictionary<string, string>();
     intervals.Add(NotificationIntervalType.None.ToString(), T("None").ToString());
     intervals.Add(NotificationIntervalType.Day.ToString(), T("Day").ToString());
     intervals.Add(NotificationIntervalType.Week.ToString(), T("Week").ToString());

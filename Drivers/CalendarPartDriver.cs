@@ -24,7 +24,7 @@ namespace DQ.Scheduling.Drivers {
         protected override DriverResult Display(CalendarPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_Calendar",
             	() => shapeHelper.Parts_Calendar(
-                	CalendarEvents: _calendarService.GetEventDefinitions(part),
+                	CalendarEvents: _calendarService.GetFormattedCalendarEvents(part),
                     Plugin: part.Plugin
                 )
 			);

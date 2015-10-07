@@ -37,8 +37,8 @@
                 @:@T("Upcoming Event"): @notificationsPlanPart.UpcomingNotificationIntervalCount @upcomingIntervalText @T("prior to event start.")
             }
             @if (notificationsPlanPart.FollowUpNotificationInterval != NotificationIntervalType.None) {
-                string followUpintervalText = GetLocalizedTime(notificationsPlanPart.FollowUpNotificationInterval, notificationsPlanPart.FollowUpNotificationCount);
-                @:<br />@T("Follow Up to Event"): @notificationsPlanPart.FollowUpNotificationCount @followUpintervalText @T("after event ends.")
+                string followUpintervalText = GetLocalizedTime(notificationsPlanPart.FollowUpNotificationInterval, notificationsPlanPart.FollowUpNotificationIntervalCount);
+                @:<br />@T("Follow Up to Event"): @notificationsPlanPart.FollowUpNotificationIntervalCount @followUpintervalText @T("after event ends.")
             }
         </p>
     </fieldset>

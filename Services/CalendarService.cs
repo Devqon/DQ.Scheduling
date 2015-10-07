@@ -9,29 +9,29 @@ namespace DQ.Scheduling.Services {
     [OrchardFeature("DQ.SchedulingCalendar")]
     public class CalendarService : ICalendarService {
         private readonly IProjectionManager _projectionManager;
-        private readonly IEnumerable<ICalendarProvider> _providers; 
+        private readonly IEnumerable<ICalendarProvider> _calendarProviders; 
 
-        public CalendarService(IProjectionManager projectionManager, IEnumerable<ICalendarProvider> providers) {
+        public CalendarService(IProjectionManager projectionManager, IEnumerable<ICalendarProvider> calendarProviders) {
             _projectionManager = projectionManager;
-            _providers = providers;
+            _calendarProviders = calendarProviders;
         }
 
-        public IEnumerable<SerializedEvent> GetEventDefinitions(CalendarPart part) {
+        public IEnumerable<FormattedEvent> GetFormattedCalendarEvents(CalendarPart part) {
             var contentItems = _projectionManager.GetContentItems(part.QueryId);
 
-            var provider = _providers.SingleOrDefault(p => p.Name == part.Plugin);
+            var provider = _calendarProviders.SingleOrDefault(p => p.Name == part.Plugin);
             if (provider == null) {
                 // fallback to default
-                provider = _providers.Single(p => p.Name == "Default");
+                provider = _calendarProviders.Single(p => p.Name == "Default");
             }
 
-            var models = provider.SerializeEvents(contentItems);
+            var models = provider.FormatCalendarEvents(contentItems);
 
             return models;
         }
 
         public IList<string> GetCalendarPlugins() {
-            return _providers.Select(p => p.Name).ToList();
+            return _calendarProviders.Select(p => p.Name).ToList();
         } 
     }
 }

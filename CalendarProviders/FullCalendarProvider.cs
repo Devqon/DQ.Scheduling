@@ -22,7 +22,7 @@ namespace DQ.Scheduling.CalendarProviders {
 
         public string Name { get { return "Fullcalendar"; } }
 
-        public IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events) {
+        public IEnumerable<FormattedEvent> FormatCalendarEvents(IEnumerable<IContent> events) {
             var viewModels = new List<FullCalendarDisplayViewModel>();
 
             events.ToList().ForEach(ev => {

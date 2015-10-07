@@ -13,14 +13,14 @@ namespace DQ.Scheduling.SHapes {
         }
 
         public void Discover(ShapeTableBuilder builder) {
-            builder.Describe("Parts_CalendarWidget")
+            builder.Describe("Parts_Calendar")
                 .OnDisplaying(displaying => {
                     string plugin = displaying.Shape.Plugin;
                     var calendarProvider = _calendarProviders.FirstOrDefault(p => p.Name == plugin);
 
                     // Only if the provider is enabled
                     if (calendarProvider != null) {
-                        displaying.ShapeMetadata.Alternates.Add("Parts_CalendarWidget__" + plugin);
+                        displaying.ShapeMetadata.Alternates.Add("Parts_Calendar__" + plugin);
                     }
                 });
         }

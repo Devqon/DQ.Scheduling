@@ -4,7 +4,7 @@ using System;
 
 namespace DQ.Scheduling.ViewModels {
     [OrchardFeature("DQ.SchedulingFullCalendar")]
-    public class FullCalendarDisplayViewModel : SerializedEvent {
+    public class FullCalendarDisplayViewModel : FormattedEvent {
         public int Id { get; set; }
         public string Title { get; set; }
         public bool AllDay { get; set; }

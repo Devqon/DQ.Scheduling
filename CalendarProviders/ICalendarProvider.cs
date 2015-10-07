@@ -14,6 +14,6 @@ namespace DQ.Scheduling.CalendarProviders {
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        IEnumerable<SerializedEvent> SerializeEvents(IEnumerable<IContent> events);
+        IEnumerable<FormattedEvent> FormatCalendarEvents(IEnumerable<IContent> events);
     }
 }

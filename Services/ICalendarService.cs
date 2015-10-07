@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DQ.Scheduling.Services {
     public interface ICalendarService : IDependency {
-        IEnumerable<SerializedEvent> GetEventDefinitions(CalendarPart part);
+        IEnumerable<FormattedEvent> GetFormattedCalendarEvents(CalendarPart part);
         IList<string> GetCalendarPlugins();
     }
 }

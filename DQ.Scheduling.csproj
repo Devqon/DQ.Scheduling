@@ -95,7 +95,7 @@
     <Compile Include="CalendarProviders\DefaultCalendarProvider.cs" />
     <Compile Include="CalendarProviders\FullCalendarProvider.cs" />
     <Compile Include="CalendarProviders\ICalendarProvider.cs" />
-    <Compile Include="CalendarProviders\SerializedEvent.cs" />
+    <Compile Include="CalendarProviders\FormattedEvent.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\NotificationsAdminController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="Handlers\NotificationsPlanPartHandler.cs" />
     <Compile Include="Handlers\NotificationsSubscriptionPartHandler.cs" />
     <Compile Include="Handlers\SchedulingPartHandler.cs" />
-    <Compile Include="Handlers\CalendarHandler.cs" />
+    <Compile Include="Handlers\CalendarPartHandler.cs" />
     <Compile Include="Handlers\NotificationsPartHandler.cs" />
     <Compile Include="Handlers\NotificationsScheduledTaskHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
@@ -194,13 +194,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\ext\fullcalendar\moment.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parts.CalendarWidget-Fullcalendar.cshtml" />
+    <Content Include="Views\Parts.Calendar-Fullcalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\Notifications.cshtml" />

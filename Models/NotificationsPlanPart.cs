@@ -27,9 +27,9 @@ namespace DQ.Scheduling.Models {
             set { Store(r => r.FollowUpNotificationInterval, value); }
         }
 
-        public int FollowUpNotificationCount {
-            get { return Retrieve(r => r.FollowUpNotificationCount); }
-            set { Store(r => r.FollowUpNotificationCount, value); }
+        public int FollowUpNotificationIntervalCount {
+            get { return Retrieve(r => r.FollowUpNotificationIntervalCount); }
+            set { Store(r => r.FollowUpNotificationIntervalCount, value); }
         }
 
     }
