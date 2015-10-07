@@ -1,0 +1,32 @@
+﻿@model DQ.Scheduling.Models.NotificationsPlanPart
+@using DQ.Scheduling.Models;
+
+@{ 
+    Dictionary<string, string> intervals = new Dictionary<string, string>();
+    intervals.Add(NotificationIntervalType.None.ToString(), T("None").ToString());
+    intervals.Add(NotificationIntervalType.Day.ToString(), T("Day").ToString());
+    intervals.Add(NotificationIntervalType.Week.ToString(), T("Week").ToString());
+    intervals.Add(NotificationIntervalType.Month.ToString(), T("Month").ToString());
+    intervals.Add(NotificationIntervalType.Year.ToString(), T("Year").ToString());
+}
+<fieldset>
+    @Html.LabelFor(m => m.UpcomingNotificationInterval, T("Upcoming Event Notification Interval"))
+    @Html.DropDownListFor(m => m.UpcomingNotificationInterval, new SelectList(intervals, "Key", "Value", Model.UpcomingNotificationInterval.ToString()), T("Select").ToString())
+    <span class="hint">@T("Select 'None' for no upcoming event notifications.")</span>
+    
+    @Html.LabelFor(m => m.UpcomingNotificationIntervalCount, T("Notification Period"))
+    @Html.TextBoxFor(m => m.UpcomingNotificationIntervalCount)
+    <span class="hint">@T("Provide number of 'Notification Interval' before the event start date you want to trigger off the notification")</span>
+    <span class="hint">@T(" - For example, if you want the notification to fire 15 days before the event start date, select 'Day' for your 'Notification Interval' and '15' for your 'Notification Period'")</span>
+    <span class="hint">@T(" - Don't forget to set up a workflow to handle the upcoming event notifications!")</span>
+
+    @Html.LabelFor(m => m.FollowUpNotificationInterval, T("Follow Up Event Notification Interval"))
+    @Html.DropDownListFor(m => m.FollowUpNotificationInterval, new SelectList(intervals, "Key", "Value", Model.FollowUpNotificationInterval.ToString()), T("Select").ToString())
+    <span class="hint">@T("Select 'None' for no follow up notifications.")</span>
+
+    @Html.LabelFor(m => m.FollowUpNotificationIntervalCount, T("Notification Period"))
+    @Html.TextBoxFor(m => m.FollowUpNotificationIntervalCount)
+    <span class="hint">@T("Provide number of 'Notification Interval' after the event end date you want to trigger off the notification")</span>
+    <span class="hint">@T(" - For example, if you want the notification to fire 15 days after the event end date, select 'Day' for your 'Notification Interval' and '15' for your 'Notification Period'")</span>
+    <span class="hint">@T(" - Don't forget to set up a workflow to handle the  follow up event notifications!")</span>
+</fieldset>

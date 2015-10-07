@@ -1,0 +1,45 @@
+﻿@using DQ.Scheduling.Models
+
+@{
+    var notificationsPlanPart = (NotificationsPlanPart)Model.NotificatonsPlan;
+
+    @functions {
+        public string GetLocalizedTime(NotificationIntervalType notificationInterval, int intervals) {
+            string intervalText = "";
+            var args = new { };
+            switch (notificationInterval) {
+                case NotificationIntervalType.Day:
+                    intervalText = T.Plural("Day", "Days", intervals, args).Text;
+                    break;
+                case NotificationIntervalType.Week:
+                    intervalText = T.Plural("Week", "Weeks", intervals, args).Text;
+                    break;
+                case NotificationIntervalType.Month:
+                    intervalText = T.Plural("Month", "Months", intervals, args).Text;
+                    break;
+                case NotificationIntervalType.Year:
+                    intervalText = T.Plural("Year", "Years", intervals, args).Text;
+                    break;
+                default:
+                    intervalText = T("No Interval Provided").Text;
+                    break;
+            }
+            return intervalText;
+        }
+    }
+}
+@if (HasText(notificationsPlanPart)) {
+    <fieldset>
+        <legend>@T("Notifications Plan:")</legend>
+        <p>
+            @if (notificationsPlanPart.UpcomingNotificationInterval != NotificationIntervalType.None) {
+                string upcomingIntervalText = GetLocalizedTime(notificationsPlanPart.UpcomingNotificationInterval, notificationsPlanPart.UpcomingNotificationIntervalCount);
+                @:@T("Upcoming Event"): @notificationsPlanPart.UpcomingNotificationIntervalCount @upcomingIntervalText @T("prior to event start.")
+            }
+            @if (notificationsPlanPart.FollowUpNotificationInterval != NotificationIntervalType.None) {
+                string followUpintervalText = GetLocalizedTime(notificationsPlanPart.FollowUpNotificationInterval, notificationsPlanPart.FollowUpNotificationCount);
+                @:<br />@T("Follow Up to Event"): @notificationsPlanPart.FollowUpNotificationCount @followUpintervalText @T("after event ends.")
+            }
+        </p>
+    </fieldset>
+}

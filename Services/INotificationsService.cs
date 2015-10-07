@@ -9,7 +9,7 @@ namespace DQ.Scheduling.Services {
         /// Create a subscription to an event
         /// </summary>
         /// <param name="model"></param>
-        void CreateSubscription(NotificationsEditViewModel model);
+        void CreateSubscription(NotificationsFormEditViewModel model);
 
         void DeleteSubscriptions(int eventId, int userId);
         void DeleteSubscription(int id);

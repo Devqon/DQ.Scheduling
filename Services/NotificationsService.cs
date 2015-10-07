@@ -19,7 +19,7 @@ namespace DQ.Scheduling.Services {
             _contentManager = contentManager;
         }
 
-        public void CreateSubscription(NotificationsEditViewModel model) {
+        public void CreateSubscription(NotificationsFormEditViewModel model) {
             // Delete existing
             // TODO: is this needed?
             DeleteSubscriptions(model.EventId, model.UserId);

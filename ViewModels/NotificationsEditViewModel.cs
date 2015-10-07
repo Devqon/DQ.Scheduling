@@ -1,15 +1,12 @@
-﻿using DQ.Scheduling.Models;
-using Orchard.Environment.Extensions;
+﻿using Orchard.Environment.Extensions;
+using System.Collections.Generic;
 
 namespace DQ.Scheduling.ViewModels {
-    [OrchardFeature("DQ.SchedulingDownload")]
+    [OrchardFeature("DQ.SchedulingNotifications")]
     public class NotificationsEditViewModel {
-        public int Id { get; set; }
-        public int EventId { get; set; }
-        public int UserId { get; set; }
-
-        public SubscribeType SubscribeType { get; set; }
-        public int TimeDifference { get; set; }
-        public SubscribeDifference SubscribeDifference { get; set; }
+        public int ContentId { get; set; }
+        public bool AllowNotifications { get; set; }
+        public int? NotificationsPlanId { get; set; }
+        public Dictionary<int, string> NotificationPlans { get; set; }
     }
 }

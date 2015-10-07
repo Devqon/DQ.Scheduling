@@ -5,5 +5,6 @@ namespace DQ.Scheduling.Models {
     [OrchardFeature("DQ.SchedulingNotifications")]
     public class NotificationsPartRecord : ContentPartRecord {
         public virtual bool AllowNotifications { get; set; }
+        public virtual NotificationsPlanPartRecord NotificationsPlanPartRecord { get; set; }
     }
 }

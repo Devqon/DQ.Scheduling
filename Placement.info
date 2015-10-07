@@ -10,6 +10,8 @@
   <!-- Notifications -->
   <Match DisplayType="Detail">
     <Place Parts_NotificationsForm="Content:before" />
+    <Place Parts_NotificationsPlan="Content:before" />
   </Match>
   <Place Parts_Notifications_Edit="Content:7" />
+  <Place Parts_NotificationsPlan_Edit="Content:7" />
 </Placement>

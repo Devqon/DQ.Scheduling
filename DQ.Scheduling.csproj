@@ -97,20 +97,25 @@
     <Compile Include="CalendarProviders\ICalendarProvider.cs" />
     <Compile Include="CalendarProviders\SerializedEvent.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\NotificationsAdminController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Drivers\NotificationsPlanPartDriver.cs" />
     <Compile Include="Drivers\SchedulingPartDriver.cs" />
     <Compile Include="Drivers\CalendarPartDriver.cs" />
     <Compile Include="Drivers\NotificationsPartDriver.cs" />
+    <Compile Include="Handlers\NotificationsPlanPartHandler.cs" />
     <Compile Include="Handlers\NotificationsSubscriptionPartHandler.cs" />
     <Compile Include="Handlers\SchedulingPartHandler.cs" />
     <Compile Include="Handlers\CalendarHandler.cs" />
-    <Compile Include="Handlers\NotificationsTaskHandler.cs" />
     <Compile Include="Handlers\NotificationsPartHandler.cs" />
-    <Compile Include="Handlers\EventWorkflowsHandler.cs" />
+    <Compile Include="Handlers\NotificationsScheduledTaskHandler.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
     <Compile Include="Migrations\CalendarMigrations.cs" />
     <Compile Include="Migrations\NotificationsMigrations.cs" />
     <Compile Include="Migrations\SchedulingMigrations.cs" />
+    <Compile Include="Models\NotificationIntervalType.cs" />
+    <Compile Include="Models\NotificationsPlanPart.cs" />
+    <Compile Include="Models\NotificationsPlanPartRecord.cs" />
     <Compile Include="Models\NotificationsSubscriptionPart.cs" />
     <Compile Include="Models\SchedulingPart.cs" />
     <Compile Include="Models\SchedulingPartRecord.cs" />
@@ -125,16 +130,18 @@
     <Compile Include="Services\INotificationsService.cs" />
     <Compile Include="Services\NotificationsService.cs" />
     <Compile Include="Shapes\CalendarShapes.cs" />
+    <Compile Include="Tokens\NotificationsTokens.cs" />
     <Compile Include="ViewModels\CalendarDefaultDisplayViewModel.cs" />
+    <Compile Include="ViewModels\NotificationsEditViewModel.cs" />
     <Compile Include="ViewModels\SchedulingEditViewModel.cs" />
     <Compile Include="ViewModels\CalendarEditViewModel.cs" />
     <Compile Include="Models\CalendarPartRecord.cs" />
     <Compile Include="ResourceManifests\FullCalendarResourceManifest.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\ICalendarService.cs" />
-    <Compile Include="ViewModels\NotificationsEditViewModel.cs" />
+    <Compile Include="ViewModels\NotificationsFormEditViewModel.cs" />
     <Compile Include="ViewModels\FullCalendarDisplayViewModel.cs" />
-    <Compile Include="Activities\SchedulingActivity.cs" />
+    <Compile Include="Activities\NotificationsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\Calendar.cshtml" />
@@ -203,6 +210,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Template.EventNotification.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\NotificationsPlan.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\NotificationsPlan.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,7 +1,21 @@
-﻿@model DQ.Scheduling.Models.EventSubscribePart
+﻿@model DQ.Scheduling.ViewModels.NotificationsEditViewModel
 
 <fieldset>
-    @Html.LabelFor(m => m.AllowSubscriptions, T("Allow subscriptions"))
-    @Html.CheckBoxFor(m => m.AllowSubscriptions)
-    <span class="hint">@T("Check if users may subscribe to this event")</span>
+    @Html.CheckBoxFor(m => m.AllowNotifications)<label class="sub" for="@Html.IdFor(m => m.AllowNotifications)">@T("Allow Notifications")</label><br />
+    <span class="hint">@T("Check if website users may subscribe to notifications on this event")</span>
+
+    @Html.LabelFor(m => m.NotificationsPlanId, T("Notifications Plan"))
+    @Html.DropDownListFor(m => m.NotificationsPlanId, new SelectList(Model.NotificationPlans, "Key", "Value", Model.NotificationsPlanId), T("None Selected").ToString(), null)
+
+    @if (Model.ContentId > 0) {
+        @* This needs to be handled via javascript *@
+        @using (Html.BeginFormAntiForgeryPost(Url.Action("SendCustomNotification", new { controller = "NotificationsAdmin", area = "DQ.Scheduling", contentid = Model.ContentId }), FormMethod.Post)) {
+            @Html.ValidationSummary()
+
+            <label>Custom Notifications (not functional yet)</label>
+            <textarea></textarea>
+            <span class="hint">@T("Trigger off a Custom Notifications event witht he above message - Don't forget to set up the workflow!")</span>
+            <button type="submit">@T("Send")</button>
+        }
+    }
 </fieldset>

@@ -1,4 +1,4 @@
-﻿Name: DQ.Scheduling
+﻿Name: Scheduling
 AntiForgery: enabled
 Author: Devqon, Jeff Olmstead
 Website: https://github.com/devqon/dq.scheduling
@@ -11,16 +11,16 @@ Features:
 		Description: Provides ability to schedule events
 		Category: Scheduling
 		Dependencies: Orchard.Projections
-	DQ.SchedulingWorkflows:
-		Name: Scheduling Workflows
-		Description: Provides Scheduling Workflows
-		Category: Workflows
-		Dependencies: DQ.Scheduling, Orchard.Workflows
 	DQ.SchedulingCalendar:
 		Name: Scheduling Calendar
 		Description: Provides base interface for a calendar, need to enable an actual calendar provider such as Scheduling Full Calendar
 		Category: Scheduling
 		Dependencies: DQ.Scheduling
+	DQ.SchedulingNotifications:
+		Name: Scheduling Notifications
+		Description: Allows users to sign up to receive notifications on a scheduled event, need to enable an actual notification provider
+		Category: Scheduling
+		Dependencies: DQ.Scheduling, Orchard.Workflows
 	DQ.SchedulingDownload:
 		Name: Scheduling Download
 		Description: Provides base interface for downloading events as a calendar item, need to enable an actual client download provider
@@ -31,13 +31,9 @@ Features:
 		Description: Provides base interface to read in scheduling events from an external calendar, need to enable an actual external calendar provider
 		Category: Scheduling
 		Dependencies: DQ.Scheduling
-	DQ.SchedulingNotifications:
-		Name: Scheduling Notifications
-		Description: Provides base interface for users to sign up to receive notifications on a scheduled event, need to enable an actual notification provider
-		Category: Scheduling
-		Dependencies: DQ.Scheduling
 	DQ.SchedulingFullCalendar:
 		Name: Scheduling Full Calendar
 		Description: Leverages the Full Calendar (Standard Edition) script for projecting the scheduled events on a calendar
 		Category: Scheduling
 		Dependencies: DQ.SchedulingCalendar, Orchard.jQuery
+	
