@@ -43,10 +43,11 @@ namespace DQ.Scheduling.Drivers
         protected override DriverResult Editor(NotificationsSubscriptionPart part, IUpdateModel updater, dynamic shapeHelper) {
             updater.TryUpdateModel(part, Prefix, null, null);
 
+            // TODO: use chosen subscribe type
+            part.SubscribeType = SubscribeType.Email;
+
             if (part.SubscribeType == SubscribeType.Email || part.SubscribeType == SubscribeType.Both && string.IsNullOrEmpty(part.Email)) {
 
-                // TODO: use subscribe type
-                part.SubscribeType = SubscribeType.Email;
                 var currentUser = _workContextAccessor.GetContext().CurrentUser;
 
                 if (currentUser == null) {

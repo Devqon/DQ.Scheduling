@@ -34,20 +34,6 @@ namespace DQ.Scheduling.Controllers {
 
             var notificationSubscription = _contentManager.New<NotificationsSubscriptionPart>("NotificationSubscription");
 
-            // TODO: use subscribe type
-            notificationSubscription.SubscribeType = SubscribeType.Email;
-            var currentUser = _orchardServices.WorkContext.CurrentUser;
-            if (currentUser == null) {
-                // Email should be filled in
-                if (string.IsNullOrEmpty(notificationSubscription.Email)) {
-                    ModelState.AddModelError("Email", T("Email is mandatory"));
-                }
-            }
-            else {
-                notificationSubscription.Email = currentUser.Email;
-                notificationSubscription.UserId = currentUser.Id;
-            }
-
             var editorShape = _contentManager.UpdateEditor(notificationSubscription, this);
 
             if (ModelState.IsValid) {
