@@ -19,8 +19,10 @@
   <Match ContentType="NotificationSubscription">
     <Place Content_SaveButton="-" />
   </Match>
-
+  
+  <!-- Admin -->
   <Match DisplayType="SummaryAdmin">
     <Place Parts_NotificationsSubscriptionList_SummaryAdmin="Content:after" />
   </Match>
+  <Place Parts_NotificationSubscription_Edit_Admin="Content:2" />
 </Placement>

@@ -4,6 +4,7 @@ using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.Environment.Extensions;
 using Orchard.Localization;
+using Orchard.UI.Admin;
 
 namespace DQ.Scheduling.Drivers
 {
@@ -20,10 +21,23 @@ namespace DQ.Scheduling.Drivers
         public Localizer T { get; set; }
 
         protected override DriverResult Editor(NotificationsSubscriptionPart part, dynamic shapeHelper) {
-            return ContentShape("Parts_NotificationsSubscription_Edit", () => shapeHelper.EditorTemplate(
-                TemplateName: "Parts/NotificationsSubscription",
-                Model: part
-            ));
+            return Combined(
+                ContentShape("Parts_NotificationsSubscription_Edit", () => shapeHelper.EditorTemplate(
+                    TemplateName: "Parts/NotificationsSubscription",
+                    Model: part
+                )),
+                ContentShape("Parts_NotificationSubscription_Edit_Admin", () => {
+
+                    // Only from dashboard
+                    if (!AdminFilter.IsApplied(_workContextAccessor.GetContext().HttpContext.Request.RequestContext))
+                        return null;
+
+                    return shapeHelper.EditorTemplate(
+                        TemplateName: "Parts/NotificationsSubscription.Admin",
+                        Model: part
+                    );
+                })
+            );
         }
 
         protected override DriverResult Editor(NotificationsSubscriptionPart part, IUpdateModel updater, dynamic shapeHelper) {
@@ -34,6 +48,7 @@ namespace DQ.Scheduling.Drivers
                 // TODO: use subscribe type
                 part.SubscribeType = SubscribeType.Email;
                 var currentUser = _workContextAccessor.GetContext().CurrentUser;
+
                 if (currentUser == null) {
                     // Email should be filled in
                     if (string.IsNullOrEmpty(part.Email)) {
@@ -41,8 +56,11 @@ namespace DQ.Scheduling.Drivers
                     }
                 }
                 else {
-                    part.Email = currentUser.Email;
-                    part.UserId = currentUser.Id;
+                    // Admin can change email, so do not always base on current user
+                    if (string.IsNullOrEmpty(part.Email)) {
+                        part.Email = currentUser.Email;
+                        part.UserId = currentUser.Id;
+                    }
                 }
             }
             if (part.SubscribeType == SubscribeType.Sms || part.SubscribeType == SubscribeType.Both && string.IsNullOrEmpty(part.Phone)) {

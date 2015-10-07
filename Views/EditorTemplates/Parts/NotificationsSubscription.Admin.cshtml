@@ -1,0 +1,13 @@
+﻿@model DQ.Scheduling.Models.NotificationsSubscriptionPart
+
+@*
+    TODO: integrate other subscriptions: choose from subscription type?
+*@
+
+<fieldset>
+    @Html.LabelFor(m => m.Email, T("Email"))
+    @Html.TextBoxFor(m => m.Email, new { type = "email" })
+</fieldset>
+<fieldset>
+    <button class="primaryAction" type="submit" name="submit.Save" value="save">@T("Save")</button>
+</fieldset>
