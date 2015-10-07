@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using Orchard.Core.Title.Models;
 using System.Collections.Generic;
 using DQ.Scheduling.ViewModels;
+using Orchard.UI.Admin;
 
 namespace DQ.Scheduling.Drivers {
     [OrchardFeature("DQ.SchedulingNotifications")]
@@ -34,31 +35,47 @@ namespace DQ.Scheduling.Drivers {
         }
 
         protected override DriverResult Display(NotificationsPart part, string displayType, dynamic shapeHelper) {
-            return ContentShape("Parts_NotificationsForm", () => {
+            return Combined(
+                ContentShape("Parts_NotificationsForm", () => {
 
-                // Check if user can subscribe for notifications
-                if (!_notificationsService.CanSubscribeForNotifications(part))
-                    return null;
+                    // Check if user can subscribe for notifications
+                    if (!_notificationsService.CanSubscribeForNotifications(part))
+                        return null;
 
-                var user = _workContextAccessor.GetContext().CurrentUser;
+                    var user = _workContextAccessor.GetContext().CurrentUser;
 
-                // Already subscribed, can only check for authenticated users
-                // TODO: Get subscription content items?
-                var existingSubscription = user == null ? null : _notificationsService.GetSubscriptions(part.Id, user.Id).FirstOrDefault();
+                    // Already subscribed, can only check for authenticated users
+                    // TODO: Get subscription content items?
+                    var existingSubscription = user == null ? null : _notificationsService.GetSubscriptions(part.Id, user.Id).FirstOrDefault();
 
-                // Create subscription editor shape
-                var notificationSubscription = _contentManager.New("NotificationSubscription");
-                if (notificationSubscription.Has<NotificationsSubscriptionPart>())
-                    notificationSubscription.As<NotificationsSubscriptionPart>().Event = part.ContentItem;
+                    // Create subscription editor shape
+                    var notificationSubscription = _contentManager.New("NotificationSubscription");
+                    if (notificationSubscription.Has<NotificationsSubscriptionPart>())
+                        notificationSubscription.As<NotificationsSubscriptionPart>().Event = part.ContentItem;
 
-                var editor = _contentManager.BuildEditor(notificationSubscription);
+                    var editor = _contentManager.BuildEditor(notificationSubscription);
 
-                return shapeHelper.Parts_NotificationsForm(
-                    Subscribed: existingSubscription != null,
-                    Event: part.ContentItem,
-                    EditorShape: editor
-                );
-            });
+                    return shapeHelper.Parts_NotificationsForm(
+                        Subscribed: existingSubscription != null,
+                        Event: part.ContentItem,
+                        EditorShape: editor
+                    );
+                }),
+                ContentShape("Parts_NotificationsSubscriptionList_SummaryAdmin", () => {
+
+                    if (!AdminFilter.IsApplied(_workContextAccessor.GetContext().HttpContext.Request.RequestContext))
+                        return null;
+
+                    var subscriptions = _notificationsService.GetSubscriptions(part.Id).ToList();
+
+                    // List subscriptions
+                    var list = shapeHelper.List();
+                    list.AddRange(subscriptions.Select(s => _contentManager.BuildDisplay(s, "SummaryAdmin")));
+
+                    // TODO: pagination
+
+                    return shapeHelper.Parts_NotificationsSubscriptionList(List: list, Count: subscriptions.Count());
+                }));
         }
 
         //GET

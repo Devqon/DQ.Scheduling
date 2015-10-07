@@ -13,8 +13,9 @@ namespace DQ.Scheduling.Services {
 
         void DeleteSubscriptions(int eventId, int userId);
         void DeleteSubscription(int id);
-        IEnumerable<NotificationsSubscriptionPartRecord> GetSubscriptions(int eventId, int userId);
+        IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId, int userId);
         void DeleteSubscription(NotificationsSubscriptionPartRecord subscription);
         bool CanSubscribeForNotifications(NotificationsPart part);
+        IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId);
     }
 }

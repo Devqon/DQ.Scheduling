@@ -58,6 +58,7 @@
     <Content Include="Scripts\ext\fullcalendar\IFullCalendar.js" />
     <Content Include="Scripts\ext\fullcalendar\lang-all.js" />
     <Content Include="Scripts\ext\fullcalendar\moment-with-locales.min.js" />
+    <Content Include="Scripts\admin-subscriptionlist.js" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.min.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.print.css" />
@@ -127,6 +128,7 @@
     <Compile Include="Models\SubscribeType.cs" />
     <Compile Include="Permissions\NotificationsPermissions.cs" />
     <Compile Include="Permissions\SubscribePermissions.cs" />
+    <Compile Include="ResourceManifests\NotificationsSubscriptionResourceManifest.cs" />
     <Compile Include="Services\SchedulingService.cs" />
     <Compile Include="Services\ISchedulingService.cs" />
     <Compile Include="Services\INotificationsService.cs" />
@@ -222,6 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\NotificationsSubscription.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\NotificationsSubscriptionList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

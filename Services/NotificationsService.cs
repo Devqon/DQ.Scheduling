@@ -1,6 +1,7 @@
 ﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
 using Orchard.Data;
 using Orchard.Environment.Extensions;
 using Orchard.Security;
@@ -35,6 +36,7 @@ namespace DQ.Scheduling.Services {
             // TODO: is this needed?
             DeleteSubscriptions(model.EventId, model.UserId);
 
+            // TODO: don't use repository anymore
             _repository.Create(new NotificationsSubscriptionPartRecord {
                 EventId = model.EventId,
                 UserId = model.UserId,
@@ -64,11 +66,12 @@ namespace DQ.Scheduling.Services {
             }
         }
 
+        // TODO: don't use repository anymore, but ContentManager
         public void DeleteSubscription(int id) {
-            var subscription = _repository.Get(s => s.Id == id);
-            if (subscription != null) {
-                DeleteSubscription(subscription);
-            }
+            //var subscription = _repository.Get(s => s.Id == id);
+            //if (subscription != null) {
+            //    DeleteSubscription(subscription);
+            //}
         }
 
         public void DeleteSubscription(NotificationsSubscriptionPartRecord subscription) {
@@ -76,10 +79,10 @@ namespace DQ.Scheduling.Services {
         }
 
         public void DeleteSubscriptions(int eventId, int userId) {
-            var subscriptions = GetSubscriptions(eventId, userId);
-            foreach (var subscription in subscriptions) {
-                DeleteSubscription(subscription);
-            }
+            //var subscriptions = GetSubscriptions(eventId, userId);
+            //foreach (var subscription in subscriptions) {
+            //    DeleteSubscription(subscription);
+            //}
         }
 
         public bool CanSubscribeForNotifications(NotificationsPart part) {
@@ -100,8 +103,23 @@ namespace DQ.Scheduling.Services {
             return true;
         }
 
-        public IEnumerable<NotificationsSubscriptionPartRecord> GetSubscriptions(int eventId, int userId) {
-            return _repository.Fetch(s => s.EventId == eventId && s.UserId == userId);
+        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId, int userId) {
+
+            var subscriptions = _contentManager
+                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>()
+                .Where(s => s.UserId == userId)
+                .Where<CommonPartRecord>(c => c.Container.Id == eventId);
+
+            return subscriptions.List();
+        }
+
+        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId) {
+
+            var subscriptions = _contentManager
+                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>()
+                .Where<CommonPartRecord>(c => c.Container.Id == eventId);
+
+            return subscriptions.List();
         } 
     }
 }
