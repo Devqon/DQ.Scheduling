@@ -2,7 +2,7 @@
 @using Orchard.ContentManagement
 @using Orchard.Utility.Extensions
 @{
-    EventSubscriptionRecord model = Model.Subscription;
+    NotificationsSubscriptionPartRecord model = Model.Subscription;
     IContent ev = Model.Event;
 
     bool alreadySubscribed = Model.Subscribed;
@@ -10,31 +10,48 @@
 
 @if (!alreadySubscribed)
 {
-    using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new { controller = "EventSubscribe", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post))
+    using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new { controller = "Notifications", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post, new { @class = "subscribe-form" }))
     {
-
-        @Html.HiddenFor(m => model.EventId)
-        @Html.HiddenFor(m => model.UserId)
-        <fieldset>
-            @Html.LabelFor(m => model.SubscribeType, T("Subscribe Type"))
-            @Html.DropDownListFor(m => model.SubscribeType, Enum.GetValues(typeof(SubscribeType)).Cast<SubscribeType>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
-        </fieldset>
-        <fieldset>
-            @Html.LabelFor(m => model.SubscribeDifference, T("Subscribe Difference Type"))
-            @Html.DropDownListFor(m => model.SubscribeDifference, Enum.GetValues(typeof(SubscribeDifference)).Cast<SubscribeDifference>().Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
-        </fieldset>
-        <fieldset>
-            @Html.LabelFor(m => model.TimeDifference, T("How much time you want to be notified"))
-            @Html.TextBoxFor(m => model.TimeDifference, new { type = "number" })
-        </fieldset>
+        if (TempData.ContainsKey("Scheduling.InvalidSubscriptionShape")) {
+            @Display(TempData["Scheduling.InvalidSubscriptionShape"])
+        }
+        else {
+            @Display(Model.EditorShape)
+        }
 
         <button type="submit">@T("Subscribe")</button>
     }
 }
 else
 {
-    using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new {controller = "EventSubscribe", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString()}), FormMethod.Post)) {
+    using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new { controller = "Notifications", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post, new { @class = "subscribe-form" }))
+    {
         @Html.HiddenFor(m => model.Id)
         <button type="submit">@T("UnSubscribe")</button>
     }
+}
+
+@using (Script.Foot()) {
+    
+    <script>
+        (function($) {
+
+            // Catch submit
+            //$("form.subscribe-form").submit(function (event) {
+            //    var form = $(this);
+            //    var url = form.attr("action"),
+            //        serialized = form.serialize();
+
+            //    // Ajax
+            //    $.post(url, serialized, function(response) {
+            //        // Callback
+
+            //    });
+
+            //    event.preventDefault();
+            //});
+
+        })(jQuery);
+    </script>
+    
 }

@@ -13,9 +13,7 @@ namespace DQ.Scheduling.CalendarProviders {
         private readonly IContentManager _contentManager;
         private readonly UrlHelper _urlHelper;
 
-        public FullCalendarProvider(IContentManager contentManager
-            , UrlHelper urlHelper) {
-
+        public FullCalendarProvider(IContentManager contentManager, UrlHelper urlHelper) {
             _contentManager = contentManager;
             _urlHelper = urlHelper;
         }

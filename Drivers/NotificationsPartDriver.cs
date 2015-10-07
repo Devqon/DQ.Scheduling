@@ -6,7 +6,6 @@ using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.ContentManagement.Handlers;
 using Orchard.Environment.Extensions;
-using Orchard.Services;
 using System.Xml.Linq;
 using Orchard.Core.Title.Models;
 using System.Collections.Generic;
@@ -15,52 +14,51 @@ using DQ.Scheduling.ViewModels;
 namespace DQ.Scheduling.Drivers {
     [OrchardFeature("DQ.SchedulingNotifications")]
     public class NotificationsPartDriver : ContentPartDriver<NotificationsPart> {
-        private readonly IClock _clock;
         private readonly INotificationsService _notificationsService;
         private readonly IWorkContextAccessor _workContextAccessor;
         private readonly IContentManager _contentManager;
 
-        public NotificationsPartDriver(IClock clock
-            , INotificationsService notificationsService
-            , IWorkContextAccessor workContextAccessor
-            , IContentManager contentManager) {
+        private const string NotificationsPlanName = "NotificationsPlan";
 
-            _clock = clock;
+        public NotificationsPartDriver(
+            INotificationsService notificationsService,
+            IWorkContextAccessor workContextAccessor,
+            IContentManager contentManager) {
             _notificationsService = notificationsService;
             _workContextAccessor = workContextAccessor;
             _contentManager = contentManager;
         }
 
-        private const string NotificationsPlanName = "NotificationsPlan";
-
         protected override string Prefix {
             get { return "SchedulingNotifications"; }
         }
 
-        // TODO: This whole display area needs Reworked
         protected override DriverResult Display(NotificationsPart part, string displayType, dynamic shapeHelper) {
-            return ContentShape("Parts_NotificationsForm", 
-                () => {
-                    var contentItem = part.ContentItem;
-                    var schedulingPart = contentItem.As<SchedulingPart>();
+            return ContentShape("Parts_NotificationsForm", () => {
 
-                    // Cannot subscribe to events in the past
-                    // TODO: Should make a shared method to determine whether an event is in the future, such as ScheduleService.GetNextOccurrence
-                    if (schedulingPart == null || (schedulingPart.StartDateTime < _clock.UtcNow && !schedulingPart.IsRecurring))
-                        return null;
+                // Check if user can subscribe for notifications
+                if (!_notificationsService.CanSubscribeForNotifications(part))
+                    return null;
 
-                    // TODO: don't want to use current user as the basis of whether or not someone has subscribed as that would mean authenticated users only
-                    var user = _workContextAccessor.GetContext().CurrentUser;
+                var user = _workContextAccessor.GetContext().CurrentUser;
 
-                    // Already subscribed
-                    var existingSubscription = _notificationsService.GetSubscriptions(schedulingPart.Id, user.Id).FirstOrDefault();
+                // Already subscribed, can only check for authenticated users
+                // TODO: Get subscription content items?
+                var existingSubscription = user == null ? null : _notificationsService.GetSubscriptions(part.Id, user.Id).FirstOrDefault();
 
-                    return shapeHelper.Parts_NotificationsForm(
-                        Subscribed: existingSubscription != null,
-                        Event: part.ContentItem,
-                        Subscription: existingSubscription ?? new NotificationsSubscriptionPartRecord { EventId = part.Id, UserId = user.Id }
-                        );
-                });
+                // Create subscription editor shape
+                var notificationSubscription = _contentManager.New("NotificationSubscription");
+                if (notificationSubscription.Has<NotificationsSubscriptionPart>())
+                    notificationSubscription.As<NotificationsSubscriptionPart>().Event = part.ContentItem;
+
+                var editor = _contentManager.BuildEditor(notificationSubscription);
+
+                return shapeHelper.Parts_NotificationsForm(
+                    Subscribed: existingSubscription != null,
+                    Event: part.ContentItem,
+                    EditorShape: editor
+                );
+            });
         }
 
         //GET

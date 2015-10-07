@@ -1,10 +1,10 @@
-﻿using DQ.Scheduling.Models;
+﻿using System.Web.Routing;
+using DQ.Scheduling.Models;
+using Orchard.ContentManagement;
 using Orchard.ContentManagement.Handlers;
 using Orchard.ContentManagement.MetaData;
 using Orchard.Data;
 using Orchard.Environment.Extensions;
-using System.Linq;
-using System;
 
 namespace DQ.Scheduling.Handlers {
     [OrchardFeature("DQ.SchedulingNotifications")]
@@ -25,6 +25,23 @@ namespace DQ.Scheduling.Handlers {
             // TODO: these triggers / iterating over interfaces are what will allow other modules to integrate
         }
 
+        protected override void GetItemMetadata(GetContentItemMetadataContext context) {
+            var notificationsSubscription = context.ContentItem.As<NotificationsSubscriptionPart>();
 
+            if (notificationsSubscription == null)
+                return;
+
+            context.Metadata.CreateRouteValues = new RouteValueDictionary {
+                {"Area", "DQ.Scheduling"},
+                {"Controller", "Notifications"},
+                {"Action", "Subscribe"}
+            };
+
+            context.Metadata.RemoveRouteValues = new RouteValueDictionary {
+                {"Area", "DQ.Scheduling"},
+                {"Controller", "Notifications"},
+                {"Action", "UnSubscribe"}
+            };
+        }
     }
 }

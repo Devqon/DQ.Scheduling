@@ -100,6 +100,7 @@
     <Compile Include="Controllers\NotificationsAdminController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Drivers\NotificationsPlanPartDriver.cs" />
+    <Compile Include="Drivers\NotificationsSubscriptionPartDriver.cs" />
     <Compile Include="Drivers\SchedulingPartDriver.cs" />
     <Compile Include="Drivers\CalendarPartDriver.cs" />
     <Compile Include="Drivers\NotificationsPartDriver.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Models\NotificationsPartRecord.cs" />
     <Compile Include="Models\NotificationsSubscriptionPartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
+    <Compile Include="Permissions\NotificationsPermissions.cs" />
     <Compile Include="Permissions\SubscribePermissions.cs" />
     <Compile Include="Services\SchedulingService.cs" />
     <Compile Include="Services\ISchedulingService.cs" />
@@ -217,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Parts\NotificationsPlan.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\NotificationsSubscription.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
