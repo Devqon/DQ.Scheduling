@@ -88,8 +88,9 @@ namespace DQ.Scheduling.Drivers {
             var model = new NotificationsEditViewModel();
 
             if (updater.TryUpdateModel(model, Prefix, null, null)) {
+                part.AllowNotifications = model.AllowNotifications;
                 if (model.NotificationsPlanId.HasValue) {
-                    var notificationsPlan = _contentManager.Get(model.NotificationsPlanId.Value).As<NotificationsPlanPart>();
+                    var notificationsPlan = _contentManager.Get<NotificationsPlanPart>(model.NotificationsPlanId.Value);
                     part.NotificationsPlanPartRecord = notificationsPlan == null ? null : notificationsPlan.Record;
                 }
                 else {

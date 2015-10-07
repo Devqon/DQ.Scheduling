@@ -11,10 +11,12 @@ namespace DQ.Scheduling.Models {
             get { return Retrieve(r => r.AllowNotifications); }
             set { Store(s => s.AllowNotifications, value); }
         }
+
         public NotificationsPlanPartRecord NotificationsPlanPartRecord {
             get { return Record.NotificationsPlanPartRecord; }
             set { Record.NotificationsPlanPartRecord = value; }
         }
+
         public NotificationsPlanPart NotificationsPlanPart {
             get {
                 return _contentItem.Value;
