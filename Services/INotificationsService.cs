@@ -1,6 +1,7 @@
 ﻿using DQ.Scheduling.Models;
 using Orchard;
 using System.Collections.Generic;
+using Orchard.ContentManagement;
 
 namespace DQ.Scheduling.Services {
     public interface INotificationsService : IDependency {
@@ -13,5 +14,6 @@ namespace DQ.Scheduling.Services {
         void DeleteSubscriptions(int eventId, int userId);
         void DeleteSubscriptions(int eventId, string email);
         NotificationsSubscriptionPart GetSubscription(int id);
+        IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery();
     }
 }

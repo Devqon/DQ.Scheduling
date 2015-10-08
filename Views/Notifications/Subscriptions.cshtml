@@ -1,0 +1,9 @@
+﻿@if (Model.TotalItemCount > 0) {
+
+    @Display(Model.List)
+
+    @Display(Model.Pager)
+}
+else {
+    <h2>@T("You have no subscriptions")</h2>
+}

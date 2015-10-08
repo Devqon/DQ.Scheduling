@@ -1,0 +1,8 @@
+﻿@using DQ.Scheduling.Models
+@using Orchard.ContentManagement
+@using Orchard.Core.Title.Models
+@{
+    NotificationsSubscriptionPart part = Model.ContentPart;
+}
+
+@T("Event: {0}", part.Event.As<TitlePart>().Title)

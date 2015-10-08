@@ -1,11 +1,15 @@
-﻿using DQ.Scheduling.Models;
+﻿using System.Linq;
 using DQ.Scheduling.Services;
 using Orchard;
 using Orchard.ContentManagement;
+using Orchard.Core.Settings.Models;
+using Orchard.DisplayManagement;
 using Orchard.Environment.Extensions;
 using System.Web.Mvc;
 using Orchard.Localization;
 using Orchard.Mvc.Extensions;
+using Orchard.Themes;
+using Orchard.UI.Navigation;
 using Orchard.UI.Notify;
 
 namespace DQ.Scheduling.Controllers {
@@ -18,15 +22,19 @@ namespace DQ.Scheduling.Controllers {
         public NotificationsController(
             INotificationsService notificationsService, 
             IContentManager contentManager, 
-            IOrchardServices orchardServices) {
+            IOrchardServices orchardServices,
+            IShapeFactory shapeFactory) {
+
             _notificationsService = notificationsService;
             _contentManager = contentManager;
             _orchardServices = orchardServices;
 
             T = NullLocalizer.Instance;
+            Shape = shapeFactory;
         }
 
         public Localizer T { get; set; }
+        public dynamic Shape { get; set; }
 
         // TODO: complete implementation
         [HttpPost]
@@ -66,6 +74,43 @@ namespace DQ.Scheduling.Controllers {
             }
 
             return this.RedirectLocal(returnUrl, "~/");
+        }
+
+        // 'My' subscriptions
+        [HttpGet]
+        [Themed]
+        public ActionResult Subscriptions(PagerParameters pagerParameters) {
+
+            var user = _orchardServices.WorkContext.CurrentUser;
+            // Cannot get subscriptions for unknown user
+            if(user == null)
+                return new HttpNotFoundResult();
+
+            var pager = new Pager(_orchardServices.WorkContext.CurrentSite.As<SiteSettingsPart>(), pagerParameters);
+
+            var query = _notificationsService
+                .GetNotificationsSubscriptionQuery()
+                .Where(s => s.UserId == user.Id);
+
+            var count = query.Count();
+
+            var pagedSubscriptions = query
+                .Slice(pager.GetStartIndex(), pager.PageSize)
+                .ToList();
+
+            // Build subscription shapes
+            var subscriptionShapes = pagedSubscriptions.Select(p => _contentManager.BuildDisplay(p, "Summary"));
+
+            var list = Shape.List();
+            list.AddRange(subscriptionShapes);
+
+            var viewModel = Shape
+                .ViewModel()
+                .List(list)
+                .Pager(Shape.Pager(pager))
+                .TotalItemCount(count);
+
+            return View(viewModel);
         }
 
         bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {

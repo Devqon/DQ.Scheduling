@@ -126,6 +126,7 @@
     <Compile Include="Models\NotificationsPartRecord.cs" />
     <Compile Include="Models\NotificationsSubscriptionPartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
+    <Compile Include="NotificationSubscriptionRoutes.cs" />
     <Compile Include="Permissions\NotificationsPermissions.cs" />
     <Compile Include="Permissions\SubscribePermissions.cs" />
     <Compile Include="ResourceManifests\NotificationsSubscriptionResourceManifest.cs" />
@@ -230,6 +231,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\NotificationsSubscription.Admin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Notifications\Subscriptions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\NotificationsSubscription.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\NotificationsSubscription.UnSubscribe.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

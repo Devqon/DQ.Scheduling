@@ -22,7 +22,7 @@ namespace DQ.Scheduling.Services {
             _authorizer = authorizer;
         }
 
-        private IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery() {
+        public IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery() {
             return _contentManager
                 .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>();
         } 
@@ -91,6 +91,6 @@ namespace DQ.Scheduling.Services {
                 .Where<CommonPartRecord>(c => c.Container.Id == eventId);
 
             return subscriptions.List();
-        } 
+        }
     }
 }

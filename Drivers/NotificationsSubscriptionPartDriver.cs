@@ -20,6 +20,15 @@ namespace DQ.Scheduling.Drivers
 
         public Localizer T { get; set; }
 
+        protected override DriverResult Display(NotificationsSubscriptionPart part, string displayType, dynamic shapeHelper) {
+            return Combined(
+                ContentShape("Parts_NotificationsSubscription", 
+                    () => shapeHelper.Parts_NotificationsSubscription()),
+                ContentShape("Parts_NotificationsSubscription_UnSubscribe",
+                    () => shapeHelper.Parts_NotificationsSubscription_UnSubscribe(SubscriptionId: part.Id))
+            );
+        }
+
         protected override DriverResult Editor(NotificationsSubscriptionPart part, dynamic shapeHelper) {
             return Combined(
                 ContentShape("Parts_NotificationsSubscription_Edit", () => shapeHelper.EditorTemplate(
