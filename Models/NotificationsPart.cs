@@ -6,9 +6,9 @@ namespace DQ.Scheduling.Models {
     [OrchardFeature("DQ.SchedulingNotifications")]
     public class NotificationsPart : ContentPart<NotificationsPartRecord> {
         internal LazyField<NotificationsPlanPart> _contentItem = new LazyField<NotificationsPlanPart>();
-        
+
         public bool AllowNotifications {
-            get { return Retrieve(r => r.AllowNotifications); }
+            get { return Retrieve(r => r.AllowNotifications, true); }
             set { Store(s => s.AllowNotifications, value); }
         }
 

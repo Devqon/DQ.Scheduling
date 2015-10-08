@@ -54,6 +54,11 @@ namespace DQ.Scheduling.Services {
         }
 
         public bool CanSubscribeForNotifications(NotificationsPart part) {
+
+            // Not enabled for this content item
+            if (!part.AllowNotifications)
+                return false;
+
             // Not authorized
             if (!_authorizer.Authorize(Permissions.NotificationsPermissions.SubscribeForNotifications, part.ContentItem))
                 return false;

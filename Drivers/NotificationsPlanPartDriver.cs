@@ -33,7 +33,8 @@ namespace DQ.Scheduling.Drivers {
             return ContentShape("Parts_NotificationsPlan_Edit", () => shapeHelper.EditorTemplate(
                 TemplateName: "Parts/NotificationsPlan",
                 Model: part,
-                Prefix: Prefix));
+                Prefix: Prefix)
+            );
         }
 
         //POST

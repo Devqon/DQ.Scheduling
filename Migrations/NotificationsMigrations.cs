@@ -13,6 +13,7 @@ namespace DQ.Scheduling.Migrations {
             SchemaBuilder.CreateTable(typeof(NotificationsPartRecord).Name, table => table
                 .ContentPartRecord()
                 .Column<bool>("AllowNotifications")
+                .Column<int>("NotificationsPlanPartRecord_Id")
             );
 
             // NotificationsSubscriptionPartRecord table
@@ -38,12 +39,10 @@ namespace DQ.Scheduling.Migrations {
                 .WithPart("CommonPart", part => part
                     // Do not show editor for owner
                     .WithSetting("OwnerEditorSettings.ShowOwnerEditor", "false"))
-                // TODO: maybe make sure the part is always there by utilizing 
-                // Filters.Add(new ActivatingFilter<NotificationsSubscriptionPart>(Constants.NotificationsSubscriptionType))
                 .WithPart(typeof(NotificationsSubscriptionPart).Name)
             );
 
-            return 1;
+            return 4;
         }
 
         public int UpdateFrom1() {
@@ -66,6 +65,14 @@ namespace DQ.Scheduling.Migrations {
                 .Attachable());
 
             return 3;
+        }
+
+        public int UpdateFrom3() {
+
+            SchemaBuilder.AlterTable(typeof(NotificationsPartRecord).Name, table => table
+                .AddColumn<int>("NotificationsPlanPartRecord_Id"));
+
+            return 4;
         }
     }
 }

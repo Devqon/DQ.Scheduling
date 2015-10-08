@@ -35,6 +35,8 @@ namespace DQ.Scheduling.Drivers {
         }
 
         protected override DriverResult Display(NotificationsPart part, string displayType, dynamic shapeHelper) {
+            var context = _workContextAccessor.GetContext();
+
             return Combined(
                 ContentShape("Parts_NotificationsForm", () => {
 
@@ -42,7 +44,7 @@ namespace DQ.Scheduling.Drivers {
                     if (!_notificationsService.CanSubscribeForNotifications(part))
                         return null;
 
-                    var user = _workContextAccessor.GetContext().CurrentUser;
+                    var user = context.CurrentUser;
 
                     // Already subscribed, can only check for authenticated users
                     var existingSubscription = user == null ? null : _notificationsService.GetSubscriptionsForEventAndUser(part.Id, user.Id).FirstOrDefault();
@@ -63,7 +65,7 @@ namespace DQ.Scheduling.Drivers {
                 }),
                 ContentShape("Parts_NotificationsSubscriptionList_SummaryAdmin", () => {
 
-                    if (!AdminFilter.IsApplied(_workContextAccessor.GetContext().HttpContext.Request.RequestContext))
+                    if (!AdminFilter.IsApplied(context.HttpContext.Request.RequestContext))
                         return null;
 
                     var subscriptions = _notificationsService.GetSubscriptionsForEvent(part.Id).ToList();
@@ -102,7 +104,7 @@ namespace DQ.Scheduling.Drivers {
         protected override DriverResult Editor(NotificationsPart part, IUpdateModel updater, dynamic shapeHelper) {
             var model = new NotificationsEditViewModel();
 
-            if (updater.TryUpdateModel(model, Prefix, null, null)) {
+            if (updater.TryUpdateModel(model, Prefix, null, new []{"NotificationPlans"})) {
                 part.AllowNotifications = model.AllowNotifications;
                 if (model.NotificationsPlanId.HasValue) {
                     var notificationsPlan = _contentManager.Get(model.NotificationsPlanId.Value).As<NotificationsPlanPart>();

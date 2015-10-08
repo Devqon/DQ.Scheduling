@@ -12,6 +12,7 @@ namespace DQ.Scheduling.Handlers {
         
         public NotificationsSubscriptionPartHandler(IRepository<NotificationsSubscriptionPartRecord> repository, IContentDefinitionManager contentDefinitionManager) {
             Filters.Add(StorageFilter.For(repository));
+            Filters.Add(new ActivatingFilter<NotificationsSubscriptionPart>(Constants.NotificationsSubscriptionType));
 
             OnUpdated<NotificationsSubscriptionPart>(TriggerNotificationsSubscriptionUpdatedEvents);
             OnUnpublished<NotificationsSubscriptionPart>(TriggerNotificationsSubscriptionUnpublishedEvents);

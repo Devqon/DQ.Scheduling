@@ -9,8 +9,8 @@
     @Html.EditorFor(m => m.EndDateTimeEditor)
 </fieldset>
 <fieldset>
-    @Html.LabelFor(m => m.IsAllDay, T("All day"))
     @Html.CheckBoxFor(m => m.IsAllDay)
+    <label for="@Html.FieldIdFor(m => m.IsAllDay)" class="forcheckbox">@T("All day")</label>
     <span class="hint">@T("Check if the event lasts all day")</span>
 </fieldset>
 
