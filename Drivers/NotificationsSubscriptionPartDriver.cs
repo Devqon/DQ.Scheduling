@@ -24,6 +24,7 @@ namespace DQ.Scheduling.Drivers
             return Combined(
                 ContentShape("Parts_NotificationsSubscription_Edit", () => shapeHelper.EditorTemplate(
                     TemplateName: "Parts/NotificationsSubscription",
+                    Prefix: Prefix,
                     Model: part
                 )),
                 ContentShape("Parts_NotificationSubscription_Edit_Admin", () => {
@@ -34,6 +35,7 @@ namespace DQ.Scheduling.Drivers
 
                     return shapeHelper.EditorTemplate(
                         TemplateName: "Parts/NotificationsSubscription.Admin",
+                        Prefix: Prefix,
                         Model: part
                     );
                 })

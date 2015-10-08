@@ -32,7 +32,7 @@ namespace DQ.Scheduling.Controllers {
         [HttpPost]
         public ActionResult Subscribe(string returnUrl) {
 
-            var notificationSubscription = _contentManager.New<NotificationsSubscriptionPart>(Constants.NotificationsSubscriptionType);
+            var notificationSubscription = _contentManager.New(Constants.NotificationsSubscriptionType);
 
             var editorShape = _contentManager.UpdateEditor(notificationSubscription, this);
 

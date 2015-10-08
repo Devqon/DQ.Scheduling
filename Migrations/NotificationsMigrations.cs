@@ -1,5 +1,6 @@
 ﻿using DQ.Scheduling.Models;
 using Orchard.ContentManagement.MetaData;
+using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
 using Orchard.Environment.Extensions;
 
@@ -23,6 +24,15 @@ namespace DQ.Scheduling.Migrations {
                 .Column<string>("Phone")
             );
 
+            // NotificationsPlanPartRecord
+            SchemaBuilder.CreateTable(typeof(NotificationsPlanPartRecord).Name, table => table
+                .ContentPartRecord()
+                .Column<string>("UpcomingNotificationInterval")
+                .Column<int>("UpcomingNotificationIntervalCount")
+                .Column<string>("FollowUpNotificationInterval")
+                .Column<int>("FollowUpNotificationIntervalCount")
+            );
+
             // NotificationsSubscription content type
             ContentDefinitionManager.AlterTypeDefinition(Constants.NotificationsSubscriptionType, type => type
                 .WithPart("CommonPart", part => part
@@ -34,6 +44,28 @@ namespace DQ.Scheduling.Migrations {
             );
 
             return 1;
+        }
+
+        public int UpdateFrom1() {
+
+            // NotificationsPlanPartRecord
+            SchemaBuilder.CreateTable(typeof(NotificationsPlanPartRecord).Name, table => table
+                .ContentPartRecord()
+                .Column<string>("UpcomingNotificationInterval")
+                .Column<int>("UpcomingNotificationIntervalCount")
+                .Column<string>("FollowUpNotificationInterval")
+                .Column<int>("FollowUpNotificationIntervalCount")
+            );
+
+            return 2;
+        }
+
+        public int UpdateFrom2() {
+            
+            ContentDefinitionManager.AlterPartDefinition(typeof(NotificationsPlanPart).Name, part => part
+                .Attachable());
+
+            return 3;
         }
     }
 }
