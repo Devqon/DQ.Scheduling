@@ -30,7 +30,7 @@ namespace DQ.Scheduling.Handlers {
 
             if (notificationsSubscription == null)
                 return;
-
+            // TODO: is this really needed?
             context.Metadata.CreateRouteValues = new RouteValueDictionary {
                 {"Area", "DQ.Scheduling"},
                 {"Controller", "Notifications"},

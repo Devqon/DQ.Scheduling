@@ -6,7 +6,7 @@ namespace DQ.Scheduling.ViewModels {
     public class SchedulingEditViewModel {
         public DateTimeEditor StartDateTimeEditor { get; set; }
         public DateTimeEditor EndDateTimeEditor { get; set; }
-        public bool AllDayEvent { get; set; }
+        public bool IsAllDay { get; set; }
         public bool IsRecurring { get; set; }
     }
 }

@@ -45,13 +45,13 @@ namespace DQ.Scheduling.Drivers {
                     var user = _workContextAccessor.GetContext().CurrentUser;
 
                     // Already subscribed, can only check for authenticated users
-                    // TODO: Get subscription content items?
-                    var existingSubscription = user == null ? null : _notificationsService.GetSubscriptions(part.Id, user.Id).FirstOrDefault();
+                    var existingSubscription = user == null ? null : _notificationsService.GetSubscriptionsForEventAndUser(part.Id, user.Id).FirstOrDefault();
 
                     // Create subscription editor shape
-                    var notificationSubscription = _contentManager.New("NotificationSubscription");
-                    if (notificationSubscription.Has<NotificationsSubscriptionPart>())
+                    var notificationSubscription = _contentManager.New(Constants.NotificationsSubscriptionType);
+                    if (notificationSubscription.Has<NotificationsSubscriptionPart>()) {
                         notificationSubscription.As<NotificationsSubscriptionPart>().Event = part.ContentItem;
+                    }
 
                     var editor = _contentManager.BuildEditor(notificationSubscription);
 
@@ -66,7 +66,7 @@ namespace DQ.Scheduling.Drivers {
                     if (!AdminFilter.IsApplied(_workContextAccessor.GetContext().HttpContext.Request.RequestContext))
                         return null;
 
-                    var subscriptions = _notificationsService.GetSubscriptions(part.Id).ToList();
+                    var subscriptions = _notificationsService.GetSubscriptionsForEvent(part.Id).ToList();
 
                     // List subscriptions
                     var list = shapeHelper.List();
@@ -105,7 +105,7 @@ namespace DQ.Scheduling.Drivers {
             if (updater.TryUpdateModel(model, Prefix, null, null)) {
                 part.AllowNotifications = model.AllowNotifications;
                 if (model.NotificationsPlanId.HasValue) {
-                    var notificationsPlan = _contentManager.Get<NotificationsPlanPart>(model.NotificationsPlanId.Value);
+                    var notificationsPlan = _contentManager.Get(model.NotificationsPlanId.Value).As<NotificationsPlanPart>();
                     part.NotificationsPlanPartRecord = notificationsPlan == null ? null : notificationsPlan.Record;
                 }
                 else {
@@ -142,7 +142,6 @@ namespace DQ.Scheduling.Drivers {
                 .ToAttr(p => p.AllowNotifications);
             el.AddEl(new XElement(NotificationsPlanName)
                 .Attr("Id", _contentManager.GetItemMetadata(part).Identity));
-
         }
     }
 }

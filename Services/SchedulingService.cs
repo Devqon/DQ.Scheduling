@@ -21,6 +21,7 @@ namespace DQ.Scheduling.Services {
             _scheduledTaskManager = scheduledTaskManager;
         }
 
+        // TODO: use something else than query because Queries do not take permissions in account
         public List<QueryPart> GetEventDefinitionQueries() {
             var queryParts = _orchardServices.ContentManager.Query<QueryPart, QueryPartRecord>("Query").List();
             var eventDefinitionQueries = new List<QueryPart>();
@@ -42,6 +43,7 @@ namespace DQ.Scheduling.Services {
 
         public void ScheduleEvent(SchedulingPart eventDefinitionPart) {
             // Delete ongoing schedules
+            // TODO: also the other taskTypes, see Constants -> Scheduling Constants
             _scheduledTaskManager.DeleteTasks(eventDefinitionPart.ContentItem, task => task.TaskType == Constants.EventStartedName);
 
             if (eventDefinitionPart.StartDateTime.HasValue) {

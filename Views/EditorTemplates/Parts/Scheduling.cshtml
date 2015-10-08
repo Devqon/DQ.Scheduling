@@ -9,8 +9,8 @@
     @Html.EditorFor(m => m.EndDateTimeEditor)
 </fieldset>
 <fieldset>
-    @Html.LabelFor(m => m.AllDayEvent, T("All day"))
-    @Html.CheckBoxFor(m => m.AllDayEvent)
+    @Html.LabelFor(m => m.IsAllDay, T("All day"))
+    @Html.CheckBoxFor(m => m.IsAllDay)
     <span class="hint">@T("Check if the event lasts all day")</span>
 </fieldset>
 
@@ -20,7 +20,7 @@
 
         (function ($) {
 
-            var toggleCheckbox = $("#@Html.FieldIdFor(m => m.AllDayEvent)");
+            var toggleCheckbox = $("#@Html.FieldIdFor(m => m.IsAllDay)");
 
             toggleCheckbox.change(function () {
                 toggleTimeFields();

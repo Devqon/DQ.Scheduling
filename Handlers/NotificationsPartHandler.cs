@@ -12,12 +12,15 @@ namespace DQ.Scheduling.Handlers {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public NotificationsPartHandler(IRepository<NotificationsPartRecord> repository
-            , IContentManager contentManager, IContentDefinitionManager contentDefinitionManager) {
-            
-            Filters.Add(StorageFilter.For(repository));
+        public NotificationsPartHandler(
+            IRepository<NotificationsPartRecord> repository, 
+            IContentManager contentManager, 
+            IContentDefinitionManager contentDefinitionManager) {
+
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
+
+            Filters.Add(StorageFilter.For(repository));
 
             OnActivated<NotificationsPart>(LazyLoadHandlers);
         }
@@ -35,8 +38,7 @@ namespace DQ.Scheduling.Handlers {
                 return;
 
             // If has part EventDefinition, weld the EventSubscribe part
-            if (contentTypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof(SchedulingPart).Name))
-            {
+            if (contentTypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof(SchedulingPart).Name)) {
                 context.Builder.Weld<NotificationsPart>();
             }
         }

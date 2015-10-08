@@ -22,6 +22,11 @@ namespace DQ.Scheduling.Services {
             _authorizer = authorizer;
         }
 
+        private IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery() {
+            return _contentManager
+                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>();
+        } 
+
         public void DeleteSubscription(int id) {
             var subscription = GetSubscription(id);
             DeleteSubscription(subscription);
@@ -32,15 +37,14 @@ namespace DQ.Scheduling.Services {
         }
 
         public void DeleteSubscriptions(int eventId, int userId) {
-            var subscriptions = GetSubscriptions(eventId, userId);
+            var subscriptions = GetSubscriptionsForEventAndUser(eventId, userId);
             foreach (var subscription in subscriptions) {
                 DeleteSubscription(subscription);
             }
         }
 
         public void DeleteSubscriptions(int eventId, string email) {
-            var subscriptions = _contentManager
-                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>()
+            var subscriptions = GetNotificationsSubscriptionQuery()
                 .Where(s => s.Email == email)
                 .List();
 
@@ -71,20 +75,19 @@ namespace DQ.Scheduling.Services {
             return _contentManager.Get<NotificationsSubscriptionPart>(id);
         }
 
-        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId, int userId) {
+        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptionsForEventAndUser(int eventId, int userId) {
 
-            var subscriptions = _contentManager
-                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>()
+            // TODO: can only be one?
+            var subscriptions = GetNotificationsSubscriptionQuery()
                 .Where(s => s.UserId == userId)
                 .Where<CommonPartRecord>(c => c.Container.Id == eventId);
 
             return subscriptions.List();
         }
 
-        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptions(int eventId) {
+        public IEnumerable<NotificationsSubscriptionPart> GetSubscriptionsForEvent(int eventId) {
 
-            var subscriptions = _contentManager
-                .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>()
+            var subscriptions = GetNotificationsSubscriptionQuery()
                 .Where<CommonPartRecord>(c => c.Container.Id == eventId);
 
             return subscriptions.List();

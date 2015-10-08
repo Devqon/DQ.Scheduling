@@ -8,7 +8,7 @@ namespace DQ.Scheduling.Migrations {
     [OrchardFeature("DQ.SchedulingCalendar")]
     public class CalendarMigrations : DataMigrationImpl {
         public int Create() {
-            // Calendar Widget record table
+            // Calendar part record table
             SchemaBuilder.CreateTable(typeof(CalendarPartRecord).Name, table => table
                 .ContentPartRecord()
                 .Column<int>("QueryId")

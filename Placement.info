@@ -16,7 +16,7 @@
   <Place Parts_NotificationsPlan_Edit="Content:7" />
 
   <Place Parts_NotificationsSubscription_Edit="Content:2" />
-  <Match ContentType="NotificationSubscription">
+  <Match ContentType="NotificationsSubscription">
     <Place Content_SaveButton="-" />
   </Match>
   

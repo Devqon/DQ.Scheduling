@@ -41,11 +41,11 @@ namespace DQ.Scheduling.Drivers {
             var viewModel = BuildViewModelFromPart(part);
 
             if (updater.TryUpdateModel(viewModel, Prefix, null, null)) {
-                part.IsAllDay = viewModel.AllDayEvent;
+                part.IsAllDay = viewModel.IsAllDay;
                 part.IsRecurring = viewModel.IsRecurring;
                 try {
                     // Start
-                    var utcStartDateTime = viewModel.AllDayEvent 
+                    var utcStartDateTime = viewModel.IsAllDay 
                         ? _dateLocalizationServices.ConvertFromLocalizedDateString(viewModel.StartDateTimeEditor.Date) 
                         : _dateLocalizationServices.ConvertFromLocalizedString(viewModel.StartDateTimeEditor.Date, viewModel.StartDateTimeEditor.Time);
                     part.StartDateTime = utcStartDateTime;
@@ -62,6 +62,11 @@ namespace DQ.Scheduling.Drivers {
                 {
                     updater.AddModelError(Prefix, T("'{0} {1}' could not be parsed as a valid date and time.", viewModel.EndDateTimeEditor.Date, viewModel.EndDateTimeEditor.Time));
                 }
+                // TODO: validate start date + time and end date + time?
+                // Date and time validation
+                if (part.EndDateTime <= part.StartDateTime) {
+                    updater.AddModelError("EndDateTime", T("End date cannot be before start date"));
+                }
             }
 
             return ContentShape("Parts_Scheduling_Edit",
@@ -70,20 +75,19 @@ namespace DQ.Scheduling.Drivers {
 
         private SchedulingEditViewModel BuildViewModelFromPart(SchedulingPart part) {
             return new SchedulingEditViewModel {
-                AllDayEvent = part.IsAllDay,
+                IsAllDay = part.IsAllDay,
                 IsRecurring = part.IsRecurring,
-                StartDateTimeEditor = new DateTimeEditor {
-                    ShowDate = true,
-                    ShowTime = true,
-                    Date = _dateLocalizationServices.ConvertToLocalizedDateString(part.StartDateTime),
-                    Time = _dateLocalizationServices.ConvertToLocalizedTimeString(part.StartDateTime)
-                },
-                EndDateTimeEditor = new DateTimeEditor {
-                    ShowDate = true,
-                    ShowTime = true,
-                    Date = _dateLocalizationServices.ConvertToLocalizedDateString(part.EndDateTime),
-                    Time = _dateLocalizationServices.ConvertToLocalizedTimeString(part.EndDateTime)
-                }
+                StartDateTimeEditor = GetDateTimeEditor(part.StartDateTime),
+                EndDateTimeEditor = GetDateTimeEditor(part.EndDateTime)
+            };
+        }
+
+        private DateTimeEditor GetDateTimeEditor(DateTime? dateTime) {
+            return new DateTimeEditor {
+                ShowDate = true,
+                ShowTime = true,
+                Date = _dateLocalizationServices.ConvertToLocalizedDateString(dateTime),
+                Time = _dateLocalizationServices.ConvertToLocalizedTimeString(dateTime)
             };
         }
     }

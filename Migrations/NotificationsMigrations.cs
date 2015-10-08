@@ -7,41 +7,31 @@ namespace DQ.Scheduling.Migrations {
     [OrchardFeature("DQ.SchedulingNotifications")]
     public class NotificationsMigrations : DataMigrationImpl {
         public int Create() {
+
+            // NotificationPartRecord table
             SchemaBuilder.CreateTable(typeof(NotificationsPartRecord).Name, table => table
                 .ContentPartRecord()
-                .Column<bool>("AllowNotifications"));
+                .Column<bool>("AllowNotifications")
+            );
 
+            // NotificationsSubscriptionPartRecord table
             SchemaBuilder.CreateTable(typeof(NotificationsSubscriptionPartRecord).Name, table => table
                 .ContentPartRecord()
-                .Column<int>("EventId", column => column.NotNull())
-                .Column<int>("UserId", column => column.NotNull())
+                .Column<int>("UserId") // nullable
                 .Column<string>("SubscribeType")
-                .Column<int>("TimeDifference")
-                .Column<string>("SubscribeDifference"));
+                .Column<string>("Email")
+                .Column<string>("Phone")
+            );
 
-            return 1;
-        }
-
-        public int UpdateFrom1() {
-
-            SchemaBuilder.AlterTable(typeof(NotificationsSubscriptionPartRecord).Name, table => table
-                .AddColumn<string>("Email"));
-
-            SchemaBuilder.AlterTable(typeof(NotificationsSubscriptionPartRecord).Name, table => table
-                .AddColumn<string>("Phone"));
-
-            return 2;
-        }
-
-        public int UpdateFrom2() {
-
-            ContentDefinitionManager.AlterTypeDefinition("NotificationSubscription", type => type
+            // NotificationsSubscription content type
+            ContentDefinitionManager.AlterTypeDefinition(Constants.NotificationsSubscriptionType, type => type
                 .WithPart("CommonPart", part => part
                     // Do not show editor for owner
                     .WithSetting("OwnerEditorSettings.ShowOwnerEditor", "false"))
-                .WithPart(typeof(NotificationsSubscriptionPart).Name));
+                .WithPart(typeof(NotificationsSubscriptionPart).Name)
+            );
 
-            return 3;
+            return 1;
         }
     }
 }

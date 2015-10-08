@@ -1,6 +1,4 @@
-﻿using DQ.Scheduling.Models;
-using Orchard.ContentManagement;
-using Orchard.Environment.Extensions;
+﻿using Orchard.Environment.Extensions;
 using Orchard.Tasks.Scheduling;
 using Orchard.Workflows.Services;
 using System.Collections.Generic;
