@@ -64,8 +64,12 @@ namespace DQ.Scheduling.Drivers {
                 }
                 // TODO: validate start date + time and end date + time?
                 // Date and time validation
-                if (part.EndDateTime <= part.StartDateTime) {
-                    updater.AddModelError("EndDateTime", T("End date cannot be before start date"));
+                if (part.IsAllDay && !part.EndDateTime.HasValue) {
+                    // If not all day, then the end date must be given
+                    updater.AddModelError("EndDateTime", T("End date is mandatory."));
+                }
+                if (part.EndDateTime.HasValue && part.EndDateTime <= part.StartDateTime) {
+                    updater.AddModelError("EndDateTime", T("End date cannot be before start date."));
                 }
             }
 

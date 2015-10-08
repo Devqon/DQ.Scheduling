@@ -28,6 +28,8 @@ namespace DQ.Scheduling.Migrations {
                 .WithPart("CommonPart", part => part
                     // Do not show editor for owner
                     .WithSetting("OwnerEditorSettings.ShowOwnerEditor", "false"))
+                // TODO: maybe make sure the part is always there by utilizing 
+                // Filters.Add(new ActivatingFilter<NotificationsSubscriptionPart>(Constants.NotificationsSubscriptionType))
                 .WithPart(typeof(NotificationsSubscriptionPart).Name)
             );
 

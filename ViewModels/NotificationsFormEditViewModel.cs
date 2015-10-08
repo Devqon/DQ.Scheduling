@@ -10,6 +10,5 @@ namespace DQ.Scheduling.ViewModels {
 
         public SubscribeType SubscribeType { get; set; }
         public int TimeDifference { get; set; }
-        public SubscribeDifference SubscribeDifference { get; set; }
     }
 }
