@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DQ.Scheduling.Models;
+using DQ.Scheduling.Services;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Handlers;
 using Orchard.ContentManagement.MetaData;
@@ -15,7 +16,8 @@ namespace DQ.Scheduling.Handlers {
         public NotificationsPartHandler(
             IRepository<NotificationsPartRecord> repository, 
             IContentManager contentManager, 
-            IContentDefinitionManager contentDefinitionManager) {
+            IContentDefinitionManager contentDefinitionManager, 
+            INotificationsService notificationsService) {
 
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
@@ -23,6 +25,8 @@ namespace DQ.Scheduling.Handlers {
             Filters.Add(StorageFilter.For(repository));
 
             OnActivated<NotificationsPart>(LazyLoadHandlers);
+            OnUpdated<NotificationsPart>((ctx, part) => notificationsService.UpdateScheduleTasks(part));
+            OnUnpublished<NotificationsPart>((ctx, part) => notificationsService.DeleteExistingScheduleTasks(part.ContentItem));
         }
         
         private void LazyLoadHandlers(ActivatedContentContext context, NotificationsPart part) {
@@ -37,7 +41,7 @@ namespace DQ.Scheduling.Handlers {
             if (contentTypeDefinition == null)
                 return;
 
-            // If has part EventDefinition, weld the EventSubscribe part
+            // If has part SchedulingPart, weld the NotificationsPart
             if (contentTypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof(SchedulingPart).Name)) {
                 context.Builder.Weld<NotificationsPart>();
             }

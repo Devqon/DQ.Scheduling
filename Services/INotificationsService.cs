@@ -15,5 +15,7 @@ namespace DQ.Scheduling.Services {
         void DeleteSubscriptions(int eventId, string email);
         NotificationsSubscriptionPart GetSubscription(int id);
         IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery();
+        void UpdateScheduleTasks(NotificationsPart notification);
+        void DeleteExistingScheduleTasks(ContentItem contentItem);
     }
 }

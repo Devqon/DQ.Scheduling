@@ -20,7 +20,7 @@ Features:
 		Name: Scheduling Notifications
 		Description: Allows users to sign up to receive notifications on a scheduled event, need to enable an actual notification provider
 		Category: Scheduling
-		Dependencies: DQ.Scheduling, Orchard.Workflows
+		Dependencies: DQ.Scheduling, Orchard.Workflows, Orchard.Email
 	DQ.SchedulingDownload:
 		Name: Scheduling Download
 		Description: Provides base interface for downloading events as a calendar item, need to enable an actual client download provider

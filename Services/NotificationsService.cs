@@ -1,10 +1,12 @@
-﻿using DQ.Scheduling.Models;
+﻿using System.Linq;
+using DQ.Scheduling.Models;
 using Orchard.ContentManagement;
 using Orchard.Core.Common.Models;
 using Orchard.Environment.Extensions;
 using Orchard.Security;
 using Orchard.Services;
 using System.Collections.Generic;
+using Orchard.Tasks.Scheduling;
 
 namespace DQ.Scheduling.Services {
     [OrchardFeature("DQ.SchedulingNotifications")]
@@ -12,20 +14,54 @@ namespace DQ.Scheduling.Services {
         private readonly IContentManager _contentManager;
         private readonly IClock _clock;
         private readonly IAuthorizer _authorizer;
+        private readonly IScheduledTaskManager _scheduledTaskManager;
 
         public NotificationsService(
             IContentManager contentManager, 
             IClock clock, 
-            IAuthorizer authorizer) {
+            IAuthorizer authorizer, 
+            IScheduledTaskManager scheduledTaskManager) {
+
             _contentManager = contentManager;
             _clock = clock;
             _authorizer = authorizer;
+            _scheduledTaskManager = scheduledTaskManager;
         }
 
         public IContentQuery<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord> GetNotificationsSubscriptionQuery() {
             return _contentManager
                 .Query<NotificationsSubscriptionPart, NotificationsSubscriptionPartRecord>();
-        } 
+        }
+
+        public void UpdateScheduleTasks(NotificationsPart notification) {
+            var schedulingPart = notification.As<SchedulingPart>();
+
+            // TODO: this can (should) never happen, throw error?
+            if (schedulingPart == null || !schedulingPart.StartDateTime.HasValue)
+                return;
+
+            // Remove existing schedules
+            DeleteExistingScheduleTasks(schedulingPart.ContentItem);
+
+            // Event started task
+            _scheduledTaskManager.CreateTask(Constants.EventStartedName, schedulingPart.StartDateTime.Value, schedulingPart.ContentItem);
+
+            // Event ended task
+            if (schedulingPart.EndDateTime.HasValue) {
+                _scheduledTaskManager.CreateTask(Constants.EventEndedName, schedulingPart.EndDateTime.Value, schedulingPart.ContentItem);
+            }
+            else if (schedulingPart.IsAllDay) {
+                // If event is all day, end time is start time + 1 day
+                var endTime = schedulingPart.StartDateTime.Value.Date.AddDays(1);
+                _scheduledTaskManager.CreateTask(Constants.EventEndedName, endTime, schedulingPart.ContentItem);
+            }
+
+            // TODO: schedule upcoming and followup
+        }
+
+        public void DeleteExistingScheduleTasks(ContentItem contentItem) {
+            _scheduledTaskManager.DeleteTasks(contentItem, t => Constants.DefaultEventNames.Contains(t.TaskType));
+        }
 
         public void DeleteSubscription(int id) {
             var subscription = GetSubscription(id);

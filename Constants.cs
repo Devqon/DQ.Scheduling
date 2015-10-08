@@ -6,6 +6,8 @@
         public static readonly string EventEndedName = "EventEnded";
         public static readonly string EventFollowUpName = "EventFollowUp";
         public static readonly string EventCustomNotification = "EventCustomNotification";
+
+        public static readonly string[] DefaultEventNames = {EventUpcomingName, EventStartedName, EventEndedName, EventFollowUpName};
         
         // Notification Constants
         public static readonly string EventSubscriptionNotification = "EventNotification";

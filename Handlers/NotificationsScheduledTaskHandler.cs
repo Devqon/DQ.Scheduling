@@ -1,4 +1,5 @@
-﻿using Orchard.Environment.Extensions;
+﻿using System.Linq;
+using Orchard.Environment.Extensions;
 using Orchard.Tasks.Scheduling;
 using Orchard.Workflows.Services;
 using System.Collections.Generic;
@@ -14,10 +15,7 @@ namespace DQ.Scheduling.Handlers {
 
         public void Process(ScheduledTaskContext context) {
             var taskType = context.Task.TaskType;
-            if (taskType == Constants.EventUpcomingName ||
-                taskType == Constants.EventStartedName ||
-                taskType == Constants.EventEndedName ||
-                taskType == Constants.EventFollowUpName) {
+            if (Constants.DefaultEventNames.Contains(taskType)) {
 
                 var contentItem = context.Task.ContentItem;
                 _workflowManager.TriggerEvent(taskType, contentItem,
