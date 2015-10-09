@@ -1,4 +1,9 @@
 ﻿@using Orchard.Utility.Extensions
-@using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new {controller = "Notifications", area = "DQ.Scheduling", id = Model.SubscriptionId, returnUrl = Context.Request.ToUrlString()}), FormMethod.Post)) {
+
+@{
+    var id = Model.ContentPart.Id;
+}
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new {controller = "Notifications", area = "DQ.Scheduling", id = id, returnUrl = Context.Request.ToUrlString()}), FormMethod.Post)) {
     <button class="primaryButton" type="submit">@T("UnSubscribe")</button>
 }

@@ -25,7 +25,7 @@ namespace DQ.Scheduling.Drivers
                 ContentShape("Parts_NotificationsSubscription", 
                     () => shapeHelper.Parts_NotificationsSubscription()),
                 ContentShape("Parts_NotificationsSubscription_UnSubscribe",
-                    () => shapeHelper.Parts_NotificationsSubscription_UnSubscribe(SubscriptionId: part.Id))
+                    () => shapeHelper.Parts_NotificationsSubscription_UnSubscribe())
             );
         }
 

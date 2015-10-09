@@ -1,57 +1,45 @@
-﻿@using DQ.Scheduling.Models
-@using Orchard.ContentManagement
-@using Orchard.Utility.Extensions
+﻿@using Orchard.Utility.Extensions
 @{
-    NotificationsSubscriptionPartRecord model = Model.Subscription;
-    IContent ev = Model.Event;
-
-    bool alreadySubscribed = Model.Subscribed;
+    var existingSubscription = Model.DisplayShape != null;
 }
 
-@if (!alreadySubscribed)
-{
-    using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new { controller = "Notifications", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post, new { @class = "subscribe-form" }))
-    {
-        if (TempData.ContainsKey("Scheduling.InvalidSubscriptionShape")) {
-            @Display(TempData["Scheduling.InvalidSubscriptionShape"])
-        }
-        else {
-            @Display(Model.EditorShape)
-        }
-
-        <button type="submit">@T("Subscribe")</button>
-    }
+@if (existingSubscription) {
+    @* Show the existing subscription *@
+    @Display(Model.DisplayShape)
 }
-else
-{
-    using (Html.BeginFormAntiForgeryPost(Url.Action("UnSubscribe", new { controller = "Notifications", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString() }), FormMethod.Post, new { @class = "subscribe-form" }))
-    {
-        @Html.HiddenFor(m => model.Id)
-        <button type="submit">@T("UnSubscribe")</button>
-    }
-}
+else {
+    using (Html.BeginFormAntiForgeryPost(Url.Action("Subscribe", new {controller = "Notifications", area = "DQ.Scheduling", returnUrl = Context.Request.ToUrlString()}), FormMethod.Post, new {@class = "subscribe-form"})) {
+         if (TempData.ContainsKey("Scheduling.InvalidSubscriptionShape")) {
+             @Display(TempData["Scheduling.InvalidSubscriptionShape"])
+         }
+         else {
+             @Display(Model.EditorShape)
+         }
+         <button type="submit">@T("Subscribe")</button>
+     }
 
-@using (Script.Foot()) {
-    
-    <script>
-        (function($) {
+    using (Script.Foot()) {
 
-            // Catch submit
-            //$("form.subscribe-form").submit(function (event) {
-            //    var form = $(this);
-            //    var url = form.attr("action"),
-            //        serialized = form.serialize();
+         <script>
+             (function($) {
 
-            //    // Ajax
-            //    $.post(url, serialized, function(response) {
-            //        // Callback
+                 // Catch submit
+                 //$("form.subscribe-form").submit(function (event) {
+                 //    var form = $(this);
+                 //    var url = form.attr("action"),
+                 //        serialized = form.serialize();
 
-            //    });
+                 //    // Ajax
+                 //    $.post(url, serialized, function(response) {
+                 //        // Callback
 
-            //    event.preventDefault();
-            //});
+                 //    });
 
-        })(jQuery);
-    </script>
-    
+                 //    event.preventDefault();
+                 //});
+
+             })(jQuery);
+         </script>
+
+     }
 }

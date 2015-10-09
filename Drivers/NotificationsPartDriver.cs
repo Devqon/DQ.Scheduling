@@ -49,17 +49,20 @@ namespace DQ.Scheduling.Drivers {
                     // Already subscribed, can only check for authenticated users
                     var existingSubscription = user == null ? null : _notificationsService.GetSubscriptionsForEventAndUser(part.Id, user.Id).FirstOrDefault();
 
-                    // Create subscription editor shape
-                    var notificationSubscription = _contentManager.New(Constants.NotificationsSubscriptionType);
-                    if (notificationSubscription.Has<NotificationsSubscriptionPart>()) {
-                        notificationSubscription.As<NotificationsSubscriptionPart>().Event = part.ContentItem;
+                    // Already subscribed, display the subscription shape
+                    if (existingSubscription != null) {
+                        return shapeHelper.Parts_NotificationsForm(
+                            DisplayShape: _contentManager.BuildDisplay(existingSubscription, "Summary")
+                        );
                     }
 
+                    var notificationSubscription  = _contentManager.New<NotificationsSubscriptionPart>(Constants.NotificationsSubscriptionType);
+                    notificationSubscription.Event = part.ContentItem;
+
+                    // Create subscription editor shape
                     var editor = _contentManager.BuildEditor(notificationSubscription);
 
                     return shapeHelper.Parts_NotificationsForm(
-                        Subscribed: existingSubscription != null,
-                        Event: part.ContentItem,
                         EditorShape: editor
                     );
                 }),

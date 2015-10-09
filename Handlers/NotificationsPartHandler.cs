@@ -27,6 +27,16 @@ namespace DQ.Scheduling.Handlers {
             OnActivated<NotificationsPart>(LazyLoadHandlers);
             OnUpdated<NotificationsPart>((ctx, part) => notificationsService.UpdateScheduleTasks(part));
             OnUnpublished<NotificationsPart>((ctx, part) => notificationsService.DeleteExistingScheduleTasks(part.ContentItem));
+
+            OnRemoved<NotificationsPart>((ctx, part) => {
+                // Also delete all subscriptions
+                var subscriptions = notificationsService.GetSubscriptionsForEvent(part.Id);
+                foreach (var subscription in subscriptions) {
+                    notificationsService.DeleteSubscription(subscription);
+                }
+                // And the scheduled tasks
+                notificationsService.DeleteExistingScheduleTasks(part.ContentItem);
+            });
         }
         
         private void LazyLoadHandlers(ActivatedContentContext context, NotificationsPart part) {
