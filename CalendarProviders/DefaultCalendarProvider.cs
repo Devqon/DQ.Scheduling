@@ -1,21 +1,17 @@
-﻿using System.Web.Mvc;
-using DQ.Scheduling.Models;
+﻿using DQ.Scheduling.Models;
 using DQ.Scheduling.ViewModels;
 using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 using System.Collections.Generic;
-using Orchard.Mvc.Html;
 
 namespace DQ.Scheduling.CalendarProviders {
     [OrchardFeature("DQ.SchedulingCalendar")]
     public class DefaultCalendarProvider : ICalendarProvider {
 
         private readonly IContentManager _contentManager;
-        private readonly UrlHelper _urlHelper;
 
-        public DefaultCalendarProvider(IContentManager contentManager, UrlHelper urlHelper) {
+        public DefaultCalendarProvider(IContentManager contentManager) {
             _contentManager = contentManager;
-            _urlHelper = urlHelper;
         }
 
         public string Name { get { return "Default"; } }
@@ -29,7 +25,8 @@ namespace DQ.Scheduling.CalendarProviders {
                     Title = _contentManager.GetItemMetadata(ci).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
-                    DisplayUrl = string.IsNullOrWhiteSpace(eventPart.DisplayUrlOverride) ? _urlHelper.ItemDisplayUrl(ci) : eventPart.DisplayUrlOverride
+                    DisplayUrl = eventPart.DisplayUrlOverride,
+                    Event = ci
                 };
 
                 viewModels.Add(viewModel);

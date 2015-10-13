@@ -2,26 +2,31 @@
 @{
     SchedulingPart ev = Model.ContentPart;
 }
-    
+
 <div>
-    @if (ev.IsAllDay)
-    {
+    @if (ev.IsAllDay) {
         @T("This event occurs all day at <i>{0}</i>", ev.StartDateTime.GetValueOrDefault().ToString("d"))
-        if (ev.StartDateTime.GetValueOrDefault().Date != ev.EndDateTime.GetValueOrDefault().Date)
-        {
+        if (ev.StartDateTime.GetValueOrDefault().Date != ev.EndDateTime.GetValueOrDefault().Date) {
             @T(" and lasts until <i>{0}</i>", ev.EndDateTime.GetValueOrDefault().ToString("d"))
         }
     }
-    else
-    {
+    else {
         @T("This event occurs at <i>{0}</i>", ev.StartDateTime.GetValueOrDefault().ToString("g"))
         @T(" and lasts until <i>{0}</i>", ev.EndDateTime.GetValueOrDefault().ToString("g"))
     }
 
-    @if (ev.IsRecurring)
-    { @T(" it is recurring");
+    @if (ev.IsRecurring) {
+        @T(" it is recurring");
     }
-    else
-    { @T(" it is not recurring");
+    else {
+        @T(" it is not recurring");
+    }
+    
+    @if (!string.IsNullOrWhiteSpace(ev.DisplayUrlOverride))
+    {
+        <fieldset>
+            @T("Url:")
+            <a href="@ev.DisplayUrlOverride" title="@T("External Url")" target="_blank">@ev.DisplayUrlOverride</a>
+        </fieldset>
     }
 </div>

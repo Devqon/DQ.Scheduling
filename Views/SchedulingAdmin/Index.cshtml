@@ -75,6 +75,10 @@
                     </td>
                     <td>
                         <div class="actions">
+                            <a href="@Url.ItemDisplayUrl(schedulingEntry.Part)" title="@T("View")">@T("View")</a>@T(" | ")
+                            @if (!string.IsNullOrWhiteSpace(schedulingEntry.Part.DisplayUrlOverride)) {
+                                <a href="@schedulingEntry.Part.DisplayUrlOverride" title="@T("External")" target="_blank">@T("View External")</a>@T(" | ")
+                            }
                             <a href="@Url.ItemEditUrl(schedulingEntry.Part)" title="@T("Edit")">@T("Edit")</a>@T(" | ")
                             <a href="@Url.ItemRemoveUrl(schedulingEntry.Part, new { returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString() })" itemprop="RemoveUrl UnsafeUrl">@T("Delete")</a>
                         </div>

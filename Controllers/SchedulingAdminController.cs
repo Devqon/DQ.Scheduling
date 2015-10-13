@@ -45,6 +45,8 @@ namespace DQ.Scheduling.Controllers
 
         public ActionResult Index(PagerParameters pagerParameters) {
 
+            // TODO: Handle Permissions, handle bulk actions
+
             var pager = new Pager(_siteService.GetSiteSettings(), pagerParameters);
 
             var eventsQuery = _contentManager.Query<SchedulingPart, SchedulingPartRecord>();

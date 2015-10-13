@@ -1,4 +1,5 @@
 ﻿using DQ.Scheduling.CalendarProviders;
+using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 using System;
 
@@ -9,5 +10,6 @@ namespace DQ.Scheduling.ViewModels {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string DisplayUrl { get; set; }
+        public IContent Event { get; set; }
     }
 }
