@@ -1,6 +1,5 @@
 ﻿using DQ.Scheduling.Models;
 using Orchard.ContentManagement.MetaData;
-using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
 using Orchard.Environment.Extensions;
 
@@ -42,37 +41,7 @@ namespace DQ.Scheduling.Migrations {
                 .WithPart(typeof(NotificationsSubscriptionPart).Name)
             );
 
-            return 4;
-        }
-
-        public int UpdateFrom1() {
-
-            // NotificationsPlanPartRecord
-            SchemaBuilder.CreateTable(typeof(NotificationsPlanPartRecord).Name, table => table
-                .ContentPartRecord()
-                .Column<string>("UpcomingNotificationInterval")
-                .Column<int>("UpcomingNotificationIntervalCount")
-                .Column<string>("FollowUpNotificationInterval")
-                .Column<int>("FollowUpNotificationIntervalCount")
-            );
-
-            return 2;
-        }
-
-        public int UpdateFrom2() {
-            
-            ContentDefinitionManager.AlterPartDefinition(typeof(NotificationsPlanPart).Name, part => part
-                .Attachable());
-
-            return 3;
-        }
-
-        public int UpdateFrom3() {
-
-            SchemaBuilder.AlterTable(typeof(NotificationsPartRecord).Name, table => table
-                .AddColumn<int>("NotificationsPlanPartRecord_Id"));
-
-            return 4;
+            return 1;
         }
     }
 }

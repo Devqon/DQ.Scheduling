@@ -1,6 +1,7 @@
 ﻿@using DQ.Scheduling.ViewModels
 @{
     IEnumerable<CalendarDefaultDisplayViewModel> events = Model.CalendarEvents;
+    events = events.OrderBy(e => e.Start);
 }
 
 <ul>
