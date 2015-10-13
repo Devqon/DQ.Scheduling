@@ -13,6 +13,11 @@
     <label for="@Html.FieldIdFor(m => m.IsAllDay)" class="forcheckbox">@T("All day")</label>
     <span class="hint">@T("Check if the event lasts all day")</span>
 </fieldset>
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.DisplayUrlOverride)">@T("Event page url")</label>
+    @Html.TextBoxFor(m => m.DisplayUrlOverride, new { type = "url" })
+    <span class="hint">@T("Override the default linking functionality if you want this event to link to a specific URL (i.e. an external web page)")</span>
+</fieldset>
 
 @using (Script.Foot())
 {

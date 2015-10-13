@@ -31,7 +31,7 @@ namespace DQ.Scheduling.CalendarProviders {
                     Title = _contentManager.GetItemMetadata(ev).DisplayText,
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
-                    Url = _urlHelper.ItemDisplayUrl(ev),
+                    Url = string.IsNullOrWhiteSpace(eventPart.DisplayUrlOverride) ? _urlHelper.ItemDisplayUrl(ev) : eventPart.DisplayUrlOverride,
                     AllDay = eventPart.IsAllDay
                 };
 

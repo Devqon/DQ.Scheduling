@@ -6,6 +6,6 @@
 
 <ul>
     @foreach (var ev in events) {
-        <li><a href="@Url.ItemDisplayUrl(ev.Event)">@ev.Title @Display.DateTime(DateTimeUtc: ev.Start) - @Display.DateTime(DateTimeUtc: ev.End)</a></li>
+        <li><a href="@ev.DisplayUrl">@ev.Title @Display.DateTime(DateTimeUtc: ev.Start) - @Display.DateTime(DateTimeUtc: ev.End)</a></li>
     }
 </ul>

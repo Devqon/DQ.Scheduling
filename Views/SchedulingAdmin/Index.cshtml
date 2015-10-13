@@ -1,0 +1,87 @@
+﻿@using Orchard.Utility.Extensions
+@model DQ.Scheduling.ViewModels.SchedulingIndexViewModel
+           
+@{
+    Style.Require("Admin");
+    Style.Include("dq-scheduling-calendardates.css");
+    
+    Script.Require("ShapesBase");
+
+    Layout.Title = T("Scheduled Events").ToString();
+}
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+@* TODO: bulk actions *@
+    <fieldset class="bulk-actions">
+        @*<label for="publishActions">@T("Actions:")</label>
+    <button type="submit" name="submit.BulkEdit" value="@T("Apply")">@T("Apply")</button>*@
+    </fieldset>
+    <fieldset class="bulk-actions">
+        @*<label for="filterResults">@T("Filter:")</label>
+    <button type="submit" name="submit.Filter" value="@T("Apply")">@T("Apply")</button>*@
+    </fieldset>
+    <fieldset>
+        <table class="items" summary="@T("This is a table of the scheduled events in your application")">
+            <colgroup>
+                <col id="Col1" />
+                <col id="Col2" />
+                <col id="Col3" />
+                <col id="Col4" />
+                <col id="Col5" />
+                <col id="Col6" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" class="check-all" /></th>
+                    <th scope="col">@T("Start")</th>
+                    <th scope="col">@T("End")</th>
+                    <th scope="col">@T("All Day")</th>
+                    <th scope="col">@T("Recurring")</th>
+                    <th scope="col">@T("Subscriptions")</th>
+                    <th scope="col">@T("Actions")</th>
+                </tr>
+            </thead>
+            @foreach (var schedulingEntry in Model.SchedulingEntries) {
+                var startDate = schedulingEntry.Start;
+                var endDate = schedulingEntry.End;
+
+                <tr>
+                    <td>
+                        <input type="checkbox" value="true" name="" />
+                    </td>
+                    <td>
+                        <time datetime="@startDate.Date" class="date-as-calendar position-em">
+                            <span class="day">@startDate.Date.ToString("dd")</span>
+                            <span class="month">@startDate.Date.ToString("MMMM")</span>
+                            <span class="year">@startDate.Date.ToString("yyyy")</span>
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="@endDate.Date" class="date-as-calendar position-em">
+                            <span class="day">@endDate.Date.ToString("dd")</span>
+                            <span class="month">@endDate.Date.ToString("MMMM")</span>
+                            <span class="year">@endDate.Date.ToString("yyyy")</span>
+                        </time>
+                    </td>
+                    <td>
+                        <input type="checkbox" value="true" checked="@schedulingEntry.IsAllDay" disabled="disabled" />
+                    </td>
+                    <td>
+                        <input type="checkbox" value="true" checked="@schedulingEntry.IsRecurring" disabled="disabled" />
+                    </td>
+                    <td>
+                        @schedulingEntry.Subscriptions
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="@Url.ItemEditUrl(schedulingEntry.Part)" title="@T("Edit")">@T("Edit")</a>@T(" | ")
+                            <a href="@Url.ItemRemoveUrl(schedulingEntry.Part, new { returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString() })" itemprop="RemoveUrl UnsafeUrl">@T("Delete")</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+        @Display(Model.Pager)
+    </fieldset>
+}

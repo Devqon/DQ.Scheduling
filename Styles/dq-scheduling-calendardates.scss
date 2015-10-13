@@ -1,0 +1,56 @@
+/****************************************/
+/* Styling rules, such as font and colors */
+.date-as-calendar {
+    font-variant: normal;
+    font-style: normal;
+    font-weight: normal;
+    font-family: "Helvetica", "Arial", sans-serif;
+    /* It seems vertical-align: baseline does not work correctly with display: inline-flex. */
+    vertical-align: top;
+    /* margin: 1ex; */
+    color: black;
+    background: white;
+    background: linear-gradient(to bottom right, #FFF 0, #EEE 100%);
+    border: 1px solid #888;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px -2px black;
+    display: inline-block;
+    position: relative;
+    width: 4em;
+    height: 4em;
+
+    .day,
+    .month,
+    .year {
+        text-align: center;
+        line-height: 1.0;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 1em;
+    }
+
+    .month {
+        font-family: "Oswald", sans-serif;
+        text-transform: uppercase;
+        background: #B11;
+        background: linear-gradient(to bottom right, #D66 0, #A00 100%);
+        color: white;
+        top: 0;
+        font-size: 0.75em;
+        padding: 0.1em 0;
+    }
+
+    .day {
+        top: 1.1em;
+        font-size: 1.5em;
+    }
+
+    .year {
+        bottom: 0;
+        font-size: 0.87750em;
+    }
+}

@@ -19,7 +19,7 @@ namespace DQ.Scheduling.Drivers {
         }
 
         public Localizer T { get; set; }
-        private const string TemplateName = "Parts/Scheduling";
+        private const string EditorTemplateName = "Parts/Scheduling";
         
         protected override string Prefix {
             get { return "Scheduling"; }
@@ -27,14 +27,14 @@ namespace DQ.Scheduling.Drivers {
 
         protected override DriverResult Display(SchedulingPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_Scheduling",
-                () => shapeHelper.Parts_Scheduling(part));
+                () => shapeHelper.Parts_Scheduling());
         }
 
         protected override DriverResult Editor(SchedulingPart part, dynamic shapeHelper) {
             var viewModel = BuildViewModelFromPart(part);
 
             return ContentShape("Parts_Scheduling_Edit",
-                () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: viewModel, Prefix: Prefix));
+                () => shapeHelper.EditorTemplate(TemplateName: EditorTemplateName, Model: viewModel, Prefix: Prefix));
         }
 
         protected override DriverResult Editor(SchedulingPart part, IUpdateModel updater, dynamic shapeHelper) {
@@ -43,6 +43,8 @@ namespace DQ.Scheduling.Drivers {
             if (updater.TryUpdateModel(viewModel, Prefix, null, null)) {
                 part.IsAllDay = viewModel.IsAllDay;
                 part.IsRecurring = viewModel.IsRecurring;
+                part.DisplayUrlOverride = viewModel.DisplayUrlOverride;
+
                 try {
                     // Start
                     var utcStartDateTime = viewModel.IsAllDay 
@@ -74,7 +76,7 @@ namespace DQ.Scheduling.Drivers {
             }
 
             return ContentShape("Parts_Scheduling_Edit",
-                () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: viewModel, Prefix: Prefix));
+                () => shapeHelper.EditorTemplate(TemplateName: EditorTemplateName, Model: viewModel, Prefix: Prefix));
         }
 
         private SchedulingEditViewModel BuildViewModelFromPart(SchedulingPart part) {
@@ -82,7 +84,8 @@ namespace DQ.Scheduling.Drivers {
                 IsAllDay = part.IsAllDay,
                 IsRecurring = part.IsRecurring,
                 StartDateTimeEditor = GetDateTimeEditor(part.StartDateTime),
-                EndDateTimeEditor = GetDateTimeEditor(part.EndDateTime)
+                EndDateTimeEditor = GetDateTimeEditor(part.EndDateTime),
+                DisplayUrlOverride = part.DisplayUrlOverride
             };
         }
 

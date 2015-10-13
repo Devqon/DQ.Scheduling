@@ -59,6 +59,12 @@
     <Content Include="Scripts\ext\fullcalendar\lang-all.js" />
     <Content Include="Scripts\ext\fullcalendar\moment-with-locales.min.js" />
     <Content Include="Scripts\admin-subscriptionlist.js" />
+    <Content Include="Styles\dq-scheduling-calendardates.css">
+      <DependentUpon>dq-scheduling-calendardates.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\dq-scheduling-calendardates.min.css">
+      <DependentUpon>dq-scheduling-calendardates.css</DependentUpon>
+    </Content>
     <Content Include="Styles\ext\fullcalendar\fullcalendar.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.min.css" />
     <Content Include="Styles\ext\fullcalendar\fullcalendar.print.css" />
@@ -100,6 +106,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\NotificationsAdminController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\SchedulingAdminController.cs" />
     <Compile Include="Drivers\NotificationsPlanPartDriver.cs" />
     <Compile Include="Drivers\NotificationsSubscriptionPartDriver.cs" />
     <Compile Include="Drivers\SchedulingPartDriver.cs" />
@@ -126,6 +133,7 @@
     <Compile Include="Models\NotificationsPartRecord.cs" />
     <Compile Include="Models\NotificationsSubscriptionPartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
+    <Compile Include="SchedulingRoutes.cs" />
     <Compile Include="NotificationSubscriptionRoutes.cs" />
     <Compile Include="Permissions\NotificationsPermissions.cs" />
     <Compile Include="Permissions\SubscribePermissions.cs" />
@@ -137,6 +145,7 @@
     <Compile Include="Shapes\CalendarShapes.cs" />
     <Compile Include="Tokens\NotificationsTokens.cs" />
     <Compile Include="ViewModels\CalendarDefaultDisplayViewModel.cs" />
+    <Compile Include="ViewModels\SchedulingIndexViewModel.cs" />
     <Compile Include="ViewModels\NotificationsEditViewModel.cs" />
     <Compile Include="ViewModels\SchedulingEditViewModel.cs" />
     <Compile Include="ViewModels\CalendarEditViewModel.cs" />
@@ -240,6 +249,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Parts\NotificationsSubscription.UnSubscribe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SchedulingAdmin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\dq-scheduling-calendardates.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\dq-scheduling-calendardates.css.map">
+      <DependentUpon>dq-scheduling-calendardates.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

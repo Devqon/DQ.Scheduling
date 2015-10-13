@@ -5,11 +5,6 @@ using Orchard.Environment.Extensions;
 namespace DQ.Scheduling.Models {
     [OrchardFeature("DQ.Scheduling")]
     public class SchedulingPart : ContentPart<SchedulingPartRecord> {
-        // TODO: Do we really need to record TimeZone if we are recording datetime in UTC?
-        public string TimeZone {
-            get { return Retrieve(x => x.TimeZone); }
-            set { Store(x => x.TimeZone, value); }
-        }
 
         public DateTime? StartDateTime {
             get { return Retrieve(x => x.StartDateTime); }
@@ -29,6 +24,11 @@ namespace DQ.Scheduling.Models {
         public bool IsRecurring {
             get { return Retrieve(x => x.IsRecurring); }
             set { Store(x => x.IsRecurring, value); }
+        }
+
+        public string DisplayUrlOverride {
+            get { return Retrieve(x => x.DisplayUrlOverride); }
+            set { Store(x => x.DisplayUrlOverride, value); }
         }
 
         public bool ShowTime {

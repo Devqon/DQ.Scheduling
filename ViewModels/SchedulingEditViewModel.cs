@@ -8,5 +8,6 @@ namespace DQ.Scheduling.ViewModels {
         public DateTimeEditor EndDateTimeEditor { get; set; }
         public bool IsAllDay { get; set; }
         public bool IsRecurring { get; set; }
+        public string DisplayUrlOverride { get; set; }
     }
 }

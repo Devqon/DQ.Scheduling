@@ -27,5 +27,16 @@ namespace DQ.Scheduling.Migrations {
 
             return 1;
         }
+
+        public int UpdateFrom1() {
+
+            SchemaBuilder.AlterTable(typeof(SchedulingPartRecord).Name, table => table
+                .DropColumn("TimeZone"));
+
+            SchemaBuilder.AlterTable(typeof(SchedulingPartRecord).Name, table => table
+                .AddColumn<string>("DisplayUrlOverride"));
+
+            return 2;
+        }
     }
 }

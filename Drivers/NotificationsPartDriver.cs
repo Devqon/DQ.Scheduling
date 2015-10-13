@@ -79,7 +79,7 @@ namespace DQ.Scheduling.Drivers {
 
                     // TODO: pagination
 
-                    return shapeHelper.Parts_NotificationsSubscriptionList(List: list, Count: subscriptions.Count());
+                    return shapeHelper.Parts_NotificationsSubscriptionList(List: list, Count: subscriptions.Count);
                 }));
         }
 
