@@ -40,20 +40,22 @@ namespace DQ.Scheduling.Services {
             if (schedulingPart == null || !schedulingPart.StartDateTime.HasValue)
                 return;
 
+            var contentItem = schedulingPart.ContentItem;
+
             // Remove existing schedules
-            DeleteExistingScheduleTasks(schedulingPart.ContentItem);
+            DeleteExistingScheduleTasks(contentItem);
 
             // Event started task
-            _scheduledTaskManager.CreateTask(Constants.EventStartedName, schedulingPart.StartDateTime.Value, schedulingPart.ContentItem);
+            _scheduledTaskManager.CreateTask(Constants.EventStartedName, schedulingPart.StartDateTime.Value, contentItem);
 
             // Event ended task
             if (schedulingPart.EndDateTime.HasValue) {
-                _scheduledTaskManager.CreateTask(Constants.EventEndedName, schedulingPart.EndDateTime.Value, schedulingPart.ContentItem);
+                _scheduledTaskManager.CreateTask(Constants.EventEndedName, schedulingPart.EndDateTime.Value, contentItem);
             }
             else if (schedulingPart.IsAllDay) {
                 // If event is all day, end time is start time + 1 day
                 var endTime = schedulingPart.StartDateTime.Value.Date.AddDays(1);
-                _scheduledTaskManager.CreateTask(Constants.EventEndedName, endTime, schedulingPart.ContentItem);
+                _scheduledTaskManager.CreateTask(Constants.EventEndedName, endTime, contentItem);
             }
 
             // TODO: schedule upcoming and followup

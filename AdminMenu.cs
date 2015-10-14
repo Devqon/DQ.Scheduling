@@ -10,7 +10,8 @@ namespace DQ.Scheduling {
         public void GetNavigation(NavigationBuilder builder) {
             builder.AddImageSet("scheduledEvents")
                 .Add(T("Scheduled Events"), "4",
-                    menu => menu.Add(T("List"), "0", item => item.Action("Index", "SchedulingAdmin", new { area = "DQ.Scheduling" })));
+                    menu => menu.Add(T("List"), "0", item => item.Action("Index", "SchedulingAdmin", new { area = "DQ.Scheduling" })
+                        .Permission(Permissions.SchedulingPermissions.ManageScheduledEvents)));
         }
     }
 }

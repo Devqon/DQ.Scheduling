@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using Orchard.Environment.Extensions;
 using Orchard.Environment.Extensions.Models;
 using Orchard.Localization;
 using Orchard.Security.Permissions;
 
 namespace DQ.Scheduling.Permissions
 {
-    public class NotificationsPermissions : IPermissionProvider
-    {
+    [OrchardFeature("DQ.SchedulingNotifications")]
+    public class NotificationsPermissions : IPermissionProvider {
         public static readonly Permission SubscribeForNotifications = new Permission { Name = "SubscribeForNotifications" };
 
         public NotificationsPermissions() {

@@ -1,11 +1,10 @@
-﻿using Orchard.Environment.Extensions;
+﻿using System.Collections.Generic;
+using Orchard.Environment.Extensions;
 using Orchard.Localization;
-using Orchard.Workflows.Activities;
 using Orchard.Workflows.Models;
 using Orchard.Workflows.Services;
-using System.Collections.Generic;
 
-namespace DQ.Scheduling.Workflow {
+namespace DQ.Scheduling.Activities {
     [OrchardFeature("DQ.SchedulingNotifications")]
     public abstract class NotificationsActivity: Event {
         public Localizer T { get; set; }

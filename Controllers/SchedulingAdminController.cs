@@ -7,6 +7,7 @@ using Orchard.ContentManagement;
 using Orchard.DisplayManagement;
 using Orchard.Localization;
 using Orchard.Logging;
+using Orchard.Security;
 using Orchard.Settings;
 using Orchard.UI.Admin;
 using Orchard.UI.Navigation;
@@ -21,19 +22,22 @@ namespace DQ.Scheduling.Controllers
         private readonly IContentManager _contentManager;
         private readonly ISiteService _siteService;
         private readonly INotificationsService _notificationsService;
+        private readonly IAuthorizer _authorizer;
 
         public SchedulingAdminController(
             ISchedulingService schedulingService, 
             IShapeFactory shapeFactory, 
             ISiteService siteService, 
             IContentManager contentManager, 
-            INotificationsService notificationsService) {
+            INotificationsService notificationsService, 
+            IAuthorizer authorizer) {
 
             _schedulingService = schedulingService;
             Shape = shapeFactory;
             _siteService = siteService;
             _contentManager = contentManager;
             _notificationsService = notificationsService;
+            _authorizer = authorizer;
 
             Logger = NullLogger.Instance;
             T = NullLocalizer.Instance;
@@ -45,7 +49,11 @@ namespace DQ.Scheduling.Controllers
 
         public ActionResult Index(PagerParameters pagerParameters) {
 
-            // TODO: Handle Permissions, handle bulk actions
+            // TODO: handle bulk actions
+
+            if (!_authorizer.Authorize(Permissions.SchedulingPermissions.ManageScheduledEvents)) {
+                return new HttpUnauthorizedResult();
+            }
 
             var pager = new Pager(_siteService.GetSiteSettings(), pagerParameters);
 
