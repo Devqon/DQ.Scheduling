@@ -8,19 +8,18 @@
     var guid = Guid.NewGuid();
 
     var calendarId = string.Format("calendar-{0}", guid);
+    bool useAjax = Model.UseAsync;
 }
 
 <section id="@calendarId"></section>
 
 @using (Script.Foot())
 {
-    var serializedCalendarEvents = LowercaseJsonSerializer.SerializeObject(Model.CalendarEvents);
-
     <script>
 
         (function($) {
 
-            $("#@calendarId").fullCalendar({
+            var options = {
                 lang: navigator.userLanguage,
                 theme: false,
                 header: {
@@ -30,12 +29,24 @@
                 },
                 editable: false,
                 timezone: 'local',
-                events: @Html.Raw(serializedCalendarEvents),
                 weekNumbers: false,
                 fixedWeekCount: false
-            });
+            }
+
+            @if (useAjax) {
+                <text>
+                    options.events = "@Url.Action("GetEvents", new {controller = "Calendar", area = "DQ.Scheduling", pluginName = Model.Plugin})";
+                </text>
+            }
+            else {
+                <text>
+                    options.events = @Html.Raw(LowercaseJsonSerializer.SerializeObject(Model.CalendarEvents));
+                </text>
+            }
+
+            $("#@calendarId").fullCalendar(options);
 
         })(jQuery);
 
-    </script>
+</script>
 }

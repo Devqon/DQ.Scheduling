@@ -13,5 +13,10 @@ namespace DQ.Scheduling.Models {
             get { return Retrieve(x => x.Plugin); }
             set { Store(x => x.Plugin, value); }
         }
+
+        public bool UseAsync {
+            get { return Retrieve(x => x.UseAsync); }
+            set { Store(x => x.UseAsync, value); }
+        }
     }
 }

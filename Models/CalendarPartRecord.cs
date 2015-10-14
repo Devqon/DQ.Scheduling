@@ -6,5 +6,6 @@ namespace DQ.Scheduling.Models {
     public class CalendarPartRecord : ContentPartRecord {
         public virtual int QueryId { get; set; }
         public virtual string Plugin { get; set; }
+        public virtual bool UseAsync { get; set; }
     }
 }

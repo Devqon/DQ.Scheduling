@@ -10,6 +10,11 @@ namespace DQ.Scheduling.CalendarProviders {
         string Name { get; }
 
         /// <summary>
+        /// If the plugin supports ajax to get the calendar
+        /// </summary>
+        bool SupportsAjax { get; }
+
+        /// <summary>
         /// Serialize the events to the desired format
         /// </summary>
         /// <param name="events"></param>

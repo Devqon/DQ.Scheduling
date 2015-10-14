@@ -1,5 +1,4 @@
 ﻿using DQ.Scheduling.CalendarProviders;
-using DQ.Scheduling.Models;
 using Orchard.Environment.Extensions;
 using Orchard.Projections.Services;
 using System.Collections.Generic;
@@ -16,22 +15,26 @@ namespace DQ.Scheduling.Services {
             _calendarProviders = calendarProviders;
         }
 
-        public IEnumerable<FormattedEvent> GetFormattedCalendarEvents(CalendarPart part) {
-            var contentItems = _projectionManager.GetContentItems(part.QueryId);
-
-            var provider = _calendarProviders.SingleOrDefault(p => p.Name == part.Plugin);
-            if (provider == null) {
-                // fallback to default
-                provider = _calendarProviders.Single(p => p.Name == "Default");
-            }
+        public IEnumerable<FormattedEvent> GetFormattedCalendarEvents(int queryId, string plugin) {
+            var contentItems = _projectionManager.GetContentItems(queryId);
+            var provider = GetProviderOrDefault(plugin);
 
             var models = provider.FormatCalendarEvents(contentItems);
 
             return models;
         }
 
-        public IList<string> GetCalendarPlugins() {
-            return _calendarProviders.Select(p => p.Name).ToList();
+        public ICalendarProvider GetProviderOrDefault(string pluginName) {
+
+            if (string.IsNullOrEmpty(pluginName))
+                return _calendarProviders.Single(cp => cp.Name == Constants.DefaultCalendarName);
+
+            return _calendarProviders.FirstOrDefault(cp => cp.Name == pluginName) 
+                ?? _calendarProviders.Single(cp => cp.Name == Constants.DefaultCalendarName);
+        }
+
+        public IEnumerable<ICalendarProvider> GetProviders() {
+            return _calendarProviders;
         } 
     }
 }

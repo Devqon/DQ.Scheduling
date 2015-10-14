@@ -105,6 +105,7 @@
     <Compile Include="CalendarProviders\ICalendarProvider.cs" />
     <Compile Include="CalendarProviders\FormattedEvent.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\NotificationsAdminController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\SchedulingAdminController.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Handlers\CalendarPartHandler.cs" />
     <Compile Include="Handlers\NotificationsPartHandler.cs" />
     <Compile Include="Handlers\NotificationsScheduledTaskHandler.cs" />
+    <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\LowercaseJsonSerializer.cs" />
     <Compile Include="Migrations\CalendarMigrations.cs" />
     <Compile Include="Migrations\NotificationsMigrations.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Models\NotificationsPartRecord.cs" />
     <Compile Include="Models\NotificationsSubscriptionPartRecord.cs" />
     <Compile Include="Models\SubscribeType.cs" />
+    <Compile Include="Permissions\SchedulingPermissions.cs" />
     <Compile Include="SchedulingRoutes.cs" />
     <Compile Include="NotificationSubscriptionRoutes.cs" />
     <Compile Include="Permissions\NotificationsPermissions.cs" />

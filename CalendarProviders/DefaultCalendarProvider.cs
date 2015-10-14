@@ -14,7 +14,8 @@ namespace DQ.Scheduling.CalendarProviders {
             _contentManager = contentManager;
         }
 
-        public string Name { get { return "Default"; } }
+        public string Name { get { return Constants.DefaultCalendarName; } }
+        public bool SupportsAjax { get { return false; } }
 
         public IEnumerable<FormattedEvent> FormatCalendarEvents(IEnumerable<IContent> events) {
             var viewModels = new List<CalendarDefaultDisplayViewModel>();

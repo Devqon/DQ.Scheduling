@@ -31,5 +31,13 @@ namespace DQ.Scheduling.Migrations {
 
             return 1;
         }
+
+        public int UpdateFrom1() {
+
+            SchemaBuilder.AlterTable(typeof(CalendarPartRecord).Name, table => table
+                .AddColumn<bool>("UseAsync"));
+
+            return 2;
+        }
     }
 }

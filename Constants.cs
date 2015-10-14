@@ -13,7 +13,8 @@
         public static readonly string EventSubscriptionNotification = "EventNotification";
         public static readonly string NotificationsSubscriptionType = "NotificationsSubscription";
 
-
+        // Calendar Constants
+        public const string DefaultCalendarName = "Default";
 
         // Email regex, taken from Orchard.Comments/Models/CommentPart
         public const string EmailRegex = @"^(?![\.@])(""([^""\r\\]|\\[""\r\\])*""|([-\w!#$%&'*+/=?^`{|}~]|(?<!\.)\.)*)(?<!\.)@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";

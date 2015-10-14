@@ -1,20 +1,52 @@
 ﻿@model DQ.Scheduling.ViewModels.CalendarEditViewModel
 
-@{
-    var plugins = new List<SelectListItem>();
-    plugins.AddRange(Model.Plugins.Select(p => new SelectListItem{ Text = p, Value = p, Selected = p == Model.Plugin}));
-}
-
 <fieldset>
     <label for="@Html.FieldIdFor(m => m.QueryId)">Query</label>
     <select id="@Html.FieldIdFor(m => m.QueryId)" name="@Html.FieldNameFor(m => m.QueryId)">
-        @foreach (var part in Model.Queries)
-        {
+        @foreach (var part in Model.Queries) {
             @Html.SelectOption(Model.QueryId, part.Record.Id, part.Name)
         }
     </select>
     <span class="hint">@T("The query that contains the data to show in the calendar view.")</span>
     @Html.LabelFor(m => m.Plugin, T("Plugin"))
-    @Html.DropDownListFor(m => m.Plugin, plugins)
+    <select id="@Html.FieldIdFor(m => m.Plugin)" name="@Html.FieldNameFor(m => m.Plugin)">
+        @foreach (var plugin in Model.Plugins) {
+            <option value="@plugin.Name" data-async="@plugin.SupportsAjax" @if (Model.Plugin == plugin.Name) {<text>selected="selected"</text>}>
+                @plugin.Name
+            </option>
+        }
+    </select>
     <span class="hint">@T("The plugin to use for the display of the calendar")</span>
+    <div class="use-async">
+        @Html.CheckBoxFor(m => m.UseAsync)
+        <label for="@Html.FieldIdFor(m => m.UseAsync)" class="forcheckbox">@T("Use Async")</label>
+        <span class="hint">@T("Define if the plugin should use async calls to retrieve the calendar data.")</span>
+    </div>
 </fieldset>
+
+@using (Script.Foot()) {
+    <script>
+        (function($) {
+
+            var wrapper = $(".use-async"),
+                select = $("#@Html.FieldIdFor(m => m.Plugin)");
+
+            function toggleAsyncCheckbox() {
+                var selected = select.find(":selected");
+                var selectedSupportsAsync = selected.data("async");
+
+                wrapper.toggle(selectedSupportsAsync == "True");
+            }
+
+            select.change(function () {
+                toggleAsyncCheckbox();
+            });
+
+            // On init
+            $(function () {
+                toggleAsyncCheckbox();
+            });
+
+        })(jQuery);
+    </script>
+}
