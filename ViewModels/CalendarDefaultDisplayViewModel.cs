@@ -11,5 +11,7 @@ namespace DQ.Scheduling.ViewModels {
         public DateTime End { get; set; }
         public string DisplayUrl { get; set; }
         public IContent Event { get; set; }
+        public bool IsRecurring { get; set; }
+        public bool IsAllday { get; set; }
     }
 }

@@ -79,6 +79,7 @@ namespace DQ.Scheduling.Controllers
 
             return new SchedulingEntry {
                 Part = part,
+                Title = _contentManager.GetItemMetadata(part).DisplayText,
                 Start = part.StartDateTime.GetValueOrDefault(),
                 End = part.EndDateTime.GetValueOrDefault(),
                 IsAllDay = part.IsAllDay,

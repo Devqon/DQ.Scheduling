@@ -27,7 +27,9 @@ namespace DQ.Scheduling.CalendarProviders {
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
                     DisplayUrl = eventPart.DisplayUrlOverride,
-                    Event = ci
+                    Event = ci,
+                    IsAllday = eventPart.IsAllDay,
+                    IsRecurring = eventPart.IsRecurring
                 };
 
                 viewModels.Add(viewModel);

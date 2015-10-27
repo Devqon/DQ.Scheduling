@@ -33,7 +33,8 @@ namespace DQ.Scheduling.CalendarProviders {
                     Start = eventPart.StartDateTime.GetValueOrDefault(),
                     End = eventPart.EndDateTime.GetValueOrDefault(),
                     Url = string.IsNullOrWhiteSpace(eventPart.DisplayUrlOverride) ? _urlHelper.ItemDisplayUrl(ev) : eventPart.DisplayUrlOverride,
-                    AllDay = eventPart.IsAllDay
+                    AllDay = eventPart.IsAllDay,
+                    Recurring = eventPart.IsRecurring // TODO: do something with the 'dow' of fullcalendar (for recurring events)
                 };
 
                 viewModels.Add(viewModel);

@@ -10,6 +10,7 @@ namespace DQ.Scheduling.ViewModels {
 
     public class SchedulingEntry {
         public SchedulingPart Part { get; set; }
+        public string Title { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool IsAllDay { get; set; }

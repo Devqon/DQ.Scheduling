@@ -34,6 +34,7 @@
             <thead>
                 <tr>
                     <th scope="col"><input type="checkbox" class="check-all" /></th>
+                    <th scope="col">@T("Title")</th>
                     <th scope="col">@T("Start")</th>
                     <th scope="col">@T("End")</th>
                     <th scope="col">@T("All Day")</th>
@@ -49,6 +50,9 @@
                 <tr>
                     <td>
                         <input type="checkbox" value="true" name="" />
+                    </td>
+                    <td>
+                        @schedulingEntry.Title
                     </td>
                     <td>
                         <time datetime="@startDate.Date" class="date-as-calendar position-em">
