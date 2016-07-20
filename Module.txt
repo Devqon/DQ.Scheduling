@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: Devqon, Jeff Olmstead
 Website: https://github.com/devqon/dq.scheduling
 Version: 1.9.0.1
-OrchardVersion: 1.9
+OrchardVersion: 1.10
 Description: Provides ability to schedule events
 Features:
     DQ.Scheduling:
@@ -35,4 +35,4 @@ Features:
 		Name: Scheduling Full Calendar
 		Description: Leverages the Full Calendar (Standard Edition) script for projecting the scheduled events on a calendar
 		Category: Scheduling
-		Dependencies: DQ.SchedulingCalendar, Orchard.jQuery
+		Dependencies: DQ.SchedulingCalendar, Orchard.Resources
