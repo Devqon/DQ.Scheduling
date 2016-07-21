@@ -27,15 +27,15 @@ namespace DQ.Scheduling.Services {
             var eventDefinitionQueries = new List<QueryPart>();
 
             foreach (var part in queryParts) {
-                //var contentItem = _projectionManager.GetContentItems(part.Id).FirstOrDefault();
-                //if (contentItem == null) {
-                //    return new List<QueryPart>();
-                //}
+                var contentItem = _projectionManager.GetContentItems(part.Id).FirstOrDefault();
+                if (contentItem == null) {
+                    return new List<QueryPart>();
+                }
 
-                //// Check if has Event Definition part
-                //if (contentItem.TypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (SchedulingPart).Name)) {
+                // Check if has Event Definition part
+                if (contentItem.TypeDefinition.Parts.Any(p => p.PartDefinition.Name == typeof (SchedulingPart).Name)) {
                     eventDefinitionQueries.Add(part);
-                //}
+                }
             }
 
             return eventDefinitionQueries;
