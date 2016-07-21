@@ -1,1 +1,1 @@
-//# sourceMappingURL=ifullcalendar.js.map
+//# sourceMappingURL=IFullCalendar.js.map
