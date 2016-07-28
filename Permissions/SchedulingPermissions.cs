@@ -16,7 +16,7 @@ namespace DQ.Scheduling.Permissions
         }
 
         public Localizer T { get; set; }
-        public Feature Feature { get; private set; }
+        public virtual Feature Feature { get; set; }
         public IEnumerable<Permission> GetPermissions() {
             return new[] {
                 ManageScheduledEvents
